@@ -4,7 +4,10 @@ import mistune
 from app.config import config
 from app.extensions import db, migrate
 
-_markdown = mistune.create_markdown(escape=False)
+_markdown = mistune.create_markdown(
+    escape=False,
+    plugins=['table', 'strikethrough', 'task_lists'],
+)
 
 
 def create_app(config_name='development'):

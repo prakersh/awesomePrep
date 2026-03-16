@@ -2,36 +2,33 @@
 {% block title %}{{ language.name }} — onPrep{% endblock %}
 {% block content %}
 <div class="mt-2 mb-1">
-    <a href="/study/languages" class="text-xs text-slate-400 dark:text-slate-500 hover:text-indigo-500 cursor-pointer">&larr; Languages</a>
+    <a href="/study/languages" class="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer">&larr; Languages</a>
 </div>
 <div class="mb-6">
-    <h1 class="text-xl font-semibold">{{ language.name }}</h1>
-    <p class="text-sm text-slate-400 dark:text-slate-500 mt-0.5">{{ language.concepts|length }} concepts</p>
+    <h1 class="text-2xl font-semibold">{{ language.name }}</h1>
+    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">{{ language.concepts|length }} concepts</p>
 </div>
 
-<div class="space-y-1.5">
+<div class="space-y-1">
     {% for item in concept_list %}
     {% set c = item.concept %}
     <a href="/study/{{ language.slug }}/{{ c.slug }}"
-       class="group flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-slate-50 dark:hover:bg-white/[.03] cursor-pointer border border-transparent hover:border-slate-100 dark:hover:border-white/[.06]">
-        <!-- Number -->
-        <span class="text-xs font-mono text-slate-300 dark:text-slate-600 w-5 text-right shrink-0">{{ c.display_order }}</span>
-        <!-- Info -->
+       class="group flex items-center gap-4 rounded-lg px-4 py-3 hover:bg-slate-50 dark:hover:bg-white/[.03] cursor-pointer border border-transparent hover:border-slate-200/80 dark:hover:border-white/[.06]">
+        <span class="text-sm font-mono text-slate-400 dark:text-slate-500 w-6 text-right shrink-0">{{ c.display_order }}</span>
         <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium truncate group-hover:text-indigo-500">{{ c.title }}</div>
-            <div class="flex items-center gap-2 mt-0.5">
-                <span class="text-[10px] font-medium uppercase tracking-wider
-                    {% if c.difficulty == 'beginner' %}text-emerald-500{% elif c.difficulty == 'intermediate' %}text-amber-500{% else %}text-red-400{% endif %}">{{ c.difficulty }}</span>
-                <span class="text-[10px] text-slate-300 dark:text-slate-600">&middot;</span>
-                <span class="text-[10px] text-slate-400 dark:text-slate-500">{{ c.estimated_minutes }}m</span>
-                <span class="text-[10px] text-slate-300 dark:text-slate-600">&middot;</span>
-                <span class="text-[10px] text-slate-400 dark:text-slate-500">{{ c.questions|length }}q</span>
+            <div class="text-[15px] font-medium text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 truncate">{{ c.title }}</div>
+            <div class="flex items-center gap-2.5 mt-1">
+                <span class="text-[11px] font-semibold uppercase tracking-wider
+                    {% if c.difficulty == 'beginner' %}text-emerald-600 dark:text-emerald-400{% elif c.difficulty == 'intermediate' %}text-amber-600 dark:text-amber-400{% else %}text-red-500 dark:text-red-400{% endif %}">{{ c.difficulty }}</span>
+                <span class="text-slate-300 dark:text-slate-600">&middot;</span>
+                <span class="text-[13px] text-slate-500 dark:text-slate-400">{{ c.estimated_minutes }} min</span>
+                <span class="text-slate-300 dark:text-slate-600">&middot;</span>
+                <span class="text-[13px] text-slate-500 dark:text-slate-400">{{ c.questions|length }} questions</span>
             </div>
         </div>
-        <!-- Progress -->
-        <div class="flex items-center gap-2 shrink-0">
-            <span class="text-xs font-mono {% if item.progress_pct == 100 %}text-emerald-500{% elif item.progress_pct > 0 %}text-indigo-500{% else %}text-slate-300 dark:text-slate-600{% endif %}">{{ item.progress_pct }}%</span>
-            <div class="w-12 h-1 bg-slate-100 dark:bg-white/[.06] rounded-full overflow-hidden">
+        <div class="flex items-center gap-3 shrink-0">
+            <span class="text-sm font-mono {% if item.progress_pct == 100 %}text-emerald-600 dark:text-emerald-400{% elif item.progress_pct > 0 %}text-indigo-600 dark:text-indigo-400{% else %}text-slate-300 dark:text-slate-600{% endif %}">{{ item.progress_pct }}%</span>
+            <div class="w-16 h-1.5 bg-slate-200 dark:bg-white/[.06] rounded-full overflow-hidden">
                 <div class="h-full rounded-full progress-fill {% if item.progress_pct == 100 %}bg-emerald-500{% else %}bg-indigo-500{% endif %}" style="width:{{ item.progress_pct }}%"></div>
             </div>
         </div>

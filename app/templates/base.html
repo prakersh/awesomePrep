@@ -8,7 +8,7 @@
     <script>
     tailwind.config = {
         darkMode: 'class',
-        theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['"Fira Code"', 'monospace'] } } }
+        theme: { extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['"Fira Code"','monospace'] } } }
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,58 +18,83 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" id="hljs-light" disabled>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <!-- Theme init before paint -->
-    <script>
-    (function(){var s=localStorage.getItem('theme');if(s==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')})();
-    </script>
+    <script>(function(){var s=localStorage.getItem('theme');if(s==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')})()</script>
     <style>
-        ::-webkit-scrollbar{width:4px;height:4px}
+        /* Scrollbar */
+        ::-webkit-scrollbar{width:5px;height:5px}
         ::-webkit-scrollbar-track{background:transparent}
-        .dark ::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
-        html:not(.dark) ::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
+        .dark ::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
+        html:not(.dark) ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
+
         .progress-fill{transition:width .5s cubic-bezier(.22,1,.36,1)}
-        pre code.hljs{border-radius:.5rem;padding:.875rem !important;font-size:.8rem;line-height:1.7}
+
+        /* Code blocks */
+        pre code.hljs{border-radius:.5rem;padding:1rem !important;font-size:.8125rem;line-height:1.7}
         .dark pre code.hljs{background:#0d1117 !important}
         html:not(.dark) pre code.hljs{background:#f8fafc !important;border:1px solid #e2e8f0}
-        .prose-md p{margin-bottom:.625rem;line-height:1.7}
-        .prose-md strong{font-weight:600}
-        .prose-md code{font-size:.8rem;padding:.1rem .35rem;border-radius:.2rem}
-        .dark .prose-md code{background:rgba(255,255,255,.07);color:#e2e8f0}
-        html:not(.dark) .prose-md code{background:#f1f5f9;color:#334155}
-        .prose-md ul,.prose-md ol{margin:.375rem 0;padding-left:1.25rem}
-        .prose-md li{margin-bottom:.2rem;line-height:1.6}
+
+        /* ===== Markdown / Prose ===== */
+        .prose-md{font-size:.9375rem;line-height:1.75;color:#374151}
+        .dark .prose-md{color:#d1d5db}
+
+        .prose-md p{margin-bottom:.75rem}
+        .prose-md strong{font-weight:600;color:#111827}
+        .dark .prose-md strong{color:#f3f4f6}
+
+        .prose-md code{font-size:.8125rem;padding:.15rem .4rem;border-radius:.25rem;background:#f1f5f9;color:#334155}
+        .dark .prose-md code{background:rgba(255,255,255,.1);color:#e5e7eb}
+        .prose-md pre code{background:transparent !important;padding:0 !important;font-size:inherit}
+
+        .prose-md ul,.prose-md ol{margin:.5rem 0;padding-left:1.5rem}
         .prose-md ul{list-style:disc}
         .prose-md ol{list-style:decimal}
-        .prose-md h1,.prose-md h2,.prose-md h3{font-weight:600;margin:.75rem 0 .375rem}
+        .prose-md li{margin-bottom:.25rem}
+
+        .prose-md h1{font-size:1.25rem;font-weight:700;margin:1rem 0 .5rem}
+        .prose-md h2{font-size:1.1rem;font-weight:600;margin:1rem 0 .5rem}
+        .prose-md h3{font-size:1rem;font-weight:600;margin:.75rem 0 .375rem}
+
+        /* Markdown tables */
+        .prose-md table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.8125rem}
+        .prose-md th,.prose-md td{padding:.5rem .75rem;text-align:left;border:1px solid #e2e8f0}
+        .dark .prose-md th,.dark .prose-md td{border-color:rgba(255,255,255,.08)}
+        .prose-md th{font-weight:600;background:#f8fafc}
+        .dark .prose-md th{background:rgba(255,255,255,.04)}
+        .prose-md tr:nth-child(even){background:#f8fafc}
+        .dark .prose-md tr:nth-child(even){background:rgba(255,255,255,.02)}
+
+        .prose-md blockquote{border-left:3px solid #6366f1;padding-left:1rem;margin:.75rem 0;color:#6b7280}
+        .dark .prose-md blockquote{color:#9ca3af}
+
+        /* Fade in */
         @media(prefers-reduced-motion:no-preference){.fade-in{animation:fi .2s ease-out}@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1}}}
     </style>
 </head>
-<body class="bg-white dark:bg-[#0a0a0f] text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen">
-    <!-- Skip link -->
+<body class="bg-white dark:bg-[#0b0b11] text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-lg">Skip to content</a>
 
-    <!-- Navbar - thin, minimal -->
-    <nav class="fixed top-0 inset-x-0 z-50 h-12 bg-white/90 dark:bg-[#0a0a0f]/90 backdrop-blur-md border-b border-slate-100 dark:border-white/[.06]">
-        <div class="h-full px-4 flex items-center justify-between max-w-[1400px] mx-auto">
+    <!-- Navbar -->
+    <nav class="fixed top-0 inset-x-0 z-50 h-12 bg-white/90 dark:bg-[#0b0b11]/90 backdrop-blur-md border-b border-slate-200/80 dark:border-white/[.06]">
+        <div class="h-full px-4 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2 cursor-pointer">
                 <svg class="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/></svg>
-                <span class="font-semibold text-sm">onPrep</span>
+                <span class="font-semibold text-[15px]">onPrep</span>
             </a>
             <div class="flex items-center gap-0.5">
-                <a href="/" class="px-2.5 py-1 rounded text-[13px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer">Dashboard</a>
-                <a href="/study/languages" class="px-2.5 py-1 rounded text-[13px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer">Study</a>
-                <a href="/planner/setup" class="px-2.5 py-1 rounded text-[13px] text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer">Planner</a>
-                <button onclick="toggleTheme()" class="ml-1.5 w-7 h-7 rounded flex items-center justify-center hover:bg-slate-50 dark:hover:bg-white/5 cursor-pointer" aria-label="Toggle theme">
-                    <svg class="w-3.5 h-3.5 hidden dark:block text-slate-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
-                    <svg class="w-3.5 h-3.5 block dark:hidden text-slate-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+                <a href="/" class="px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer">Dashboard</a>
+                <a href="/study/languages" class="px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer">Study</a>
+                <a href="/planner/setup" class="px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer">Planner</a>
+                <button onclick="toggleTheme()" class="ml-2 w-8 h-8 rounded-md flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer" aria-label="Toggle theme">
+                    <svg class="w-4 h-4 hidden dark:block text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+                    <svg class="w-4 h-4 block dark:hidden text-slate-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
                 </button>
             </div>
         </div>
     </nav>
 
-    <main id="main" class="{% block main_class %}pt-16 pb-12 px-4 sm:px-6 max-w-[1400px] mx-auto{% endblock %} fade-in">
+    <main id="main" class="{% block main_class %}pt-16 pb-12 px-5 sm:px-8{% endblock %} fade-in">
         {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}
-        <div class="mb-4 px-3 py-2 rounded-lg text-sm border {% if category == 'error' %}bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-300{% else %}bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-300{% endif %}" role="alert">{{ message }}</div>
+        <div class="mb-4 px-4 py-3 rounded-lg text-sm border {% if category == 'error' %}bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-300{% else %}bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300{% endif %}" role="alert">{{ message }}</div>
         {% endfor %}{% endif %}{% endwith %}
         {% block content %}{% endblock %}
     </main>
