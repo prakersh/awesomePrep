@@ -5,25 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}onPrep{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    surface: { 50: '#f8fafc', 100: '#f1f5f9', 800: '#0f172a', 900: '#020617', 950: '#010313' },
+                    accent: { 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5' },
+                    mint: { 400: '#34d399', 500: '#22c55e' },
+                },
+                fontFamily: {
+                    display: ['"Fira Code"', 'monospace'],
+                    body: ['"Fira Sans"', 'system-ui', 'sans-serif'],
+                },
+            }
+        }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <style>
+        body { font-family: 'Fira Sans', system-ui, sans-serif; }
+        code, pre, .font-mono { font-family: 'Fira Code', monospace; }
+
+        /* Glow effects */
+        .glow-text { text-shadow: 0 0 20px rgba(99,102,241,0.3); }
+        .glow-border { box-shadow: 0 0 15px -3px rgba(99,102,241,0.15); }
+
+        /* Subtle noise texture overlay */
+        .noise::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.015;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+
+        /* Smooth page transitions */
+        @media (prefers-reduced-motion: no-preference) {
+            .fade-in { animation: fadeIn 0.3s ease-out; }
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+            .stagger > * { animation: fadeIn 0.3s ease-out both; }
+            .stagger > *:nth-child(1) { animation-delay: 0ms; }
+            .stagger > *:nth-child(2) { animation-delay: 50ms; }
+            .stagger > *:nth-child(3) { animation-delay: 100ms; }
+            .stagger > *:nth-child(4) { animation-delay: 150ms; }
+            .stagger > *:nth-child(5) { animation-delay: 200ms; }
+            .stagger > *:nth-child(6) { animation-delay: 250ms; }
+            .stagger > *:nth-child(7) { animation-delay: 300ms; }
+            .stagger > *:nth-child(8) { animation-delay: 350ms; }
+        }
+
+        /* Progress bar animation */
+        .progress-fill { transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+
+        /* Code block styling */
+        pre code.hljs { background: #0d1117 !important; border-radius: 0.75rem; padding: 1.25rem !important; font-size: 0.8125rem; line-height: 1.6; }
+    </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen">
-    <nav class="bg-gray-900 border-b border-gray-800 px-6 py-4">
-        <div class="max-w-6xl mx-auto flex items-center justify-between">
-            <a href="/" class="text-xl font-bold text-indigo-400">onPrep</a>
-            <div class="flex gap-6 text-sm">
-                <a href="/" class="hover:text-indigo-400">Dashboard</a>
-                <a href="/study/languages" class="hover:text-indigo-400">Study</a>
-                <a href="/planner/setup" class="hover:text-indigo-400">Planner</a>
+<body class="bg-surface-950 text-surface-50 min-h-screen noise">
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-surface-900/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2.5 group cursor-pointer" aria-label="onPrep Home">
+                <div class="w-8 h-8 rounded-lg bg-accent-500/20 border border-accent-500/30 flex items-center justify-center group-hover:bg-accent-500/30 transition-colors duration-200">
+                    <svg class="w-4 h-4 text-accent-400" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342" />
+                    </svg>
+                </div>
+                <span class="font-display font-bold text-lg tracking-tight">onPrep</span>
+            </a>
+            <div class="flex items-center gap-1">
+                <a href="/" class="px-3 py-2 rounded-lg text-sm font-medium text-surface-50/60 hover:text-surface-50 hover:bg-white/5 transition-all duration-200 cursor-pointer">
+                    Dashboard
+                </a>
+                <a href="/study/languages" class="px-3 py-2 rounded-lg text-sm font-medium text-surface-50/60 hover:text-surface-50 hover:bg-white/5 transition-all duration-200 cursor-pointer">
+                    Study
+                </a>
+                <a href="/planner/setup" class="px-3 py-2 rounded-lg text-sm font-medium text-surface-50/60 hover:text-surface-50 hover:bg-white/5 transition-all duration-200 cursor-pointer">
+                    Planner
+                </a>
             </div>
         </div>
     </nav>
-    <main class="max-w-6xl mx-auto px-6 py-8">
+
+    <!-- Main content with navbar offset -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 fade-in">
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         {% for category, message in messages %}
-        <div class="mb-4 p-3 rounded {% if category == 'error' %}bg-red-900 text-red-200{% else %}bg-green-900 text-green-200{% endif %}">
+        <div class="mb-6 px-4 py-3 rounded-xl text-sm font-medium border
+            {% if category == 'error' %}bg-red-500/10 border-red-500/20 text-red-300
+            {% else %}bg-mint-500/10 border-mint-500/20 text-mint-400{% endif %}"
+            role="alert">
             {{ message }}
         </div>
         {% endfor %}
@@ -31,6 +117,7 @@
         {% endwith %}
         {% block content %}{% endblock %}
     </main>
+
     <script>hljs.highlightAll();</script>
     {% block scripts %}{% endblock %}
 </body>

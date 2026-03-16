@@ -1,0 +1,274 @@
+{
+  "name": "Python",
+  "icon": "python",
+  "is_active": true,
+  "display_order": 1,
+  "concepts": [
+    {
+      "title": "Data Types & Variables",
+      "slug": "data-types-variables",
+      "description": "Python's built-in data types, type system, variable assignment, and type conversion",
+      "display_order": 1,
+      "estimated_minutes": 30,
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Operators & Expressions",
+      "slug": "operators-expressions",
+      "description": "Arithmetic, comparison, logical, bitwise, assignment, and identity operators",
+      "display_order": 2,
+      "estimated_minutes": 25,
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Control Flow",
+      "slug": "control-flow",
+      "description": "if/elif/else, for/while loops, break/continue, match/case, and ternary expressions",
+      "display_order": 3,
+      "estimated_minutes": 35,
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Strings & String Methods",
+      "slug": "strings-string-methods",
+      "description": "String creation, formatting, slicing, methods, regex basics, and encoding",
+      "display_order": 4,
+      "estimated_minutes": 30,
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Data Structures (list, tuple, set, dict)",
+      "slug": "data-structures",
+      "description": "Lists, tuples, sets, dictionaries — operations, methods, performance, and when to use each",
+      "display_order": 5,
+      "estimated_minutes": 45,
+      "difficulty": "beginner"
+    },
+    {
+      "title": "Functions & Scope",
+      "slug": "functions-scope",
+      "description": "Function definition, arguments, return values, *args/**kwargs, closures, scope rules (LEGB)",
+      "display_order": 6,
+      "estimated_minutes": 40,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "List Comprehensions & Generators",
+      "slug": "comprehensions-generators",
+      "description": "List/dict/set comprehensions, generator expressions, yield, lazy evaluation",
+      "display_order": 7,
+      "estimated_minutes": 35,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Decorators & Closures",
+      "slug": "decorators-closures",
+      "description": "Function decorators, class decorators, functools.wraps, decorator patterns, closure mechanics",
+      "display_order": 8,
+      "estimated_minutes": 40,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "OOP: Classes & Objects",
+      "slug": "oop-classes-objects",
+      "description": "Class definition, __init__, instance/class/static methods, properties, dataclasses",
+      "display_order": 9,
+      "estimated_minutes": 45,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "OOP: Inheritance, Polymorphism, MRO",
+      "slug": "oop-inheritance-polymorphism",
+      "description": "Single/multiple inheritance, super(), MRO (C3 linearization), abstract classes, mixins",
+      "display_order": 10,
+      "estimated_minutes": 40,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Magic/Dunder Methods & Protocols",
+      "slug": "dunder-methods",
+      "description": "__repr__, __str__, __eq__, __hash__, __len__, __getitem__, context manager protocol, iterator protocol",
+      "display_order": 11,
+      "estimated_minutes": 35,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Error Handling & Exceptions",
+      "slug": "error-handling",
+      "description": "try/except/else/finally, custom exceptions, exception hierarchy, EAFP vs LBYL",
+      "display_order": 12,
+      "estimated_minutes": 30,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "File I/O & Context Managers",
+      "slug": "file-io-context-managers",
+      "description": "Reading/writing files, with statement, custom context managers, pathlib, tempfile",
+      "display_order": 13,
+      "estimated_minutes": 30,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Modules, Packages & Imports",
+      "slug": "modules-packages-imports",
+      "description": "Import system, __init__.py, relative imports, namespace packages, importlib",
+      "display_order": 14,
+      "estimated_minutes": 25,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Itertools, Functools & Standard Library",
+      "slug": "itertools-functools-stdlib",
+      "description": "Key standard library modules: itertools, functools, collections, operator, enum",
+      "display_order": 15,
+      "estimated_minutes": 35,
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Concurrency (threading, asyncio, multiprocessing)",
+      "slug": "concurrency",
+      "description": "Threading, multiprocessing, asyncio, GIL impact, concurrent.futures, async/await patterns",
+      "display_order": 16,
+      "estimated_minutes": 45,
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Memory Management & Garbage Collection",
+      "slug": "memory-management",
+      "description": "Reference counting, cyclic garbage collector, memory profiling, __slots__, weak references",
+      "display_order": 17,
+      "estimated_minutes": 30,
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Testing (unittest, pytest, mocking)",
+      "slug": "testing",
+      "description": "unittest, pytest, fixtures, mocking, parametrize, coverage, test design patterns",
+      "display_order": 18,
+      "estimated_minutes": 30,
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Flask (routing, blueprints, Jinja2, middleware)",
+      "slug": "flask",
+      "description": "Flask application structure, routing, blueprints, Jinja2 templates, middleware, extensions",
+      "display_order": 19,
+      "estimated_minutes": 45,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Django (ORM, views, templates, admin, signals)",
+      "slug": "django",
+      "description": "Django project structure, ORM, views/URLs, templates, admin, signals, middleware",
+      "display_order": 20,
+      "estimated_minutes": 50,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Method Chaining & Fluent Interfaces",
+      "slug": "method-chaining",
+      "description": "Method chaining patterns, builder pattern, fluent APIs, __enter__/__exit__ chains",
+      "display_order": 21,
+      "estimated_minutes": 30,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Database & ORM (SQLAlchemy, raw SQL, migrations)",
+      "slug": "database-orm",
+      "description": "SQLAlchemy ORM & Core, raw SQL, connection pooling, migrations with Alembic",
+      "display_order": 22,
+      "estimated_minutes": 40,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "REST APIs, HTTP & Web Scraping",
+      "slug": "rest-apis-http",
+      "description": "requests library, REST design, JSON handling, authentication, BeautifulSoup, rate limiting",
+      "display_order": 23,
+      "estimated_minutes": 45,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Type Hints & Static Typing",
+      "slug": "type-hints",
+      "description": "typing module, generics, Protocol, TypeVar, mypy, runtime type checking",
+      "display_order": 24,
+      "estimated_minutes": 35,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Design Patterns in Python",
+      "slug": "design-patterns",
+      "description": "Singleton, Factory, Observer, Strategy, Decorator pattern, Iterator, Command patterns",
+      "display_order": 25,
+      "estimated_minutes": 45,
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Python Internals & Performance",
+      "slug": "python-internals",
+      "description": "GIL deep dive, __slots__, descriptors, metaclasses, profiling (cProfile, timeit), optimization",
+      "display_order": 26,
+      "estimated_minutes": 40,
+      "difficulty": "advanced"
+    },
+    {
+      "title": "Pythonic Idioms & Philosophy",
+      "slug": "pythonic-idioms",
+      "description": "Duck typing, EAFP vs LBYL, PEP 8, Zen of Python, unpacking, walrus operator",
+      "display_order": 27,
+      "estimated_minutes": 30,
+      "difficulty": "intermediate"
+    },
+    {
+      "title": "Modern Python Features",
+      "slug": "modern-python",
+      "description": "Walrus operator, match/case, f-strings, dataclasses, __post_init__, slots in dataclasses",
+      "display_order": 28,
+      "estimated_minutes": 35,
+      "difficulty": "intermediate"
+    }
+  ],
+  "relationships": [
+    {"from": "data-types-variables", "to": "operators-expressions", "type": "prerequisite"},
+    {"from": "operators-expressions", "to": "control-flow", "type": "prerequisite"},
+    {"from": "data-types-variables", "to": "strings-string-methods", "type": "prerequisite"},
+    {"from": "data-types-variables", "to": "data-structures", "type": "prerequisite"},
+    {"from": "control-flow", "to": "functions-scope", "type": "prerequisite"},
+    {"from": "data-structures", "to": "comprehensions-generators", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "comprehensions-generators", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "decorators-closures", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "oop-classes-objects", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "oop-inheritance-polymorphism", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "dunder-methods", "type": "prerequisite"},
+    {"from": "control-flow", "to": "error-handling", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "file-io-context-managers", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "modules-packages-imports", "type": "prerequisite"},
+    {"from": "comprehensions-generators", "to": "itertools-functools-stdlib", "type": "prerequisite"},
+    {"from": "decorators-closures", "to": "itertools-functools-stdlib", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "concurrency", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "concurrency", "type": "prerequisite"},
+    {"from": "data-types-variables", "to": "memory-management", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "memory-management", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "testing", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "testing", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "flask", "type": "prerequisite"},
+    {"from": "decorators-closures", "to": "flask", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "django", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "method-chaining", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "database-orm", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "rest-apis-http", "type": "prerequisite"},
+    {"from": "data-structures", "to": "rest-apis-http", "type": "prerequisite"},
+    {"from": "functions-scope", "to": "type-hints", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "type-hints", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "design-patterns", "type": "prerequisite"},
+    {"from": "decorators-closures", "to": "design-patterns", "type": "prerequisite"},
+    {"from": "memory-management", "to": "python-internals", "type": "prerequisite"},
+    {"from": "oop-classes-objects", "to": "python-internals", "type": "prerequisite"},
+    {"from": "data-types-variables", "to": "pythonic-idioms", "type": "related"},
+    {"from": "error-handling", "to": "pythonic-idioms", "type": "related"},
+    {"from": "data-types-variables", "to": "modern-python", "type": "related"},
+    {"from": "control-flow", "to": "modern-python", "type": "related"},
+    {"from": "oop-classes-objects", "to": "modern-python", "type": "related"}
+  ]
+}

@@ -26,7 +26,7 @@ class TestDashboard:
         db.session.commit()
         resp = client.get('/')
         assert resp.status_code == 200
-        assert b'10 days' in resp.data
+        assert b'10d' in resp.data
 
     def test_dashboard_shows_todays_items(self, client, db, sample_language, sample_concept, sample_question):
         d = Deadline(
