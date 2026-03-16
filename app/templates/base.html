@@ -20,41 +20,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
     <script>(function(){var s=localStorage.getItem('theme');if(s==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')})()</script>
     <style>
-        /* Scrollbar */
         ::-webkit-scrollbar{width:5px;height:5px}
         ::-webkit-scrollbar-track{background:transparent}
         .dark ::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
         html:not(.dark) ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
-
         .progress-fill{transition:width .5s cubic-bezier(.22,1,.36,1)}
-
-        /* Code blocks */
         pre code.hljs{border-radius:.5rem;padding:1rem !important;font-size:.8125rem;line-height:1.7}
         .dark pre code.hljs{background:#111 !important}
         html:not(.dark) pre code.hljs{background:#f8fafc !important;border:1px solid #e2e8f0}
-
-        /* ===== Markdown / Prose ===== */
         .prose-md{font-size:.9375rem;line-height:1.75;color:#374151}
         .dark .prose-md{color:#d1d5db}
-
         .prose-md p{margin-bottom:.75rem}
         .prose-md strong{font-weight:600;color:#111827}
         .dark .prose-md strong{color:#f3f4f6}
-
         .prose-md code{font-size:.8125rem;padding:.15rem .4rem;border-radius:.25rem;background:#f1f5f9;color:#334155}
         .dark .prose-md code{background:rgba(255,255,255,.1);color:#e5e7eb}
         .prose-md pre code{background:transparent !important;padding:0 !important;font-size:inherit}
-
         .prose-md ul,.prose-md ol{margin:.5rem 0;padding-left:1.5rem}
         .prose-md ul{list-style:disc}
         .prose-md ol{list-style:decimal}
         .prose-md li{margin-bottom:.25rem}
-
         .prose-md h1{font-size:1.25rem;font-weight:700;margin:1rem 0 .5rem}
         .prose-md h2{font-size:1.1rem;font-weight:600;margin:1rem 0 .5rem}
         .prose-md h3{font-size:1rem;font-weight:600;margin:.75rem 0 .375rem}
-
-        /* Markdown tables */
         .prose-md table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.8125rem}
         .prose-md th,.prose-md td{padding:.5rem .75rem;text-align:left;border:1px solid #e2e8f0}
         .dark .prose-md th,.dark .prose-md td{border-color:rgba(255,255,255,.08)}
@@ -62,15 +50,12 @@
         .dark .prose-md th{background:rgba(255,255,255,.04)}
         .prose-md tr:nth-child(even){background:#f8fafc}
         .dark .prose-md tr:nth-child(even){background:rgba(255,255,255,.02)}
-
         .prose-md blockquote{border-left:3px solid #6366f1;padding-left:1rem;margin:.75rem 0;color:#6b7280}
         .dark .prose-md blockquote{color:#9ca3af}
-
-        /* Fade in */
         @media(prefers-reduced-motion:no-preference){.fade-in{animation:fi .2s ease-out}@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1}}}
     </style>
 </head>
-<body class="bg-white dark:bg-black text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen">
+<body class="bg-white dark:bg-black text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen flex flex-col">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-lg">Skip to content</a>
 
     <!-- Navbar -->
@@ -92,27 +77,30 @@
         </div>
     </nav>
 
-    <main id="main" class="{% block main_class %}pt-16 pb-12 px-[5vw] lg:px-[7.5vw]{% endblock %} fade-in">
+    <!-- Main (flex-1 pushes footer to bottom) -->
+    <main id="main" class="flex-1 {% block main_class %}pt-16 pb-12 px-[5vw] lg:px-[7.5vw]{% endblock %} fade-in">
         {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}
         <div class="mb-4 px-4 py-3 rounded-lg text-sm border {% if category == 'error' %}bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-300{% else %}bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300{% endif %}" role="alert">{{ message }}</div>
         {% endfor %}{% endif %}{% endwith %}
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer -->
+    <!-- Footer — always at bottom via flexbox -->
     {% block footer %}
-    <footer class="border-t border-slate-200/80 dark:border-white/[.06] bg-white dark:bg-black">
+    <footer class="shrink-0 border-t border-slate-200/80 dark:border-white/[.06] bg-white dark:bg-black">
         <div class="px-[5vw] lg:px-[7.5vw] py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px]">
             <div class="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
                 <svg class="w-3.5 h-3.5 text-indigo-500/60" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/></svg>
                 <span class="font-semibold text-slate-500 dark:text-slate-400">onPrep</span>
-                <span class="text-slate-300 dark:text-slate-700 mx-1">&middot;</span>
+                <span class="text-slate-300 dark:text-slate-700 mx-0.5">&middot;</span>
                 <span>Built with care by onllm.dev</span>
             </div>
             <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500">
                 <a href="https://onllm.dev" target="_blank" rel="noopener" class="hover:text-indigo-500 cursor-pointer">onllm.dev</a>
                 <span class="text-slate-300 dark:text-slate-700">&middot;</span>
                 <a href="https://github.com/prakersh/onPrep" target="_blank" rel="noopener" class="hover:text-indigo-500 cursor-pointer">GitHub</a>
+                <span class="text-slate-300 dark:text-slate-700">&middot;</span>
+                <a href="https://github.com/prakersh/onPrep/issues" target="_blank" rel="noopener" class="hover:text-amber-500 cursor-pointer">Support</a>
             </div>
         </div>
     </footer>

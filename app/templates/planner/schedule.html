@@ -18,10 +18,10 @@
 {% else %}
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
     {% for d in deadlines %}
-    <a href="/planner/schedule/{{ d.id }}" class="group rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-5 hover:border-{{ d.color }}-300 dark:hover:border-{{ d.color }}-500/20 cursor-pointer">
+    <a href="/planner/schedule/{{ d.id }}" class="group rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-5 hover:border-indigo-300 dark:hover:border-indigo-500/20 cursor-pointer">
         <div class="flex items-center gap-3 mb-3">
-            <div class="w-2 h-2 rounded-full bg-{{ d.color }}-500"></div>
-            <div class="text-base font-semibold group-hover:text-{{ d.color }}-500">{{ d.company_name }}</div>
+            <div class="w-2 h-2 rounded-full" style="background:{{ d.color|color_hex }}"></div>
+            <div class="text-base font-semibold group-hover:text-indigo-500">{{ d.company_name }}</div>
         </div>
         <div class="text-sm text-slate-500 dark:text-slate-400">
             {% if d.role %}{{ d.role }} &middot; {% endif %}{{ d.language.name }}

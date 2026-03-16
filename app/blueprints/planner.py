@@ -6,7 +6,12 @@ from app.services.scheduler import generate_schedule
 
 bp = Blueprint('planner', __name__, url_prefix='/planner')
 
-COLORS = ['indigo', 'emerald', 'rose', 'amber', 'cyan', 'violet', 'orange', 'teal']
+COLOR_MAP = {
+    'indigo': '#6366f1', 'emerald': '#10b981', 'rose': '#f43f5e',
+    'amber': '#f59e0b', 'cyan': '#06b6d4', 'violet': '#8b5cf6',
+    'orange': '#f97316', 'teal': '#14b8a6',
+}
+COLORS = list(COLOR_MAP.keys())
 
 
 @bp.route('/setup', methods=['GET'])

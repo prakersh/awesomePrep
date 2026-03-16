@@ -52,15 +52,11 @@ def concept_detail(lang_slug, concept_slug):
     # Get related concepts
     related = [r.related_concept for r in concept.outgoing_relationships]
 
-    # Get all concepts for sidebar navigation
-    all_concepts = language.concepts
-
     return render_template(
         'study/concept.html',
         language=language,
         concept=concept,
         mode=mode,
         related_concepts=related,
-        all_concepts=all_concepts,
         active_q=active_q,
     )

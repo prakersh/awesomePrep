@@ -4,7 +4,7 @@
 <div class="mt-4 mb-6">
     <a href="/planner/schedule" class="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer">&larr; All schedules</a>
     <div class="flex items-center gap-3 mt-2">
-        <div class="w-2 h-2 rounded-full bg-{{ deadline.color }}-500"></div>
+        <div class="w-2 h-2 rounded-full" style="background:{{ deadline.color|color_hex }}"></div>
         <h1 class="text-2xl font-semibold">{{ deadline.company_name }}</h1>
     </div>
     <p class="text-base text-slate-500 dark:text-slate-400 mt-0.5 ml-5">

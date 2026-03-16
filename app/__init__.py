@@ -38,4 +38,9 @@ def create_app(config_name='development'):
             return ''
         return Markup(_markdown(text))
 
+    @app.template_filter('color_hex')
+    def color_hex_filter(color_name):
+        from app.blueprints.planner import COLOR_MAP
+        return COLOR_MAP.get(color_name, '#6366f1')
+
     return app

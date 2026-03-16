@@ -84,7 +84,7 @@
             {% for dd in deadline_data[:4] %}
             {% set d = dd.deadline %}
             <a href="/planner/schedule/{{ d.id }}" class="flex items-center gap-3 py-1.5 hover:text-indigo-500 cursor-pointer group">
-                <div class="w-1 h-8 rounded-full bg-{{ d.color }}-500 shrink-0"></div>
+                <div class="w-1 h-8 rounded-full shrink-0" style="background:{{ d.color|color_hex }}"></div>
                 <div class="flex-1 min-w-0">
                     <div class="text-sm font-medium truncate">{{ d.company_name }}</div>
                     <div class="text-[11px] text-slate-400 dark:text-slate-500">{% if d.role %}{{ d.role }} &middot; {% endif %}{{ d.interview_date.strftime('%b %d') }}</div>
@@ -105,7 +105,7 @@
         <div class="space-y-1.5">
             {% for ti in today_items[:5] %}
             <a href="/study/{{ ti.item.concept.language.slug }}/{{ ti.item.concept.slug }}" class="flex items-center gap-2 py-1 hover:text-indigo-500 cursor-pointer">
-                <span class="w-1.5 h-1.5 rounded-full bg-{{ ti.deadline.color }}-500 shrink-0"></span>
+                <span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:{{ ti.deadline.color|color_hex }}"></span>
                 <span class="text-sm truncate">{{ ti.item.concept.title }}</span>
             </a>
             {% endfor %}

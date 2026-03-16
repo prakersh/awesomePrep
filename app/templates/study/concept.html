@@ -255,12 +255,12 @@ function showQuestion(qid, btn) {
     document.getElementById('content-area').scrollTop = 0;
     const url = new URL(window.location); url.searchParams.set('q', qid); history.replaceState(null, '', url);
     // Track view
-    fetch('/api/view', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question_id: qid}) });
+    fetch('/api/view', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question_id: qid}) }).catch(function(){});
 }
 
 function markDone(qid, btn) {
     fetch('/api/progress', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question_id: qid, status: 'completed'}) })
-    .then(r => r.json()).then(d => {
+    .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); }).then(d => {
         if (d.status === 'ok') {
             btn.textContent = 'Done';
             btn.className = 'shrink-0 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-pointer bg-emerald-50 dark:bg-emerald-500/10 border-emerald-300 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400';
