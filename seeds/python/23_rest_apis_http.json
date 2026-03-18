@@ -5,7 +5,11 @@
       "title": "What are the main HTTP methods and when should you use each one?",
       "display_order": 1,
       "difficulty": "intermediate",
-      "tags": ["http", "methods", "rest"],
+      "tags": [
+        "http",
+        "methods",
+        "rest"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -46,7 +50,11 @@
       "title": "What are HTTP status codes and which ones should you know for APIs?",
       "display_order": 2,
       "difficulty": "intermediate",
-      "tags": ["http", "status-codes", "rest"],
+      "tags": [
+        "http",
+        "status-codes",
+        "rest"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -87,7 +95,11 @@
       "title": "How do you use the requests library to make HTTP requests in Python?",
       "display_order": 3,
       "difficulty": "intermediate",
-      "tags": ["requests", "http", "api-client"],
+      "tags": [
+        "requests",
+        "http",
+        "api-client"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -128,7 +140,12 @@
       "title": "How do you handle headers and authentication in HTTP requests?",
       "display_order": 4,
       "difficulty": "intermediate",
-      "tags": ["http", "headers", "authentication", "requests"],
+      "tags": [
+        "http",
+        "headers",
+        "authentication",
+        "requests"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -169,7 +186,11 @@
       "title": "How do you handle JSON data in HTTP requests and responses?",
       "display_order": 5,
       "difficulty": "intermediate",
-      "tags": ["json", "requests", "serialization"],
+      "tags": [
+        "json",
+        "requests",
+        "serialization"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -210,7 +231,11 @@
       "title": "How do you use request Sessions for connection reuse and persistent settings?",
       "display_order": 6,
       "difficulty": "intermediate",
-      "tags": ["requests", "session", "connection-pooling"],
+      "tags": [
+        "requests",
+        "session",
+        "connection-pooling"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -251,7 +276,12 @@
       "title": "How do you handle timeouts and retries in HTTP requests?",
       "display_order": 7,
       "difficulty": "intermediate",
-      "tags": ["requests", "timeout", "retry", "resilience"],
+      "tags": [
+        "requests",
+        "timeout",
+        "retry",
+        "resilience"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -292,7 +322,11 @@
       "title": "How do you handle query parameters and pagination in REST API requests?",
       "display_order": 8,
       "difficulty": "intermediate",
-      "tags": ["rest", "pagination", "query-parameters"],
+      "tags": [
+        "rest",
+        "pagination",
+        "query-parameters"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -333,7 +367,11 @@
       "title": "What are the key REST API design principles?",
       "display_order": 9,
       "difficulty": "intermediate",
-      "tags": ["rest", "api-design", "best-practices"],
+      "tags": [
+        "rest",
+        "api-design",
+        "best-practices"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -374,7 +412,12 @@
       "title": "What is CORS and how do you handle it in Python web applications?",
       "display_order": 10,
       "difficulty": "intermediate",
-      "tags": ["cors", "security", "flask", "http"],
+      "tags": [
+        "cors",
+        "security",
+        "flask",
+        "http"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -416,7 +459,12 @@
       "title": "What are webhooks and how do you implement them in Python?",
       "display_order": 11,
       "difficulty": "intermediate",
-      "tags": ["webhooks", "callbacks", "events", "flask"],
+      "tags": [
+        "webhooks",
+        "callbacks",
+        "events",
+        "flask"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -458,7 +506,11 @@
       "title": "How do you version a REST API and why is it important?",
       "display_order": 12,
       "difficulty": "intermediate",
-      "tags": ["api-versioning", "rest", "backward-compatibility"],
+      "tags": [
+        "api-versioning",
+        "rest",
+        "backward-compatibility"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -499,7 +551,12 @@
       "title": "How do you handle errors properly in REST APIs?",
       "display_order": 13,
       "difficulty": "intermediate",
-      "tags": ["error-handling", "rest", "flask", "api"],
+      "tags": [
+        "error-handling",
+        "rest",
+        "flask",
+        "api"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -540,7 +597,11 @@
       "title": "What is web scraping with BeautifulSoup and what are the ethical considerations?",
       "display_order": 14,
       "difficulty": "intermediate",
-      "tags": ["beautifulsoup", "web-scraping", "html-parsing"],
+      "tags": [
+        "beautifulsoup",
+        "web-scraping",
+        "html-parsing"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -582,7 +643,12 @@
       "title": "How do you implement rate limiting for a REST API?",
       "display_order": 15,
       "difficulty": "intermediate",
-      "tags": ["rate-limiting", "api", "flask", "throttling"],
+      "tags": [
+        "rate-limiting",
+        "api",
+        "flask",
+        "throttling"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -623,7 +689,12 @@
       "title": "How do you handle file uploads and downloads in REST APIs?",
       "display_order": 16,
       "difficulty": "intermediate",
-      "tags": ["file-upload", "multipart", "rest", "flask"],
+      "tags": [
+        "file-upload",
+        "multipart",
+        "rest",
+        "flask"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -664,7 +735,12 @@
       "title": "How do you make asynchronous HTTP requests in Python?",
       "display_order": 17,
       "difficulty": "intermediate",
-      "tags": ["async", "aiohttp", "httpx", "concurrency"],
+      "tags": [
+        "async",
+        "aiohttp",
+        "httpx",
+        "concurrency"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -705,7 +781,13 @@
       "title": "How do you design and consume RESTful API endpoints that support filtering, sorting, and searching?",
       "display_order": 18,
       "difficulty": "intermediate",
-      "tags": ["rest", "filtering", "sorting", "search", "query-params"],
+      "tags": [
+        "rest",
+        "filtering",
+        "sorting",
+        "search",
+        "query-params"
+      ],
       "answers": [
         {
           "mode": "detailed",

@@ -114,6 +114,7 @@ def run_seed(language_slug):
                     existing_answer.code_language = a_data.get('code_language', 'python')
                     existing_answer.key_points = a_data.get('key_points', [])
                     existing_answer.gotchas = a_data.get('gotchas', [])
+                    existing_answer.visualization = a_data.get('visualization', '')
                 else:
                     answer = Answer(
                         question_id=question.id,
@@ -124,6 +125,7 @@ def run_seed(language_slug):
                         code_language=a_data.get('code_language', 'python'),
                         key_points=a_data.get('key_points', []),
                         gotchas=a_data.get('gotchas', []),
+                        visualization=a_data.get('visualization', ''),
                     )
                     db.session.add(answer)
 

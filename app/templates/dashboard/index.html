@@ -2,156 +2,258 @@
 {% block title %}Dashboard — onPrep{% endblock %}
 {% block content %}
 {% if total_questions == 0 %}
-<div class="flex flex-col items-center justify-center min-h-[65vh] text-center">
-    <svg class="w-16 h-16 text-indigo-500/30 mb-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
-    <h1 class="text-3xl font-semibold mb-3">Welcome to onPrep</h1>
-    <p class="text-slate-500 dark:text-slate-400 text-base mb-8 max-w-md leading-relaxed">Master Python interview topics with structured study plans, detailed explanations, and quick recaps.</p>
-    <a href="/study/languages" class="bg-indigo-500 hover:bg-indigo-600 text-white text-base font-medium px-8 py-3 rounded-xl cursor-pointer">Start Learning</a>
+<div class="flex flex-col items-center justify-center min-h-[70vh] text-center fade-up">
+    <div class="w-20 h-20 rounded-2xl bg-accent/10 dark:bg-accent/[.08] flex items-center justify-center mb-8">
+        <svg class="w-10 h-10 text-accent/60" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg>
+    </div>
+    <h1 class="font-display text-4xl sm:text-5xl tracking-tight mb-4">Welcome to <span class="text-accent">onPrep</span></h1>
+    <p class="text-surface-800/50 dark:text-surface-200/40 text-lg max-w-lg leading-relaxed mb-10">Master interview topics with structured study plans, detailed code walkthroughs, and quick revision cards.</p>
+    <a href="/study/languages" class="group bg-accent hover:bg-accent-500 text-white text-base font-medium px-8 py-3.5 rounded-xl cursor-pointer transition-all hover:shadow-lg hover:shadow-accent/20 flex items-center gap-2">
+        Start Learning
+        <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
+    </a>
 </div>
 {% else %}
 
 <!-- Header -->
-<div class="mt-4 mb-5 flex items-end justify-between">
+<div class="mt-2 mb-8 flex items-end justify-between fade-up">
     <div>
-        <h1 class="text-2xl font-semibold">Dashboard</h1>
+        <h1 class="font-display text-3xl sm:text-4xl tracking-tight">Dashboard</h1>
+        <p class="text-surface-800/40 dark:text-surface-200/30 text-sm mt-1">Track your preparation progress</p>
     </div>
-    <a href="/planner/setup" class="bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg cursor-pointer flex items-center gap-1.5">
+    <a href="/planner/setup" class="group bg-accent hover:bg-accent-500 text-white text-sm font-medium px-5 py-2.5 rounded-xl cursor-pointer transition-all hover:shadow-lg hover:shadow-accent/20 flex items-center gap-2">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg>
         Add Interview
     </a>
 </div>
 
-<!-- Row 1: Quick stats + Languages side by side -->
-<div class="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-5">
-    <!-- Stats (2 cols) -->
-    <div class="lg:col-span-2 grid grid-cols-2 gap-3">
-        <div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-            <div class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Completed</div>
-            <div class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">{{ completed }}<span class="text-sm font-normal text-slate-400 dark:text-slate-500">/{{ total_questions }}</span></div>
-        </div>
-        <div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-            <div class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Progress</div>
-            <div class="text-2xl font-bold text-emerald-500">{{ progress_pct }}%</div>
-            <div class="mt-1.5 h-1.5 bg-slate-200 dark:bg-white/[.06] rounded-full overflow-hidden">
-                <div class="h-full bg-emerald-500 rounded-full progress-fill" style="width:{{ progress_pct }}%"></div>
-            </div>
-        </div>
-        <div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-            <div class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">In Progress</div>
-            <div class="text-2xl font-bold text-amber-500">{{ in_progress }}</div>
-        </div>
-        <div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-            <div class="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Interviews</div>
-            <div class="text-2xl font-bold text-violet-500">{{ deadline_data|length }}</div>
+<!-- Stats Row -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 fade-up fade-up-delay-1">
+    <div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <div class="text-[11px] font-semibold text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Completed</div>
+        <div class="text-3xl font-bold text-accent"><span id="stat-completed">0</span><span class="text-base font-normal text-surface-800/25 dark:text-surface-200/20 ml-1">/{{ total_questions }}</span></div>
+    </div>
+    <div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <div class="text-[11px] font-semibold text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Progress</div>
+        <div class="text-3xl font-bold text-emerald-600 dark:text-emerald-400"><span id="stat-pct">0</span>%</div>
+        <div class="mt-2 h-1.5 bg-surface-200/60 dark:bg-white/[.04] rounded-full overflow-hidden">
+            <div id="stat-pct-bar" class="h-full bg-emerald-500 rounded-full progress-fill" style="width:0%"></div>
         </div>
     </div>
-
-    <!-- Languages (3 cols) -->
-    <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-{{ [language_stats|length, 3]|min }} gap-3">
-        {% for ls in language_stats %}
-        <a href="/study/{{ ls.language.slug }}" class="group rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4 hover:border-indigo-300 dark:hover:border-indigo-500/20 cursor-pointer">
-            <div class="flex items-center gap-2.5 mb-2">
-                <div class="w-8 h-8 rounded-md bg-indigo-50 dark:bg-indigo-500/10 flex items-center justify-center">
-                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg>
-                </div>
-                <div>
-                    <div class="text-sm font-semibold group-hover:text-indigo-500">{{ ls.language.name }}</div>
-                    <div class="text-[11px] text-slate-400 dark:text-slate-500">{{ ls.concept_count }} concepts &middot; {{ ls.total }} questions</div>
-                </div>
-            </div>
-            <div class="flex items-center justify-between text-xs mb-1">
-                <span class="text-slate-400 dark:text-slate-500">{{ ls.done }} done</span>
-                <span class="font-semibold {% if ls.pct == 100 %}text-emerald-500{% else %}text-indigo-500{% endif %}">{{ ls.pct }}%</span>
-            </div>
-            <div class="h-1 bg-slate-200 dark:bg-white/[.06] rounded-full overflow-hidden">
-                <div class="h-full rounded-full progress-fill {% if ls.pct == 100 %}bg-emerald-500{% else %}bg-indigo-500{% endif %}" style="width:{{ ls.pct }}%"></div>
-            </div>
-        </a>
-        {% endfor %}
+    <div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <div class="text-[11px] font-semibold text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">In Progress</div>
+        <div class="text-3xl font-bold text-warm-500" id="stat-in-progress">0</div>
+    </div>
+    <div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <div class="text-[11px] font-semibold text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Interviews</div>
+        <div class="text-3xl font-bold text-violet-600 dark:text-violet-400">{{ deadline_data|length }}</div>
     </div>
 </div>
 
-<!-- Row 2: Interviews + Difficulty + Today + Recent — all compact in one row -->
-<div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-5">
+<!-- Languages -->
+<div class="grid grid-cols-1 sm:grid-cols-{{ [language_stats|length, 3]|min }} gap-3 sm:gap-4 mb-6 fade-up fade-up-delay-2">
+    {% for ls in language_stats %}
+    <a href="/study/{{ ls.language.slug }}" class="card-hover group rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5 cursor-pointer"
+       data-lang-qids="{{ ls.qids|join(',') }}" data-lang-total="{{ ls.total }}">
+        <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 rounded-xl bg-accent/10 dark:bg-accent/[.08] flex items-center justify-center">
+                <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg>
+            </div>
+            <div>
+                <div class="text-[15px] font-semibold group-hover:text-accent transition-colors">{{ ls.language.name }}</div>
+                <div class="text-xs text-surface-800/35 dark:text-surface-200/25">{{ ls.concept_count }} concepts &middot; {{ ls.total }} questions</div>
+            </div>
+        </div>
+        <div class="flex items-center justify-between text-xs mb-1.5">
+            <span class="lang-done-label text-surface-800/35 dark:text-surface-200/25">0 done</span>
+            <span class="lang-pct-label font-semibold text-surface-800/25 dark:text-surface-200/20">0%</span>
+        </div>
+        <div class="h-1.5 bg-surface-200/60 dark:bg-white/[.04] rounded-full overflow-hidden">
+            <div class="lang-pct-bar h-full rounded-full progress-fill bg-accent" style="width:0%"></div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<!-- Bottom Grid: Interviews + In Progress + Recently Viewed -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 fade-up fade-up-delay-3">
     <!-- Upcoming interviews -->
-    <div class="lg:col-span-2 rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-        <div class="flex items-center justify-between mb-3">
+    <div class="lg:col-span-1 rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <div class="flex items-center justify-between mb-4">
             <h2 class="text-sm font-semibold">Upcoming Interviews</h2>
-            <a href="/planner/setup" class="text-[11px] text-indigo-500 hover:text-indigo-600 cursor-pointer">Manage</a>
+            <a href="/planner/setup" class="text-xs text-accent hover:text-accent-500 cursor-pointer transition-colors">Manage</a>
         </div>
         {% if deadline_data %}
-        <div class="space-y-2">
+        <div class="space-y-2.5">
             {% for dd in deadline_data[:4] %}
             {% set d = dd.deadline %}
-            <a href="/planner/schedule/{{ d.id }}" class="flex items-center gap-3 py-1.5 hover:text-indigo-500 cursor-pointer group">
-                <div class="w-1 h-8 rounded-full shrink-0" style="background:{{ d.color|color_hex }}"></div>
+            <a href="/planner/schedule/{{ d.id }}" class="flex items-center gap-3 py-2 hover:text-accent cursor-pointer group transition-colors rounded-lg px-2 -mx-2 hover:bg-surface-100/50 dark:hover:bg-white/[.02]">
+                <div class="w-1 h-10 rounded-full shrink-0" style="background:{{ d.color|color_hex }}"></div>
                 <div class="flex-1 min-w-0">
                     <div class="text-sm font-medium truncate">{{ d.company_name }}</div>
-                    <div class="text-[11px] text-slate-400 dark:text-slate-500">{% if d.role %}{{ d.role }} &middot; {% endif %}{{ d.interview_date.strftime('%b %d') }}</div>
+                    <div class="text-xs text-surface-800/35 dark:text-surface-200/25">{% if d.role %}{{ d.role }} &middot; {% endif %}{{ d.interview_date.strftime('%b %d') }}</div>
                 </div>
-                <div class="text-base font-bold shrink-0 {% if dd.days_remaining <= 3 %}text-red-500{% elif dd.days_remaining <= 7 %}text-amber-500{% else %}text-emerald-500{% endif %}">{{ dd.days_remaining }}d</div>
+                <div class="text-lg font-bold shrink-0 tabular-nums {% if dd.days_remaining <= 3 %}text-red-500{% elif dd.days_remaining <= 7 %}text-warm-500{% else %}text-emerald-500{% endif %}">{{ dd.days_remaining }}d</div>
             </a>
             {% endfor %}
         </div>
         {% else %}
-        <p class="text-sm text-slate-400 dark:text-slate-500 py-3 text-center">No interviews yet. <a href="/planner/setup" class="text-indigo-500 cursor-pointer">Add one</a></p>
+        <p class="text-sm text-surface-800/30 dark:text-surface-200/20 py-6 text-center">No interviews yet. <a href="/planner/setup" class="text-accent cursor-pointer">Add one</a></p>
         {% endif %}
     </div>
 
-    <!-- Today's plan -->
-    <div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-        <h2 class="text-sm font-semibold mb-3">Today</h2>
-        {% if today_items %}
-        <div class="space-y-1.5">
-            {% for ti in today_items[:5] %}
-            <a href="/study/{{ ti.item.concept.language.slug }}/{{ ti.item.concept.slug }}" class="flex items-center gap-2 py-1 hover:text-indigo-500 cursor-pointer">
-                <span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:{{ ti.deadline.color|color_hex }}"></span>
-                <span class="text-sm truncate">{{ ti.item.concept.title }}</span>
-            </a>
-            {% endfor %}
+    <!-- In Progress Modules (hydrated by JS) -->
+    <div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <h2 class="text-sm font-semibold mb-4">In Progress</h2>
+        <div id="in-progress-list">
+            <p class="text-sm text-surface-800/30 dark:text-surface-200/20 py-6 text-center">Start studying to see progress here</p>
         </div>
-        {% else %}
-        <p class="text-sm text-slate-400 dark:text-slate-500 py-3 text-center">Nothing today</p>
-        {% endif %}
     </div>
 
-    <!-- Recently studied -->
-    <div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4">
-        <h2 class="text-sm font-semibold mb-3">Recently Viewed</h2>
-        {% if recent %}
-        <div class="space-y-1.5">
-            {% for p in recent %}
-            <a href="/study/{{ p.question.concept.language.slug }}/{{ p.question.concept.slug }}?q={{ p.question_id }}" class="block group cursor-pointer py-1">
-                <div class="text-sm text-slate-700 dark:text-slate-300 group-hover:text-indigo-500 truncate">{{ p.question.title|truncate(45) }}</div>
-                <span class="text-[11px] {% if p.status == 'completed' %}text-emerald-500{% else %}text-amber-500{% endif %}">{{ p.status }}</span>
-            </a>
-            {% endfor %}
+    <!-- Recently Viewed (hydrated by JS) -->
+    <div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5">
+        <h2 class="text-sm font-semibold mb-4">Recently Viewed</h2>
+        <div id="recent-list">
+            <p class="text-sm text-surface-800/30 dark:text-surface-200/20 py-6 text-center">Start studying to see history</p>
         </div>
-        {% else %}
-        <p class="text-sm text-slate-400 dark:text-slate-500 py-3 text-center">Start studying</p>
-        {% endif %}
     </div>
 </div>
 
-<!-- Row 3: Difficulty breakdown (compact, horizontal) -->
-<div class="rounded-xl border border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] p-4 mb-5">
-    <h2 class="text-sm font-semibold mb-3">Progress by Difficulty</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<!-- Difficulty Breakdown -->
+<div class="rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5 fade-up fade-up-delay-4">
+    <h2 class="text-sm font-semibold mb-4">Progress by Difficulty</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
         {% for ds in difficulty_stats %}
-        <div>
-            <div class="flex items-center justify-between mb-1">
+        <div data-diff-qids="{{ ds.qids|join(',') }}" data-diff-total="{{ ds.total }}">
+            <div class="flex items-center justify-between mb-2">
                 <span class="text-sm font-medium capitalize
-                    {% if ds.difficulty == 'beginner' %}text-emerald-600 dark:text-emerald-400{% elif ds.difficulty == 'intermediate' %}text-amber-600 dark:text-amber-400{% else %}text-red-500 dark:text-red-400{% endif %}">{{ ds.difficulty }}</span>
-                <span class="text-xs text-slate-400 dark:text-slate-500">{{ ds.done }}/{{ ds.total }}</span>
+                    {% if ds.difficulty == 'beginner' %}text-emerald-600 dark:text-emerald-400{% elif ds.difficulty == 'intermediate' %}text-warm-500{% else %}text-red-500 dark:text-red-400{% endif %}">{{ ds.difficulty }}</span>
+                <span class="diff-label text-xs text-surface-800/30 dark:text-surface-200/20 tabular-nums">0/{{ ds.total }}</span>
             </div>
-            <div class="h-2 bg-slate-200 dark:bg-white/[.06] rounded-full overflow-hidden">
-                <div class="h-full rounded-full progress-fill
-                    {% if ds.difficulty == 'beginner' %}bg-emerald-500{% elif ds.difficulty == 'intermediate' %}bg-amber-500{% else %}bg-red-500{% endif %}"
-                    style="width:{{ ds.pct }}%"></div>
+            <div class="h-2 bg-surface-200/60 dark:bg-white/[.04] rounded-full overflow-hidden">
+                <div class="diff-bar h-full rounded-full progress-fill
+                    {% if ds.difficulty == 'beginner' %}bg-emerald-500{% elif ds.difficulty == 'intermediate' %}bg-warm-500{% else %}bg-red-500{% endif %}"
+                    style="width:0%"></div>
             </div>
         </div>
         {% endfor %}
     </div>
 </div>
 {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+    // Question metadata for recent-viewed
+    var qMeta = {{ all_questions|tojson }};
+
+    // All question IDs across all languages
+    var allQids = [];
+    document.querySelectorAll('[data-lang-qids]').forEach(function(el) {
+        el.dataset.langQids.split(',').forEach(function(id) { if (id) allQids.push(parseInt(id)); });
+    });
+
+    // Global stats
+    var totalQ = {{ total_questions }};
+    var completedCount = onprepProgress.countDone(allQids);
+    var pct = totalQ > 0 ? Math.round(completedCount / totalQ * 100) : 0;
+
+    var elCompleted = document.getElementById('stat-completed');
+    var elPct = document.getElementById('stat-pct');
+    var elPctBar = document.getElementById('stat-pct-bar');
+    if (elCompleted) elCompleted.textContent = completedCount;
+    if (elPct) elPct.textContent = pct;
+    if (elPctBar) elPctBar.style.width = pct + '%';
+
+    // In-progress count: concepts with 0 < done < total
+    var inProgressCount = 0;
+    var inProgressModules = [];
+
+    // Language cards
+    {% for ls in language_stats %}
+    (function() {
+        var card = document.querySelector('[data-lang-qids="{{ ls.qids|join(",") }}"]');
+        if (!card) return;
+        var qids = [{{ ls.qids|join(',') }}];
+        var total = {{ ls.total }};
+        var done = onprepProgress.countDone(qids);
+        var p = total > 0 ? Math.round(done / total * 100) : 0;
+        card.querySelector('.lang-done-label').textContent = done + ' done';
+        card.querySelector('.lang-pct-label').textContent = p + '%';
+        if (p === 100) card.querySelector('.lang-pct-label').className = 'lang-pct-label font-semibold text-emerald-600 dark:text-emerald-400';
+        else if (p > 0) card.querySelector('.lang-pct-label').className = 'lang-pct-label font-semibold text-accent';
+        card.querySelector('.lang-pct-bar').style.width = p + '%';
+        if (p === 100) card.querySelector('.lang-pct-bar').className = 'lang-pct-bar h-full rounded-full progress-fill bg-emerald-500';
+
+        // Collect in-progress modules
+        var concepts = {{ ls.concepts|map(attribute='qids')|list|tojson }};
+        var conceptNames = {{ ls.concepts|map(attribute='concept')|map(attribute='title')|list|tojson }};
+        var conceptSlugs = {{ ls.concepts|map(attribute='concept')|map(attribute='slug')|list|tojson }};
+        var langSlug = '{{ ls.language.slug }}';
+        for (var i = 0; i < concepts.length; i++) {
+            var cDone = onprepProgress.countDone(concepts[i]);
+            var cTotal = concepts[i].length;
+            if (cDone > 0 && cDone < cTotal) {
+                inProgressCount++;
+                inProgressModules.push({
+                    title: conceptNames[i], slug: conceptSlugs[i], langSlug: langSlug,
+                    lang: '{{ ls.language.name }}', done: cDone, total: cTotal,
+                    pct: Math.round(cDone / cTotal * 100)
+                });
+            }
+        }
+    })();
+    {% endfor %}
+
+    // In-progress stat
+    var elIP = document.getElementById('stat-in-progress');
+    if (elIP) elIP.textContent = inProgressCount;
+
+    // In-progress modules list
+    inProgressModules.sort(function(a, b) { return b.pct - a.pct; });
+    var ipList = document.getElementById('in-progress-list');
+    if (ipList && inProgressModules.length > 0) {
+        var html = '<div class="space-y-2">';
+        inProgressModules.slice(0, 6).forEach(function(m) {
+            html += '<a href="/study/' + m.langSlug + '/' + m.slug + '" class="block group cursor-pointer py-2 px-2 -mx-2 rounded-lg hover:bg-surface-100/50 dark:hover:bg-white/[.02] transition-colors">' +
+                '<div class="flex items-center justify-between mb-1">' +
+                '<span class="text-sm group-hover:text-accent truncate transition-colors">' + m.title + '</span>' +
+                '<span class="text-xs font-semibold text-warm-500 tabular-nums shrink-0 ml-2">' + m.done + '/' + m.total + '</span></div>' +
+                '<div class="flex items-center gap-2"><div class="flex-1 h-1 bg-surface-200/60 dark:bg-white/[.04] rounded-full overflow-hidden">' +
+                '<div class="h-full bg-warm-400 rounded-full progress-fill" style="width:' + m.pct + '%"></div></div>' +
+                '<span class="text-[10px] text-surface-800/30 dark:text-surface-200/20">' + m.lang + '</span></div></a>';
+        });
+        html += '</div>';
+        ipList.innerHTML = html;
+    }
+
+    // Recently viewed
+    var recent = onprepProgress.getRecent(5);
+    var recentList = document.getElementById('recent-list');
+    if (recentList && recent.length > 0) {
+        var html = '<div class="space-y-1">';
+        recent.forEach(function(r) {
+            var meta = qMeta[String(r.qid)];
+            if (!meta) return;
+            var statusClass = r.status === 'completed' ? 'text-emerald-600 dark:text-emerald-400' : 'text-warm-500';
+            html += '<a href="' + meta.url + '" class="block group cursor-pointer py-2 px-2 -mx-2 rounded-lg hover:bg-surface-100/50 dark:hover:bg-white/[.02] transition-colors">' +
+                '<div class="text-sm group-hover:text-accent truncate transition-colors">' + meta.title.substring(0, 50) + '</div>' +
+                '<span class="text-xs ' + statusClass + '">' + r.status + '</span></a>';
+        });
+        html += '</div>';
+        recentList.innerHTML = html;
+    }
+
+    // Difficulty stats
+    document.querySelectorAll('[data-diff-qids]').forEach(function(el) {
+        var qids = el.dataset.diffQids.split(',').map(Number).filter(Boolean);
+        var total = parseInt(el.dataset.diffTotal) || qids.length;
+        var done = onprepProgress.countDone(qids);
+        var p = total > 0 ? Math.round(done / total * 100) : 0;
+        el.querySelector('.diff-label').textContent = done + '/' + total;
+        el.querySelector('.diff-bar').style.width = p + '%';
+    });
+})();
+</script>
 {% endblock %}

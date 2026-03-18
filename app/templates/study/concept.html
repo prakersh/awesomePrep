@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{ concept.title }} — onPrep{% endblock %}
-{% block main_class %}pt-12{% endblock %}
-{% block footer %}{% endblock %}
+{% block main_class %}pt-14 flex flex-col overflow-hidden{% endblock %}
 
 {% block content %}
-<div class="flex h-[calc(100vh-3rem)]">
+<div class="flex flex-1 min-h-0">
 
     <!-- SIDEBAR -->
-    <aside id="sidebar" class="hidden lg:flex flex-col w-[22vw] min-w-[280px] max-w-[380px] shrink-0 border-r border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015] overflow-hidden">
-        <div class="px-4 pt-4 pb-3 border-b border-slate-200/80 dark:border-white/[.06]">
-            <a href="/study/{{ language.slug }}" class="text-xs text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer">&larr; {{ language.name }}</a>
+    <aside id="sidebar" class="hidden lg:flex flex-col w-[22vw] min-w-[280px] max-w-[380px] shrink-0 border-r border-surface-200/60 dark:border-white/[.06] bg-white/50 dark:bg-white/[.02] overflow-hidden">
+        <div class="px-4 pt-4 pb-3 border-b border-surface-200/60 dark:border-white/[.06]">
+            <a href="/study/{{ language.slug }}" class="text-xs text-surface-800/40 dark:text-surface-200/30 hover:text-accent cursor-pointer">&larr; {{ language.name }}</a>
             <h2 class="text-[15px] font-semibold mt-1.5 leading-snug">{{ concept.title }}</h2>
             <div class="flex items-center gap-2 mt-2.5">
                 <button onclick="setMode('detailed')" id="btn-detailed"
@@ -21,17 +20,18 @@
         <nav class="flex-1 overflow-y-auto px-2 py-2 space-y-0.5" aria-label="Questions">
             {% for q in concept.questions %}
             <button onclick="showQuestion({{ q.id }}, this)" data-qid="{{ q.id }}"
-                class="sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-white/[.05]">
-                <span class="text-slate-400 dark:text-slate-500 font-mono text-[11px] mr-1">{{ q.display_order }}.</span>{{ q.title }}
+                class="sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer text-surface-800/60 dark:text-surface-200 hover:bg-white dark:hover:bg-white/[.05] flex items-start gap-1.5">
+                <span class="text-surface-800/25 dark:text-surface-200/20 font-mono text-[11px] mr-0.5 mt-0.5 shrink-0">{{ q.display_order }}.</span>
+                <span class="flex-1">{{ q.title }}</span>
             </button>
             {% endfor %}
         </nav>
         {% if related_concepts %}
-        <div class="px-4 py-3 border-t border-slate-200/80 dark:border-white/[.06]">
-            <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Related</div>
+        <div class="px-4 py-3 border-t border-surface-200/60 dark:border-white/[.06]">
+            <div class="text-[11px] font-medium text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Related</div>
             <div class="flex flex-wrap gap-1.5">
                 {% for rc in related_concepts %}
-                <a href="/study/{{ language.slug }}/{{ rc.slug }}" class="text-xs px-2 py-1 rounded-md bg-white dark:bg-white/[.05] text-slate-600 dark:text-slate-300 hover:text-indigo-500 border border-slate-200/80 dark:border-white/[.06] cursor-pointer">{{ rc.title }}</a>
+                <a href="/study/{{ language.slug }}/{{ rc.slug }}" class="text-xs px-2 py-1 rounded-md bg-white/50 dark:bg-white/[.04] text-surface-800/60 dark:text-surface-200 hover:text-accent border border-surface-200/60 dark:border-white/[.06] cursor-pointer">{{ rc.title }}</a>
                 {% endfor %}
             </div>
         </div>
@@ -41,11 +41,11 @@
     <!-- CONTENT -->
     <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
         <!-- Mobile top bar -->
-        <div class="lg:hidden flex items-center gap-2 px-4 py-2.5 border-b border-slate-200/80 dark:border-white/[.06] bg-slate-50 dark:bg-white/[.015]">
-            <button onclick="toggleSidebar()" class="w-8 h-8 rounded-md flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/[.06] cursor-pointer" aria-label="Menu">
+        <div class="lg:hidden flex items-center gap-2 px-4 py-2.5 border-b border-surface-200/60 dark:border-white/[.06] bg-white/50 dark:bg-white/[.02]">
+            <button onclick="toggleSidebar()" class="w-8 h-8 rounded-md flex items-center justify-center hover:bg-surface-200/60 dark:hover:bg-white/[.06] cursor-pointer" aria-label="Menu">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
             </button>
-            <a href="/study/{{ language.slug }}" class="text-xs text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer">&larr;</a>
+            <a href="/study/{{ language.slug }}" class="text-xs text-surface-800/40 dark:text-surface-200/30 hover:text-accent cursor-pointer">&larr;</a>
             <span class="text-sm font-medium truncate">{{ concept.title }}</span>
             <div class="ml-auto flex gap-1">
                 <button onclick="setMode('detailed')" id="btn-detailed-m" class="text-xs font-medium px-2.5 py-1 rounded-md cursor-pointer">Detailed</button>
@@ -56,14 +56,14 @@
         <div id="content-area" class="flex-1 overflow-y-auto">
             <!-- Welcome / question picker (mobile) -->
             <div id="welcome-state" class="flex flex-col items-center justify-center h-full text-center px-6">
-                <svg class="w-12 h-12 text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
-                <p class="text-base text-slate-500 dark:text-slate-400">Select a question from the sidebar</p>
-                <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">{{ concept.questions|length }} questions in this topic</p>
+                <svg class="w-12 h-12 text-surface-300 dark:text-surface-200/15 mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+                <p class="text-base text-surface-800/40 dark:text-surface-200/30">Select a question from the sidebar</p>
+                <p class="text-sm text-surface-800/25 dark:text-surface-200/20 mt-1">{{ concept.questions|length }} questions in this topic</p>
                 <div class="lg:hidden mt-6 w-full max-w-lg space-y-1 text-left">
                     {% for q in concept.questions %}
                     <button onclick="showQuestion({{ q.id }}, null)"
-                        class="sidebar-q w-full text-left px-4 py-3 rounded-lg text-[15px] cursor-pointer hover:bg-slate-50 dark:hover:bg-white/[.04] border border-transparent hover:border-slate-200 dark:hover:border-white/[.06] text-slate-700 dark:text-slate-300">
-                        <span class="text-slate-400 dark:text-slate-500 font-mono text-xs mr-1.5">{{ q.display_order }}.</span>{{ q.title }}
+                        class="sidebar-q w-full text-left px-4 py-3 rounded-lg text-[15px] cursor-pointer hover:bg-surface-100/50 dark:hover:bg-white/[.04] border border-transparent hover:border-surface-200/60 dark:hover:border-white/[.06] text-surface-800 dark:text-surface-200">
+                        <span class="text-surface-800/25 dark:text-surface-200/20 font-mono text-xs mr-1.5">{{ q.display_order }}.</span>{{ q.title }}
                     </button>
                     {% endfor %}
                 </div>
@@ -76,42 +76,89 @@
                     <!-- Header -->
                     <div class="flex items-start justify-between gap-4 mb-6">
                         <div>
-                            <div class="text-xs font-mono text-slate-400 dark:text-slate-500 mb-1.5">Question {{ q.display_order }} / {{ concept.questions|length }}</div>
-                            <h1 class="text-xl sm:text-2xl font-semibold leading-snug text-slate-900 dark:text-white">{{ q.title }}</h1>
+                            <div class="text-xs font-mono text-surface-800/25 dark:text-surface-200/20 mb-1.5">Question {{ q.display_order }} / {{ concept.questions|length }}</div>
+                            <h1 class="text-xl sm:text-2xl font-semibold leading-snug text-surface-800 dark:text-white">{{ q.title }}</h1>
                         </div>
-                        <button onclick="markDone({{ q.id }}, this)" class="shrink-0 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-pointer
-                            {% if q.progress and q.progress.status == 'completed' %}bg-emerald-50 dark:bg-emerald-500/10 border-emerald-300 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400
-                            {% else %}border-slate-300 dark:border-white/10 text-slate-500 dark:text-slate-400 hover:border-emerald-400 dark:hover:border-emerald-500/30 hover:text-emerald-600 dark:hover:text-emerald-400{% endif %}">
-                            {% if q.progress and q.progress.status == 'completed' %}Done{% else %}Mark done{% endif %}
-                        </button>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <!-- Narration controls -->
+                            <div class="narrate-controls flex items-center gap-1">
+                                <button onclick="toggleNarration({{ q.id }})" class="narrate-btn w-8 h-8 rounded-lg border border-surface-200 dark:border-white/10 text-surface-800/40 dark:text-surface-200/30 hover:border-accent dark:hover:border-accent/30 hover:text-accent cursor-pointer flex items-center justify-center" aria-label="Listen" title="Listen to this answer">
+                                    <!-- Play -->
+                                    <svg class="w-4 h-4 narrate-icon-play" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-3.14A.75.75 0 0 1 12.62 5.7v12.6a.75.75 0 0 1-1.15.634L6.75 15.75H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"/></svg>
+                                    <!-- Pause -->
+                                    <svg class="w-4 h-4 narrate-icon-pause hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"/></svg>
+                                    <!-- Resume -->
+                                    <svg class="w-4 h-4 narrate-icon-resume hidden" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
+                                </button>
+                                <!-- Restart (visible only when narrating) -->
+                                <button onclick="restartNarration({{ q.id }})" class="narrate-restart hidden w-8 h-8 rounded-lg border border-surface-200 dark:border-white/10 text-surface-800/40 dark:text-surface-200/30 hover:border-accent dark:hover:border-accent/30 hover:text-accent cursor-pointer flex items-center justify-center" aria-label="Restart" title="Restart from beginning">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182"/></svg>
+                                </button>
+                                <!-- Voice (visible only when narrating) -->
+                                <button onclick="cycleVoice()" class="narrate-voice hidden h-8 px-1.5 rounded-lg border border-surface-200 dark:border-white/10 text-surface-800/40 dark:text-surface-200/30 hover:border-accent dark:hover:border-accent/30 hover:text-accent cursor-pointer flex items-center justify-center text-[11px] font-mono font-semibold truncate max-w-[80px]" aria-label="Voice" title="Change voice (keyboard: V)">
+                                    <span class="voice-label">Voice</span>
+                                </button>
+                                <!-- Speed (visible only when narrating) -->
+                                <button onclick="cycleSpeed()" class="narrate-speed hidden h-8 px-1.5 rounded-lg border border-surface-200 dark:border-white/10 text-surface-800/40 dark:text-surface-200/30 hover:border-accent dark:hover:border-accent/30 hover:text-accent cursor-pointer flex items-center justify-center text-[11px] font-mono font-semibold tabular-nums" aria-label="Speed" title="Change narration speed (keyboard: S)">
+                                    <span class="speed-label">1x</span>
+                                </button>
+                                <!-- Stop (visible only when narrating) -->
+                                <button onclick="stopNarration()" class="narrate-stop hidden w-8 h-8 rounded-lg border border-surface-200 dark:border-white/10 text-surface-800/40 dark:text-surface-200/30 hover:border-red-400 dark:hover:border-red-400/30 hover:text-red-500 cursor-pointer flex items-center justify-center" aria-label="Stop" title="Stop narration (keyboard: Escape)">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z"/></svg>
+                                </button>
+                            </div>
+                            <button onclick="markDone({{ q.id }}, this)" class="shrink-0 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-pointer border-surface-200 dark:border-white/10 text-surface-800/40 dark:text-surface-200/30 hover:border-emerald-400 dark:hover:border-emerald-500/30 hover:text-emerald-600 dark:hover:text-emerald-400">
+                                Mark done
+                            </button>
+                        </div>
                     </div>
 
                     <!-- DETAILED -->
                     {% for a in q.answers if a.mode == 'detailed' %}
                     <div class="answer-detailed">
-                        <div class="prose-md mb-6">{{ a.explanation|markdown }}</div>
+                        <div class="prose-study mb-6">{{ a.explanation|markdown }}</div>
+
+                        {% if a.visualization %}
+                        <div class="viz-block my-6" role="img" aria-label="Diagram">
+                            {{ a.visualization|safe }}
+                        </div>
+                        {% endif %}
 
                         {% if a.pseudo_code %}
                         <div class="mb-6">
-                            <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Pseudo Code</div>
+                            <div class="text-[11px] font-semibold text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Pseudo Code</div>
                             <pre><code class="language-text">{{ a.pseudo_code }}</code></pre>
                         </div>
                         {% endif %}
 
                         {% if a.actual_code %}
-                        <div class="mb-6">
-                            <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Code</div>
-                            <pre><code class="language-{{ a.code_language }}">{{ a.actual_code }}</code></pre>
+                        <div class="mb-6 code-card">
+                            <div class="text-[11px] font-semibold text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Code</div>
+                            <div class="code-card-inner rounded-xl overflow-hidden border border-surface-200 dark:border-white/[.06]">
+                                <pre class="!rounded-none !border-0 !mb-0"><code class="language-{{ a.code_language }}">{{ a.actual_code|strip_expected_output }}</code></pre>
+                                {% set output = a.actual_code|get_expected_output %}
+                                {% if output %}
+                                <div class="output-strip">
+                                    <button onclick="this.parentElement.classList.toggle('expanded')" class="output-toggle w-full flex items-center gap-2 px-4 py-2 cursor-pointer border-t border-surface-200/60 dark:border-white/[.06]">
+                                        <svg class="w-3 h-3 text-accent output-chevron" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                                        <span class="text-[11px] font-semibold text-accent dark:text-accent-300 uppercase tracking-widest">Output</span>
+                                    </button>
+                                    <div class="output-content hidden px-4 pb-3">
+                                        <pre class="!bg-transparent !border-0 !p-0 !m-0 !rounded-none"><code class="language-text !bg-transparent !p-0 text-[12.5px] leading-relaxed font-mono text-emerald-700 dark:text-emerald-300">{{ output }}</code></pre>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                         {% endif %}
 
                         {% if a.key_points %}
                         <div class="mb-6">
-                            <div class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2.5">Key Points</div>
+                            <div class="text-[11px] font-semibold text-accent dark:text-accent-300 uppercase tracking-widest mb-2.5">Key Points</div>
                             <ul class="space-y-1.5">
                                 {% for p in a.key_points %}
-                                <li class="flex gap-2.5 text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed">
-                                    <span class="text-indigo-500 mt-2 shrink-0">&bull;</span>{{ p }}
+                                <li class="flex gap-2.5 text-[15px] text-surface-800 dark:text-surface-200 leading-relaxed">
+                                    <span class="text-accent mt-2 shrink-0">&bull;</span>{{ p }}
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -136,20 +183,42 @@
                     <!-- QUICK -->
                     {% for a in q.answers if a.mode == 'quick' %}
                     <div class="answer-quick hidden">
-                        <div class="prose-md mb-5">{{ a.explanation|markdown }}</div>
+                        <div class="prose-study mb-5">{{ a.explanation|markdown }}</div>
+
+                        {% if a.visualization %}
+                        <div class="viz-block my-5" role="img" aria-label="Diagram">
+                            {{ a.visualization|safe }}
+                        </div>
+                        {% endif %}
 
                         {% if a.key_points %}
                         <ul class="space-y-1.5 mb-5">
                             {% for p in a.key_points %}
-                            <li class="flex gap-2.5 text-[15px] text-slate-700 dark:text-slate-300 leading-relaxed">
-                                <span class="text-indigo-500 mt-2 shrink-0">&bull;</span>{{ p }}
+                            <li class="flex gap-2.5 text-[15px] text-surface-800 dark:text-surface-200 leading-relaxed">
+                                <span class="text-accent mt-2 shrink-0">&bull;</span>{{ p }}
                             </li>
                             {% endfor %}
                         </ul>
                         {% endif %}
 
                         {% if a.actual_code %}
-                        <pre class="mb-5"><code class="language-{{ a.code_language }}">{{ a.actual_code }}</code></pre>
+                        <div class="mb-5 code-card">
+                            <div class="code-card-inner rounded-xl overflow-hidden border border-surface-200 dark:border-white/[.06]">
+                                <pre class="!rounded-none !border-0 !mb-0"><code class="language-{{ a.code_language }}">{{ a.actual_code|strip_expected_output }}</code></pre>
+                                {% set output = a.actual_code|get_expected_output %}
+                                {% if output %}
+                                <div class="output-strip">
+                                    <button onclick="this.parentElement.classList.toggle('expanded')" class="output-toggle w-full flex items-center gap-2 px-4 py-2 cursor-pointer border-t border-surface-200/60 dark:border-white/[.06]">
+                                        <svg class="w-3 h-3 text-accent output-chevron" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+                                        <span class="text-[11px] font-semibold text-accent dark:text-accent-300 uppercase tracking-widest">Output</span>
+                                    </button>
+                                    <div class="output-content hidden px-4 pb-3">
+                                        <pre class="!bg-transparent !border-0 !p-0 !m-0 !rounded-none"><code class="language-text !bg-transparent !p-0 text-[12.5px] leading-relaxed font-mono text-emerald-700 dark:text-emerald-300">{{ output }}</code></pre>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
                         {% endif %}
 
                         {% if a.gotchas %}
@@ -161,8 +230,8 @@
                         {% endif %}
 
                         <!-- Expand to detailed -->
-                        <div class="mt-6 pt-4 border-t border-dashed border-slate-200 dark:border-white/[.08]">
-                            <button onclick="expandDetailed({{ q.id }}, this)" class="expand-btn text-sm font-medium text-indigo-500 hover:text-indigo-600 cursor-pointer flex items-center gap-1.5">
+                        <div class="mt-6 pt-4 border-t border-dashed border-surface-200/60 dark:border-white/[.08]">
+                            <button onclick="expandDetailed({{ q.id }}, this)" class="expand-btn text-sm font-medium text-accent hover:text-accent-500 cursor-pointer flex items-center gap-1.5">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
                                 Need more detail? Show full explanation
                             </button>
@@ -171,12 +240,12 @@
                     {% endfor %}
 
                     <!-- Nav -->
-                    <div class="flex items-center justify-between mt-10 pt-5 border-t border-slate-200/80 dark:border-white/[.06]">
+                    <div class="flex items-center justify-between mt-10 pt-5 border-t border-surface-200/60 dark:border-white/[.06]">
                         {% if not loop.first %}
-                        <button onclick="showQuestion({{ concept.questions[loop.index0 - 1].id }})" class="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer">&larr; Previous</button>
+                        <button onclick="showQuestion({{ concept.questions[loop.index0 - 1].id }})" class="text-sm text-surface-800/40 dark:text-surface-200/30 hover:text-accent cursor-pointer">&larr; Previous</button>
                         {% else %}<span></span>{% endif %}
                         {% if not loop.last %}
-                        <button onclick="showQuestion({{ concept.questions[loop.index0 + 1].id }})" class="text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer">Next &rarr;</button>
+                        <button onclick="showQuestion({{ concept.questions[loop.index0 + 1].id }})" class="text-sm text-surface-800/40 dark:text-surface-200/30 hover:text-accent cursor-pointer">Next &rarr;</button>
                         {% else %}<span></span>{% endif %}
                     </div>
                 </div>
@@ -190,27 +259,28 @@
 <div id="sidebar-overlay" class="hidden fixed inset-0 z-40 lg:hidden" onclick="toggleSidebar()">
     <div class="absolute inset-0 bg-black/30 dark:bg-black/60"></div>
 </div>
-<div id="sidebar-mobile" class="hidden fixed inset-y-0 left-0 z-50 w-80 bg-white dark:bg-[#050505] border-r border-slate-200 dark:border-white/[.06] lg:hidden overflow-y-auto shadow-xl">
-    <div class="px-4 pt-4 pb-3 border-b border-slate-200/80 dark:border-white/[.06] flex items-center justify-between">
+<div id="sidebar-mobile" class="hidden fixed inset-y-0 left-0 z-50 w-80 bg-surface-50 dark:bg-surface-950 border-r border-surface-200 dark:border-white/[.06] lg:hidden overflow-y-auto shadow-xl">
+    <div class="px-4 pt-4 pb-3 border-b border-surface-200/60 dark:border-white/[.06] flex items-center justify-between">
         <h2 class="text-[15px] font-semibold truncate pr-2">{{ concept.title }}</h2>
-        <button onclick="toggleSidebar()" class="w-8 h-8 rounded-md flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer shrink-0" aria-label="Close">
+        <button onclick="toggleSidebar()" class="w-8 h-8 rounded-md flex items-center justify-center hover:bg-surface-100 dark:hover:bg-white/[.06] cursor-pointer shrink-0" aria-label="Close">
             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
         </button>
     </div>
     <nav class="px-2 py-2 space-y-0.5">
         {% for q in concept.questions %}
         <button onclick="showQuestion({{ q.id }}, this); toggleSidebar()" data-qid="{{ q.id }}"
-            class="sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/[.05]">
-            <span class="text-slate-400 dark:text-slate-500 font-mono text-[11px] mr-1">{{ q.display_order }}.</span>{{ q.title }}
+            class="sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer text-surface-800/60 dark:text-surface-200 hover:bg-surface-100/50 dark:hover:bg-white/[.05] flex items-start gap-1.5">
+            <span class="text-surface-800/25 dark:text-surface-200/20 font-mono text-[11px] mr-0.5 mt-0.5 shrink-0">{{ q.display_order }}.</span>
+            <span class="flex-1">{{ q.title }}</span>
         </button>
         {% endfor %}
     </nav>
     {% if related_concepts %}
-    <div class="px-4 py-3 border-t border-slate-200/80 dark:border-white/[.06]">
-        <div class="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Related</div>
+    <div class="px-4 py-3 border-t border-surface-200/60 dark:border-white/[.06]">
+        <div class="text-[11px] font-medium text-surface-800/30 dark:text-surface-200/25 uppercase tracking-widest mb-2">Related</div>
         <div class="flex flex-wrap gap-1.5">
             {% for rc in related_concepts %}
-            <a href="/study/{{ language.slug }}/{{ rc.slug }}" class="text-xs px-2 py-1 rounded-md bg-slate-100 dark:bg-white/[.05] text-slate-600 dark:text-slate-300 hover:text-indigo-500 cursor-pointer">{{ rc.title }}</a>
+            <a href="/study/{{ language.slug }}/{{ rc.slug }}" class="text-xs px-2 py-1 rounded-md bg-white/50 dark:bg-white/[.04] text-surface-800/60 dark:text-surface-200 hover:text-accent border border-surface-200/60 dark:border-white/[.06] cursor-pointer">{{ rc.title }}</a>
             {% endfor %}
         </div>
     </div>
@@ -222,10 +292,11 @@
 <script>
 let currentMode = '{{ mode }}';
 let currentQId = null;
+const questionOrder = [{% for q in concept.questions %}{{ q.id }}{% if not loop.last %},{% endif %}{% endfor %}];
 
 function setMode(mode) {
     currentMode = mode;
-    const ac = 'bg-indigo-500 text-white', ic = 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/[.06]';
+    const ac = 'bg-accent text-white', ic = 'text-surface-800/40 dark:text-surface-200/30 hover:bg-surface-100 dark:hover:bg-white/[.06]';
     ['', '-m'].forEach(s => {
         const d = document.getElementById('btn-detailed' + s), q = document.getElementById('btn-quick' + s);
         if (d) d.className = 'text-xs font-medium px-2.5 py-1 rounded-md cursor-pointer ' + (mode === 'detailed' ? ac : ic);
@@ -237,6 +308,7 @@ function setMode(mode) {
 }
 
 function showQuestion(qid, btn) {
+    stopNarration();
     currentQId = qid;
     document.getElementById('welcome-state').classList.add('hidden');
     document.querySelectorAll('.q-panel').forEach(el => el.classList.add('hidden'));
@@ -245,27 +317,45 @@ function showQuestion(qid, btn) {
     // Sidebar highlight
     document.querySelectorAll('.sidebar-q').forEach(el => {
         const a = String(el.dataset.qid) === String(qid);
+        const base = 'sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer flex items-start gap-1.5';
         if (a) {
-            el.className = 'sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer font-medium bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300';
+            el.className = base + ' font-medium bg-accent-50 dark:bg-accent/[.08] text-accent-700 dark:text-accent-300';
         } else {
-            el.className = 'sidebar-q w-full text-left px-3 py-2 rounded-lg text-[13px] leading-relaxed cursor-pointer text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-white/[.05]';
+            el.className = base + ' text-surface-800/60 dark:text-surface-200 hover:bg-white dark:hover:bg-white/[.05]';
         }
     });
     panel.querySelectorAll('pre code:not(.hljs)').forEach(block => hljs.highlightElement(block));
     document.getElementById('content-area').scrollTop = 0;
     const url = new URL(window.location); url.searchParams.set('q', qid); history.replaceState(null, '', url);
-    // Track view
-    fetch('/api/view', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question_id: qid}) }).catch(function(){});
+    // Track view in localStorage
+    onprepProgress.markViewed(qid);
+}
+
+function addCheckmark(el) {
+    if (el.querySelector('.done-check')) return;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('class', 'w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5 done-check');
+    svg.setAttribute('fill', 'none'); svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('stroke-width', '2.5'); svg.setAttribute('stroke', 'currentColor');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('stroke-linecap', 'round'); path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('d', 'm4.5 12.75 6 6 9-13.5');
+    svg.appendChild(path); el.appendChild(svg);
 }
 
 function markDone(qid, btn) {
-    fetch('/api/progress', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({question_id: qid, status: 'completed'}) })
-    .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); }).then(d => {
-        if (d.status === 'ok') {
-            btn.textContent = 'Done';
-            btn.className = 'shrink-0 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-pointer bg-emerald-50 dark:bg-emerald-500/10 border-emerald-300 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400';
-        }
+    onprepProgress.markDone(qid);
+    btn.textContent = 'Done';
+    btn.className = 'shrink-0 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-pointer bg-emerald-50 dark:bg-emerald-500/10 border-emerald-300 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400';
+    document.querySelectorAll('.sidebar-q[data-qid="' + qid + '"]').forEach(el => {
+        el.dataset.done = 'true';
+        addCheckmark(el);
     });
+    // Auto-advance to next question
+    const idx = questionOrder.indexOf(qid);
+    if (idx >= 0 && idx < questionOrder.length - 1) {
+        setTimeout(function() { showQuestion(questionOrder[idx + 1]); }, 600);
+    }
 }
 
 function expandDetailed(qid, btn) {
@@ -275,7 +365,7 @@ function expandDetailed(qid, btn) {
     if (detailed) {
         detailed.classList.remove('hidden');
         detailed.querySelectorAll('pre code:not(.hljs)').forEach(block => hljs.highlightElement(block));
-        btn.parentElement.innerHTML = '<button onclick="collapseDetailed(' + qid + ', this)" class="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-indigo-500 cursor-pointer flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>Hide detailed explanation</button>';
+        btn.parentElement.innerHTML = '<button onclick="collapseDetailed(' + qid + ', this)" class="text-sm font-medium text-surface-800/40 dark:text-surface-200/30 hover:text-accent cursor-pointer flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5"/></svg>Hide detailed explanation</button>';
     }
 }
 
@@ -284,7 +374,7 @@ function collapseDetailed(qid, btn) {
     if (!panel) return;
     const detailed = panel.querySelector('.answer-detailed');
     if (detailed) detailed.classList.add('hidden');
-    btn.parentElement.innerHTML = '<button onclick="expandDetailed(' + qid + ', this)" class="expand-btn text-sm font-medium text-indigo-500 hover:text-indigo-600 cursor-pointer flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>Need more detail? Show full explanation</button>';
+    btn.parentElement.innerHTML = '<button onclick="expandDetailed(' + qid + ', this)" class="expand-btn text-sm font-medium text-accent hover:text-accent-500 cursor-pointer flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>Need more detail? Show full explanation</button>';
 }
 
 function toggleSidebar() {
@@ -292,7 +382,499 @@ function toggleSidebar() {
     document.getElementById('sidebar-mobile').classList.toggle('hidden');
 }
 
+/* ── Narration Engine (Web Speech API) ──
+   Sentence-level highlighting, pause/resume, restart, speed control, keyboard shortcuts.
+   Context-aware (reads current mode), markdown-aware (walks rendered DOM,
+   skips code blocks with language-aware mentions, adds natural transitions).
+   Keyboard: Space = pause/resume, R = restart, S = cycle speed, Esc = stop. */
+
+const SPEEDS = [0.8, 1, 1.25, 1.5, 1.75, 2];
+const SPEED_LABELS = ['0.8x', '1x', '1.25x', '1.5x', '1.75x', '2x'];
+
+const narr = {
+    qid: null,           // Currently narrating question ID
+    sentences: [],       // Array of { text, node } — the full narration script
+    sentenceIdx: 0,      // Current sentence being spoken
+    paused: false,       // Paused state
+    speedIdx: 1,         // Index into SPEEDS (default 1x)
+    voice: null,         // Cached preferred voice
+    _voiceReady: false,
+};
+
+/* ── DOM → sentence extraction ── */
+
+function getVisibleText(el) {
+    let out = '';
+    for (const child of el.childNodes) {
+        if (child.nodeType === Node.TEXT_NODE) {
+            out += child.textContent;
+        } else if (child.nodeType === Node.ELEMENT_NODE) {
+            const tag = child.tagName;
+            if (tag === 'PRE') continue;
+            if (child.classList.contains('hidden')) continue;
+            // Inline <code> — add pauses around it so narration doesn't mash words together
+            if (tag === 'CODE') {
+                out += ', ' + child.textContent + ', ';
+                continue;
+            }
+            const block = ['P','DIV','H1','H2','H3','H4','H5','H6','LI','BR','TR','BLOCKQUOTE'].includes(tag);
+            if (block) out += '\n';
+            out += getVisibleText(child);
+            if (block) out += '\n';
+        }
+    }
+    // Normalize em dashes and other special dashes to pauses
+    out = out.replace(/\s*[—–]\s*/g, ', ');
+    return out;
+}
+
+function splitSentences(text) {
+    return text
+        .replace(/\n{2,}/g, '.\n')
+        .replace(/\n/g, ' ')
+        .split(/(?<=[.!?;:])\s+|(?<=\d\.)\s+(?=[A-Z])/)
+        .map(s => s.replace(/\s+/g, ' ').trim())
+        .filter(s => s.length > 1);
+}
+
+function describeCodeBlock(section) {
+    // Try to identify the language from the code block for a developer-useful callout
+    const codeEl = section.querySelector('code[class*="language-"]');
+    if (codeEl) {
+        const match = codeEl.className.match(/language-(\w+)/);
+        if (match && match[1] !== 'text') {
+            return 'A ' + match[1] + ' code example is provided — see the code block for details.';
+        }
+    }
+    const label = section.querySelector('.tracking-widest');
+    if (label && /pseudo/i.test(label.textContent)) {
+        return 'A pseudo code example is provided.';
+    }
+    return 'A code example is provided — refer to the code block for details.';
+}
+
+function buildSentences(qid) {
+    const panel = document.getElementById('q-' + qid);
+    if (!panel) return [];
+
+    const sentences = [];
+    const add = (text, node) => {
+        splitSentences(text).forEach(s => sentences.push({ text: s, node }));
+    };
+
+    // 1. Title
+    const title = panel.querySelector('h1');
+    if (title) add(title.textContent.trim(), title);
+
+    // 2. Visible answer based on current mode
+    const answerSel = currentMode === 'quick' ? '.answer-quick' : '.answer-detailed';
+    const answer = panel.querySelector(answerSel);
+    if (!answer) return sentences;
+
+    for (const section of answer.children) {
+        if (section.classList.contains('hidden')) continue;
+
+        // Visualization blocks — brief mention, don't read SVG content
+        if (section.classList.contains('viz-block')) {
+            sentences.push({ text: 'A diagram is shown for this concept.', node: section });
+            continue;
+        }
+
+        // Prose (explanation) — walk block children for granular highlighting
+        if (section.classList.contains('prose-study')) {
+            for (const block of section.children) {
+                if (block.tagName === 'PRE') {
+                    sentences.push({ text: describeCodeBlock(block), node: block });
+                    continue;
+                }
+                const text = getVisibleText(block).trim();
+                if (text) add(text, block);
+            }
+            continue;
+        }
+
+        // Code blocks — mention language, don't read code
+        if (section.querySelector('pre')) {
+            sentences.push({ text: describeCodeBlock(section), node: section });
+            continue;
+        }
+
+        // Key points (detailed mode — wrapper div with label + ul)
+        const kpLabel = section.querySelector('[class*="text-accent"][class*="uppercase"]');
+        if (kpLabel && /key\s*point/i.test(kpLabel.textContent)) {
+            sentences.push({ text: 'Key points.', node: kpLabel });
+            section.querySelectorAll('li').forEach((li, i) => {
+                const t = getVisibleText(li).replace(/^[•·,\s]+/, '').trim();
+                if (t) sentences.push({ text: (i + 1) + '. ' + t, node: li });
+            });
+            continue;
+        }
+
+        // Gotchas box (detailed mode)
+        if (section.className.includes('amber-50') || section.className.includes('amber-300')) {
+            sentences.push({ text: 'Common pitfalls to watch out for.', node: section });
+            section.querySelectorAll('li').forEach(li => {
+                const t = getVisibleText(li).replace(/^[•·,\s]+/, '').trim();
+                if (t) sentences.push({ text: t, node: li });
+            });
+            continue;
+        }
+
+        // Quick mode: direct <ul> (key points without label wrapper)
+        if (section.tagName === 'UL') {
+            sentences.push({ text: 'Key points.', node: section });
+            section.querySelectorAll('li').forEach((li, i) => {
+                const t = getVisibleText(li).replace(/^[•·,\s]+/, '').trim();
+                if (t) sentences.push({ text: (i + 1) + '. ' + t, node: li });
+            });
+            continue;
+        }
+
+        // Quick mode: gotcha pills
+        const pills = section.querySelectorAll('span[class*="amber-700"]');
+        if (pills.length) {
+            sentences.push({ text: 'Common pitfalls to watch out for.', node: section });
+            pills.forEach(s => {
+                if (s.textContent.trim()) sentences.push({ text: s.textContent.trim(), node: s });
+            });
+            continue;
+        }
+
+        // Expand-to-detailed toggle — skip
+        if (section.querySelector('.expand-btn')) continue;
+
+        // Fallback: read any remaining visible text
+        const fallback = getVisibleText(section).trim();
+        if (fallback) add(fallback, section);
+    }
+
+    // If quick mode and detailed was expanded, narrate that too
+    if (currentMode === 'quick') {
+        const expanded = panel.querySelector('.answer-detailed:not(.hidden)');
+        if (expanded) {
+            sentences.push({ text: 'Now for the detailed explanation.', node: expanded });
+            const prose = expanded.querySelector('.prose-study');
+            if (prose) {
+                for (const block of prose.children) {
+                    if (block.tagName === 'PRE') {
+                        sentences.push({ text: describeCodeBlock(block), node: block });
+                        continue;
+                    }
+                    const t = getVisibleText(block).trim();
+                    if (t) add(t, block);
+                }
+            }
+        }
+    }
+
+    return sentences;
+}
+
+/* ── Highlighting ── */
+const HIGHLIGHT_CLS = 'narration-active';
+
+function clearHighlight() {
+    document.querySelectorAll('.' + HIGHLIGHT_CLS).forEach(el => el.classList.remove(HIGHLIGHT_CLS));
+}
+
+function highlightNode(node) {
+    clearHighlight();
+    if (!node) return;
+    node.classList.add(HIGHLIGHT_CLS);
+    const container = document.getElementById('content-area');
+    if (container) {
+        const nodeTop = node.offsetTop;
+        container.scrollTo({ top: nodeTop - container.clientHeight / 3, behavior: 'smooth' });
+    }
+}
+
+/* ── UI state ── */
+function getNarrControls(qid) {
+    const panel = document.getElementById('q-' + qid);
+    if (!panel) return {};
+    return {
+        btn: panel.querySelector('.narrate-btn'),
+        restart: panel.querySelector('.narrate-restart'),
+        stop: panel.querySelector('.narrate-stop'),
+        speed: panel.querySelector('.narrate-speed'),
+        voice: panel.querySelector('.narrate-voice'),
+        playIcon: panel.querySelector('.narrate-icon-play'),
+        pauseIcon: panel.querySelector('.narrate-icon-pause'),
+        resumeIcon: panel.querySelector('.narrate-icon-resume'),
+    };
+}
+
+function showControlState(qid, state) {
+    const c = getNarrControls(qid);
+    if (!c.btn) return;
+    const activeStyle = ['border-accent', 'dark:border-accent/30', 'text-accent'];
+    const idleStyle = ['border-surface-200', 'dark:border-white/10', 'text-surface-800/40', 'dark:text-surface-200/30'];
+
+    c.playIcon.classList.add('hidden');
+    c.pauseIcon.classList.add('hidden');
+    c.resumeIcon.classList.add('hidden');
+
+    if (state === 'idle') {
+        c.playIcon.classList.remove('hidden');
+        c.btn.title = 'Listen to this answer (Space)';
+        c.restart.classList.add('hidden');
+        c.stop.classList.add('hidden');
+        c.speed.classList.add('hidden');
+        if (c.voice) c.voice.classList.add('hidden');
+        activeStyle.forEach(s => c.btn.classList.remove(s));
+        idleStyle.forEach(s => c.btn.classList.add(s));
+    } else if (state === 'playing') {
+        c.pauseIcon.classList.remove('hidden');
+        c.btn.title = 'Pause (Space)';
+        c.restart.classList.remove('hidden');
+        c.stop.classList.remove('hidden');
+        c.speed.classList.remove('hidden');
+        if (c.voice) c.voice.classList.remove('hidden');
+        idleStyle.forEach(s => c.btn.classList.remove(s));
+        activeStyle.forEach(s => c.btn.classList.add(s));
+    } else if (state === 'paused') {
+        c.resumeIcon.classList.remove('hidden');
+        c.btn.title = 'Resume (Space)';
+        c.restart.classList.remove('hidden');
+        c.stop.classList.remove('hidden');
+        c.speed.classList.remove('hidden');
+        if (c.voice) c.voice.classList.remove('hidden');
+        idleStyle.forEach(s => c.btn.classList.remove(s));
+        activeStyle.forEach(s => c.btn.classList.add(s));
+    }
+}
+
+function updateSpeedLabel() {
+    document.querySelectorAll('.speed-label').forEach(el => {
+        el.textContent = SPEED_LABELS[narr.speedIdx];
+    });
+}
+
+/* ── Voice selection ── */
+function getEnglishVoices() {
+    return speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+}
+
+function pickVoice() {
+    if (narr.voice) return narr.voice;
+    const voices = speechSynthesis.getVoices();
+    // Check localStorage for user preference
+    const savedVoice = localStorage.getItem('narr-voice');
+    if (savedVoice) {
+        const found = voices.find(v => v.name === savedVoice);
+        if (found) { narr.voice = found; updateVoiceLabel(); return narr.voice; }
+    }
+    narr.voice = voices.find(v => /samantha|karen|daniel|google.*us|english.*natural/i.test(v.name))
+              || voices.find(v => v.lang.startsWith('en') && v.localService)
+              || voices.find(v => v.lang.startsWith('en'))
+              || null;
+    updateVoiceLabel();
+    return narr.voice;
+}
+
+function cycleVoice() {
+    const voices = getEnglishVoices();
+    if (!voices.length) return;
+    const currentIdx = narr.voice ? voices.findIndex(v => v.name === narr.voice.name) : -1;
+    const nextIdx = (currentIdx + 1) % voices.length;
+    narr.voice = voices[nextIdx];
+    localStorage.setItem('narr-voice', narr.voice.name);
+    updateVoiceLabel();
+    // Restart current sentence with new voice
+    if (narr.qid !== null && !narr.paused) {
+        speechSynthesis.cancel();
+        setTimeout(function() { speakFrom(narr.sentenceIdx); }, 50);
+    }
+}
+
+function updateVoiceLabel() {
+    const name = narr.voice ? narr.voice.name.replace(/^(Microsoft |Google |Apple )/, '').split(' ')[0] : 'Voice';
+    document.querySelectorAll('.voice-label').forEach(el => { el.textContent = name; });
+}
+
+if ('speechSynthesis' in window) {
+    speechSynthesis.onvoiceschanged = function() { narr._voiceReady = true; pickVoice(); };
+    if (speechSynthesis.getVoices().length) { narr._voiceReady = true; pickVoice(); }
+}
+
+/* ── Core speak loop ── */
+function speakFrom(idx) {
+    if (idx >= narr.sentences.length) {
+        clearHighlight();
+        showControlState(narr.qid, 'idle');
+        narr.qid = null;
+        return;
+    }
+    if (narr.qid === null) return;
+
+    narr.sentenceIdx = idx;
+    const sent = narr.sentences[idx];
+    highlightNode(sent.node);
+
+    const utt = new SpeechSynthesisUtterance(sent.text);
+    utt.rate = SPEEDS[narr.speedIdx];
+    utt.pitch = 1.0;
+    const voice = pickVoice();
+    if (voice) utt.voice = voice;
+
+    utt.onend = function() {
+        if (narr.paused) return;
+        speakFrom(idx + 1);
+    };
+    utt.onerror = function(e) {
+        if (e.error === 'interrupted' || e.error === 'canceled') return;
+        stopNarration();
+    };
+
+    speechSynthesis.speak(utt);
+}
+
+/* ── Public controls ── */
+
+function toggleNarration(qid) {
+    if (!('speechSynthesis' in window)) {
+        alert('Your browser does not support text-to-speech.');
+        return;
+    }
+
+    // Pause
+    if (narr.qid === qid && !narr.paused && speechSynthesis.speaking) {
+        narr.paused = true;
+        speechSynthesis.pause();
+        showControlState(qid, 'paused');
+        return;
+    }
+
+    // Resume
+    if (narr.qid === qid && narr.paused) {
+        narr.paused = false;
+        speechSynthesis.resume();
+        showControlState(qid, 'playing');
+        return;
+    }
+
+    // Fresh start
+    stopNarration();
+    const sentences = buildSentences(qid);
+    if (!sentences.length) return;
+
+    narr.qid = qid;
+    narr.sentences = sentences;
+    narr.sentenceIdx = 0;
+    narr.paused = false;
+
+    showControlState(qid, 'playing');
+
+    if (!narr._voiceReady && speechSynthesis.getVoices().length === 0) {
+        const orig = speechSynthesis.onvoiceschanged;
+        speechSynthesis.onvoiceschanged = function() {
+            narr._voiceReady = true;
+            pickVoice();
+            if (orig) orig();
+            speakFrom(0);
+        };
+    } else {
+        speakFrom(0);
+    }
+}
+
+function restartNarration(qid) {
+    if (narr.qid !== qid && narr.qid !== null) qid = narr.qid;
+    if (narr.qid === null) return;
+    speechSynthesis.cancel();
+    narr.paused = false;
+    narr.sentenceIdx = 0;
+    showControlState(qid, 'playing');
+    setTimeout(function() { speakFrom(0); }, 50);
+}
+
+function stopNarration() {
+    if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+    }
+    clearHighlight();
+    if (narr.qid !== null) {
+        showControlState(narr.qid, 'idle');
+    }
+    narr.qid = null;
+    narr.sentences = [];
+    narr.sentenceIdx = 0;
+    narr.paused = false;
+}
+
+function cycleSpeed() {
+    narr.speedIdx = (narr.speedIdx + 1) % SPEEDS.length;
+    updateSpeedLabel();
+    // If currently speaking, restart current sentence at new speed
+    if (narr.qid !== null && !narr.paused) {
+        speechSynthesis.cancel();
+        setTimeout(function() { speakFrom(narr.sentenceIdx); }, 50);
+    }
+}
+
+/* ── Keyboard shortcuts (only active on study page) ── */
+document.addEventListener('keydown', function(e) {
+    // Don't intercept if user is typing in an input/textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+    if (!currentQId) return;
+
+    if (e.code === 'Space' && narr.qid !== null) {
+        // Space: pause/resume (only when narration is active)
+        e.preventDefault();
+        toggleNarration(narr.qid);
+    } else if (e.code === 'KeyN' && !e.metaKey && !e.ctrlKey && narr.qid === null) {
+        // N: start narration when idle
+        e.preventDefault();
+        toggleNarration(currentQId);
+    } else if (e.code === 'KeyR' && !e.metaKey && !e.ctrlKey && narr.qid !== null) {
+        // R: restart
+        e.preventDefault();
+        restartNarration(narr.qid);
+    } else if (e.code === 'KeyS' && !e.metaKey && !e.ctrlKey && narr.qid !== null) {
+        // S: cycle speed
+        e.preventDefault();
+        cycleSpeed();
+    } else if (e.code === 'KeyV' && !e.metaKey && !e.ctrlKey && narr.qid !== null) {
+        // V: cycle voice
+        e.preventDefault();
+        cycleVoice();
+    } else if (e.code === 'Escape' && narr.qid !== null) {
+        // Esc: stop
+        e.preventDefault();
+        stopNarration();
+    }
+});
+
 setMode(currentMode);
-{% if active_q %}showQuestion({{ active_q }});{% elif concept.questions %}showQuestion({{ concept.questions[0].id }});{% endif %}
+
+// Hydrate progress from localStorage
+(function() {
+    // Add checkmarks to completed questions in sidebar
+    questionOrder.forEach(function(qid) {
+        if (onprepProgress.isDone(qid)) {
+            document.querySelectorAll('.sidebar-q[data-qid="' + qid + '"]').forEach(function(el) {
+                el.dataset.done = 'true';
+                addCheckmark(el);
+            });
+            // Update "Mark done" button to "Done" state
+            var panel = document.getElementById('q-' + qid);
+            if (panel) {
+                var btn = panel.querySelector('button[onclick^="markDone"]');
+                if (btn) {
+                    btn.textContent = 'Done';
+                    btn.className = 'shrink-0 text-[13px] font-medium px-3 py-1.5 rounded-lg border cursor-pointer bg-emerald-50 dark:bg-emerald-500/10 border-emerald-300 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400';
+                }
+            }
+        }
+    });
+    // Select first undone question, or URL param, or first question
+    var urlQ = new URLSearchParams(window.location.search).get('q');
+    if (urlQ) {
+        showQuestion(parseInt(urlQ));
+    } else {
+        var firstUndone = onprepProgress.firstUndone(questionOrder);
+        showQuestion(firstUndone || questionOrder[0]);
+    }
+})();
 </script>
 {% endblock %}

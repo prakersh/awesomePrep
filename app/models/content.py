@@ -69,6 +69,7 @@ class Answer(db.Model):
     code_language = db.Column(db.String(20), default='python')
     key_points = db.Column(db.JSON, default=list)
     gotchas = db.Column(db.JSON, default=list)
+    visualization = db.Column(db.Text, default='')
 
     __table_args__ = (
         db.CheckConstraint("mode IN ('detailed', 'quick')", name='ck_answer_mode'),

@@ -134,6 +134,48 @@ class TestSeedRunner:
         questions = db.session.query(Question).all()
         assert len(questions) == 1
 
+    def test_visualization_field_loads(self, app, db, seed_dir):
+        """Test that visualization field loads correctly via seed runner."""
+        # Add visualization to the seed file
+        questions_with_viz = {
+            'concept_slug': 'basics',
+            'questions': [
+                {
+                    'title': 'What is a variable?',
+                    'display_order': 1,
+                    'difficulty': 'beginner',
+                    'tags': ['fundamentals'],
+                    'answers': [
+                        {
+                            'mode': 'detailed',
+                            'explanation': 'A variable stores data.',
+                            'pseudo_code': 'x = value',
+                            'actual_code': 'x = 42',
+                            'code_language': 'python',
+                            'key_points': ['Variables store references'],
+                            'gotchas': ['Mutable default arguments'],
+                            'visualization': '<svg viewBox="0 0 100 100"><rect width="50" height="50"/></svg>',
+                        },
+                        {
+                            'mode': 'quick',
+                            'explanation': 'Named reference to data.',
+                            'key_points': ['Reference to object'],
+                            'gotchas': ['Mutable defaults'],
+                        },
+                    ],
+                },
+            ],
+        }
+        with open(os.path.join(seed_dir, '01_basics.json'), 'w') as f:
+            json.dump(questions_with_viz, f)
+
+        run_seed('testlang')
+        answers = db.session.query(Answer).all()
+        detailed = [a for a in answers if a.mode == 'detailed'][0]
+        quick = [a for a in answers if a.mode == 'quick'][0]
+        assert '<svg' in detailed.visualization
+        assert quick.visualization == ''
+
     def test_missing_meta_raises(self, app, db):
         with pytest.raises(FileNotFoundError):
             run_seed('nonexistent_language')

@@ -1,21 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Languages — onPrep{% endblock %}
 {% block content %}
-<div class="mt-2 mb-6">
-    <h1 class="text-xl font-semibold">Choose a Language</h1>
-    <p class="text-sm text-slate-400 dark:text-slate-500 mt-1">Pick a topic to begin studying</p>
+<div class="mt-2 mb-6 fade-up">
+    <h1 class="font-display text-3xl tracking-tight">Choose a Language</h1>
+    <p class="text-sm text-surface-800/30 dark:text-surface-200/25 mt-1">Pick a topic to begin studying</p>
 </div>
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
     {% for lang in languages %}
     <a href="{% if lang.is_active %}/study/{{ lang.slug }}{% else %}#{% endif %}"
-       class="group rounded-xl border border-slate-100 dark:border-white/[.06] p-5 cursor-pointer
-              {% if lang.is_active %}bg-slate-50/50 dark:bg-white/[.02] hover:border-indigo-200 dark:hover:border-indigo-500/20{% else %}opacity-40 cursor-not-allowed{% endif %}"
+       class="group rounded-2xl border border-surface-200/60 dark:border-white/[.04] p-5 cursor-pointer
+              {% if lang.is_active %}bg-white/50 dark:bg-white/[.02] hover:border-accent-200 dark:hover:border-accent/20 card-hover{% else %}opacity-40 cursor-not-allowed{% endif %} fade-up"
+       style="animation-delay:{{ loop.index0 * 0.06 }}s"
        {% if not lang.is_active %}aria-disabled="true"{% endif %}>
-        <svg class="w-8 h-8 text-indigo-500/50 mb-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg>
+        <div class="w-10 h-10 rounded-xl bg-accent/10 dark:bg-accent/[.08] flex items-center justify-center mb-3">
+            <svg class="w-5 h-5 text-accent/60" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg>
+        </div>
         <div class="font-semibold">{{ lang.name }}</div>
-        <div class="text-sm text-slate-400 dark:text-slate-500 mt-0.5">{{ lang.concepts|length }} concepts</div>
+        <div class="text-sm text-surface-800/30 dark:text-surface-200/25 mt-0.5">{{ lang.concepts|length }} concepts</div>
         {% if not lang.is_active %}
-        <span class="inline-block mt-2 text-[10px] font-medium text-slate-400 dark:text-slate-600 uppercase tracking-wider">Coming Soon</span>
+        <span class="inline-block mt-2 text-[10px] font-medium text-surface-800/25 dark:text-surface-200/15 uppercase tracking-wider">Coming Soon</span>
         {% endif %}
     </a>
     {% endfor %}

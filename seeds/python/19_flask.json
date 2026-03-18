@@ -5,7 +5,11 @@
       "title": "What is the Flask application factory pattern and why should you use it?",
       "display_order": 1,
       "difficulty": "intermediate",
-      "tags": ["flask", "app-factory", "architecture"],
+      "tags": [
+        "flask",
+        "app-factory",
+        "architecture"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -46,13 +50,18 @@
       "title": "How does Flask routing work, including URL parameters and HTTP methods?",
       "display_order": 2,
       "difficulty": "intermediate",
-      "tags": ["flask", "routing", "URL", "HTTP-methods"],
+      "tags": [
+        "flask",
+        "routing",
+        "URL",
+        "HTTP-methods"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "Flask uses decorators to map URLs to view functions. The `@app.route()` decorator registers a URL rule with the app's URL map.\n\n### URL parameters:\n- `<variable>`: String by default\n- `<int:id>`: Integer converter\n- `<float:value>`: Float converter\n- `<path:subpath>`: Like string but accepts slashes\n- `<uuid:item_id>`: UUID converter\n\n### HTTP methods:\nBy default, routes only accept GET. Use `methods=['GET', 'POST']` to accept multiple methods.\n\n### URL building:\n`url_for('function_name', **params)` generates URLs from view function names, making code resilient to URL changes.",
           "pseudo_code": "@app.route('/path/<type:variable>', methods=['GET', 'POST'])\ndef view_function(variable):\n    if request.method == 'POST':\n        # handle POST\n    return response",
-          "actual_code": "from flask import Flask, request, redirect, url_for, jsonify\n\napp = Flask(__name__)\n\n# Basic route\n@app.route('/')\ndef index():\n    return 'Hello, World!'\n\n# URL parameters\n@app.route('/user/<username>')\ndef show_user(username):\n    return f'User: {username}'\n\n# Type converters\n@app.route('/post/<int:post_id>')\ndef show_post(post_id):\n    return f'Post #{post_id}'\n\n@app.route('/price/<float:amount>')\ndef show_price(amount):\n    return f'Price: ${amount:.2f}'\n\n@app.route('/files/<path:filepath>')\ndef serve_file(filepath):\n    return f'File: {filepath}'  # filepath can contain slashes\n\n# Multiple HTTP methods\n@app.route('/login', methods=['GET', 'POST'])\ndef login():\n    if request.method == 'POST':\n        username = request.form.get('username')\n        password = request.form.get('password')\n        # authenticate...\n        return redirect(url_for('index'))\n    return '''<form method=\"post\">\n        <input name=\"username\">\n        <input name=\"password\" type=\"password\">\n        <button>Login</button>\n    </form>'''\n\n# RESTful resource with multiple methods\n@app.route('/api/items', methods=['GET', 'POST'])\ndef items():\n    if request.method == 'GET':\n        return jsonify({'items': []})\n    elif request.method == 'POST':\n        data = request.get_json()\n        return jsonify(data), 201\n\n@app.route('/api/items/<int:item_id>', methods=['GET', 'PUT', 'DELETE'])\ndef item_detail(item_id):\n    if request.method == 'GET':\n        return jsonify({'id': item_id})\n    elif request.method == 'PUT':\n        data = request.get_json()\n        return jsonify(data)\n    elif request.method == 'DELETE':\n        return '', 204\n\n# URL building with url_for\nwith app.test_request_context():\n    print(url_for('index'))              # '/'\n    print(url_for('show_user', username='alice'))  # '/user/alice'\n    print(url_for('show_post', post_id=42))        # '/post/42'\n    print(url_for('items'))              # '/api/items'\n\n# Trailing slash behavior\n@app.route('/about/')   # Accessible as /about/ AND /about (redirects)\ndef about(): return 'About'\n\n@app.route('/contact')  # Accessible as /contact only. /contact/ returns 404\ndef contact(): return 'Contact'",
+          "actual_code": "from flask import Flask, request, redirect, url_for, jsonify\n\napp = Flask(__name__)\n\n# Basic route\n@app.route('/')\ndef index():\n    return 'Hello, World!'\n\n# URL parameters\n@app.route('/user/<username>')\ndef show_user(username):\n    return f'User: {username}'\n\n# Type converters\n@app.route('/post/<int:post_id>')\ndef show_post(post_id):\n    return f'Post #{post_id}'\n\n@app.route('/price/<float:amount>')\ndef show_price(amount):\n    return f'Price: ${amount:.2f}'\n\n@app.route('/files/<path:filepath>')\ndef serve_file(filepath):\n    return f'File: {filepath}'  # filepath can contain slashes\n\n# Multiple HTTP methods\n@app.route('/login', methods=['GET', 'POST'])\ndef login():\n    if request.method == 'POST':\n        username = request.form.get('username')\n        password = request.form.get('password')\n        # authenticate...\n        return redirect(url_for('index'))\n    return '''<form method=\"post\">\n        <input name=\"username\">\n        <input name=\"password\" type=\"password\">\n        <button>Login</button>\n    </form>'''\n\n# RESTful resource with multiple methods\n@app.route('/api/items', methods=['GET', 'POST'])\ndef items():\n    if request.method == 'GET':\n        return jsonify({'items': []})\n    elif request.method == 'POST':\n        data = request.get_json()\n        return jsonify(data), 201\n\n@app.route('/api/items/<int:item_id>', methods=['GET', 'PUT', 'DELETE'])\ndef item_detail(item_id):\n    if request.method == 'GET':\n        return jsonify({'id': item_id})\n    elif request.method == 'PUT':\n        data = request.get_json()\n        return jsonify(data)\n    elif request.method == 'DELETE':\n        return '', 204\n\n# URL building with url_for\nwith app.test_request_context():\n    print(url_for('index'))              # '/'\n    print(url_for('show_user', username='alice'))  # '/user/alice'\n    print(url_for('show_post', post_id=42))        # '/post/42'\n    print(url_for('items'))              # '/api/items'\n\n# Trailing slash behavior\n@app.route('/about/')   # Accessible as /about/ AND /about (redirects)\ndef about(): return 'About'\n\n@app.route('/contact')  # Accessible as /contact only. /contact/ returns 404\ndef contact(): return 'Contact'\n\n# Expected Output:\n# /\n# /user/alice\n# /post/42\n# /api/items",
           "code_language": "python",
           "key_points": [
             "@app.route() maps URLs to view functions with optional type converters",
@@ -87,13 +96,17 @@
       "title": "What are Flask blueprints and how do they help organize larger applications?",
       "display_order": 3,
       "difficulty": "intermediate",
-      "tags": ["flask", "blueprints", "architecture"],
+      "tags": [
+        "flask",
+        "blueprints",
+        "architecture"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "A **Blueprint** is a way to organize related routes, templates, and static files into reusable modules. Think of it as a mini-application that gets registered on the main Flask app.\n\n### Benefits:\n- **Modularity**: Split a large app into logical components (auth, api, admin)\n- **Reusability**: Same blueprint can be registered on multiple apps\n- **URL prefixing**: Each blueprint can have its own URL prefix\n- **Template/static overriding**: Each blueprint can have its own templates folder\n\n### Common patterns:\n- Feature-based: `auth_bp`, `api_bp`, `admin_bp`\n- API versioning: `/api/v1/...`, `/api/v2/...`\n- Plugin systems: register third-party blueprints",
           "pseudo_code": "# In auth/routes.py:\nauth_bp = Blueprint('auth', __name__)\n\n@auth_bp.route('/login')\ndef login(): ...\n\n# In app factory:\napp.register_blueprint(auth_bp, url_prefix='/auth')\n# Result: /auth/login",
-          "actual_code": "from flask import Flask, Blueprint, render_template, jsonify, request\n\n# Blueprint for authentication\nauth_bp = Blueprint('auth', __name__,\n                    template_folder='templates/auth',\n                    url_prefix='/auth')\n\n@auth_bp.route('/login', methods=['GET', 'POST'])\ndef login():\n    if request.method == 'POST':\n        return jsonify({'message': 'Logged in'})\n    return '<form method=\"post\"><button>Login</button></form>'\n\n@auth_bp.route('/logout')\ndef logout():\n    return jsonify({'message': 'Logged out'})\n\n# Blueprint for API\napi_bp = Blueprint('api', __name__, url_prefix='/api/v1')\n\n@api_bp.route('/users')\ndef list_users():\n    return jsonify({'users': []})\n\n@api_bp.route('/users/<int:user_id>')\ndef get_user(user_id):\n    return jsonify({'id': user_id})\n\n# Blueprint-specific error handler\n@api_bp.errorhandler(404)\ndef api_not_found(error):\n    return jsonify({'error': 'API resource not found'}), 404\n\n# Blueprint-level before_request\n@api_bp.before_request\ndef require_api_key():\n    if not request.headers.get('X-API-Key'):\n        return jsonify({'error': 'API key required'}), 401\n\n# Admin blueprint\nadmin_bp = Blueprint('admin', __name__,\n                     url_prefix='/admin',\n                     static_folder='admin_static')\n\n@admin_bp.route('/dashboard')\ndef dashboard():\n    return 'Admin Dashboard'\n\n# App factory with blueprint registration\ndef create_app():\n    app = Flask(__name__)\n    app.config['SECRET_KEY'] = 'dev'\n\n    # Register blueprints\n    app.register_blueprint(auth_bp)\n    app.register_blueprint(api_bp)\n    app.register_blueprint(admin_bp)\n\n    return app\n\n# URL building with blueprints\napp = create_app()\nwith app.test_request_context():\n    from flask import url_for\n    print(url_for('auth.login'))       # /auth/login\n    print(url_for('api.list_users'))   # /api/v1/users\n    print(url_for('admin.dashboard'))  # /admin/dashboard\n\n# Nested blueprints (Flask 2.0+)\nparent_bp = Blueprint('parent', __name__, url_prefix='/parent')\nchild_bp = Blueprint('child', __name__, url_prefix='/child')\n\n@child_bp.route('/hello')\ndef child_hello():\n    return 'Hello from child'\n\nparent_bp.register_blueprint(child_bp)\n# URL: /parent/child/hello",
+          "actual_code": "from flask import Flask, Blueprint, render_template, jsonify, request\n\n# Blueprint for authentication\nauth_bp = Blueprint('auth', __name__,\n                    template_folder='templates/auth',\n                    url_prefix='/auth')\n\n@auth_bp.route('/login', methods=['GET', 'POST'])\ndef login():\n    if request.method == 'POST':\n        return jsonify({'message': 'Logged in'})\n    return '<form method=\"post\"><button>Login</button></form>'\n\n@auth_bp.route('/logout')\ndef logout():\n    return jsonify({'message': 'Logged out'})\n\n# Blueprint for API\napi_bp = Blueprint('api', __name__, url_prefix='/api/v1')\n\n@api_bp.route('/users')\ndef list_users():\n    return jsonify({'users': []})\n\n@api_bp.route('/users/<int:user_id>')\ndef get_user(user_id):\n    return jsonify({'id': user_id})\n\n# Blueprint-specific error handler\n@api_bp.errorhandler(404)\ndef api_not_found(error):\n    return jsonify({'error': 'API resource not found'}), 404\n\n# Blueprint-level before_request\n@api_bp.before_request\ndef require_api_key():\n    if not request.headers.get('X-API-Key'):\n        return jsonify({'error': 'API key required'}), 401\n\n# Admin blueprint\nadmin_bp = Blueprint('admin', __name__,\n                     url_prefix='/admin',\n                     static_folder='admin_static')\n\n@admin_bp.route('/dashboard')\ndef dashboard():\n    return 'Admin Dashboard'\n\n# App factory with blueprint registration\ndef create_app():\n    app = Flask(__name__)\n    app.config['SECRET_KEY'] = 'dev'\n\n    # Register blueprints\n    app.register_blueprint(auth_bp)\n    app.register_blueprint(api_bp)\n    app.register_blueprint(admin_bp)\n\n    return app\n\n# URL building with blueprints\napp = create_app()\nwith app.test_request_context():\n    from flask import url_for\n    print(url_for('auth.login'))       # /auth/login\n    print(url_for('api.list_users'))   # /api/v1/users\n    print(url_for('admin.dashboard'))  # /admin/dashboard\n\n# Nested blueprints (Flask 2.0+)\nparent_bp = Blueprint('parent', __name__, url_prefix='/parent')\nchild_bp = Blueprint('child', __name__, url_prefix='/child')\n\n@child_bp.route('/hello')\ndef child_hello():\n    return 'Hello from child'\n\nparent_bp.register_blueprint(child_bp)\n# URL: /parent/child/hello\n\n# Expected Output:\n# /auth/login\n# /api/v1/users\n# /admin/dashboard",
           "code_language": "python",
           "key_points": [
             "Blueprints group related routes into reusable modules",
@@ -128,7 +141,11 @@
       "title": "How do Jinja2 template filters, macros, and inheritance work in Flask?",
       "display_order": 4,
       "difficulty": "intermediate",
-      "tags": ["flask", "jinja2", "templates"],
+      "tags": [
+        "flask",
+        "jinja2",
+        "templates"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -169,7 +186,11 @@
       "title": "How do Flask request and response objects work?",
       "display_order": 5,
       "difficulty": "intermediate",
-      "tags": ["flask", "request", "response"],
+      "tags": [
+        "flask",
+        "request",
+        "response"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -210,7 +231,11 @@
       "title": "How do before_request and after_request hooks work in Flask?",
       "display_order": 6,
       "difficulty": "intermediate",
-      "tags": ["flask", "hooks", "middleware"],
+      "tags": [
+        "flask",
+        "hooks",
+        "middleware"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -251,7 +276,12 @@
       "title": "How do sessions and cookies work in Flask?",
       "display_order": 7,
       "difficulty": "intermediate",
-      "tags": ["flask", "sessions", "cookies", "security"],
+      "tags": [
+        "flask",
+        "sessions",
+        "cookies",
+        "security"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -292,7 +322,11 @@
       "title": "How do you handle errors and create custom error pages in Flask?",
       "display_order": 8,
       "difficulty": "intermediate",
-      "tags": ["flask", "error-handling", "errorhandler"],
+      "tags": [
+        "flask",
+        "error-handling",
+        "errorhandler"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -333,13 +367,18 @@
       "title": "What is the difference between Flask's application context and request context?",
       "display_order": 9,
       "difficulty": "intermediate",
-      "tags": ["flask", "context", "application-context", "request-context"],
+      "tags": [
+        "flask",
+        "context",
+        "application-context",
+        "request-context"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "Flask uses two contexts implemented as thread-local stacks:\n\n### Application Context\n- Contains: `current_app` (the Flask app) and `g` (per-request storage)\n- Pushed: When a request starts, or manually with `app.app_context()`\n- Use case: Accessing app config, database connections outside of requests\n\n### Request Context\n- Contains: `request` (incoming HTTP data) and `session` (user session)\n- Pushed: Automatically when Flask handles a request\n- Pushing request context also pushes application context\n\n### When you need to manually push contexts:\n- In CLI commands\n- In background tasks/workers\n- In tests\n- In interactive shell",
           "pseudo_code": "Application Context:\n  current_app -> the Flask app instance\n  g -> per-request storage (reset each request)\n\nRequest Context:\n  request -> incoming HTTP request data\n  session -> user session data\n\nWith request context:\n  both contexts are available\nWith only app context:\n  only current_app and g are available",
-          "actual_code": "from flask import Flask, current_app, g, request, session\n\napp = Flask(__name__)\napp.config['SECRET_KEY'] = 'dev'\napp.config['DATABASE_URI'] = 'sqlite:///app.db'\n\n# Inside a view -- both contexts available\n@app.route('/')\ndef index():\n    # Application context\n    db_uri = current_app.config['DATABASE_URI']\n    g.user = 'Alice'\n\n    # Request context\n    method = request.method\n    user_agent = request.user_agent.string\n\n    return f'DB: {db_uri}, Method: {method}'\n\n# Manually pushing application context\ndef init_database():\n    \"\"\"Called from CLI or script -- no request context.\"\"\"\n    with app.app_context():\n        db_uri = current_app.config['DATABASE_URI']\n        print(f\"Initializing DB: {db_uri}\")\n        # current_app works here, but request does NOT\n\ninit_database()\n\n# Manually pushing request context (for testing)\ndef test_example():\n    with app.test_request_context('/test?name=Alice',\n                                   method='POST',\n                                   data={'key': 'value'}):\n        # Both contexts available\n        print(request.args.get('name'))  # Alice\n        print(request.method)  # POST\n        print(current_app.name)  # app name\n\ntest_example()\n\n# Error: using request outside context\ntry:\n    print(request.method)  # RuntimeError!\nexcept RuntimeError as e:\n    print(f\"Error: {e}\")\n    # \"Working outside of request context\"\n\n# Common pattern: CLI command\n@app.cli.command()\ndef seed_db():\n    \"\"\"Flask CLI commands have app context automatically.\"\"\"\n    db_uri = current_app.config['DATABASE_URI']\n    print(f\"Seeding database: {db_uri}\")\n\n# Background task pattern\ndef send_email_task(app, user_email):\n    \"\"\"Background task needs its own app context.\"\"\"\n    with app.app_context():\n        # current_app works here\n        sender = current_app.config.get('MAIL_SENDER')\n        print(f\"Sending from {sender} to {user_email}\")\n\n# g object lifespan\n@app.before_request\ndef load_user():\n    g.user = 'loaded from DB'  # available in view and after_request\n\n@app.route('/profile')\ndef profile():\n    return f'User: {g.user}'\n\n@app.teardown_appcontext\ndef close_db(exception):\n    \"\"\"Clean up when app context is popped.\"\"\"\n    db = g.pop('db_connection', None)\n    if db is not None:\n        db.close()",
+          "actual_code": "from flask import Flask, current_app, g, request, session\n\napp = Flask(__name__)\napp.config['SECRET_KEY'] = 'dev'\napp.config['DATABASE_URI'] = 'sqlite:///app.db'\n\n# Inside a view -- both contexts available\n@app.route('/')\ndef index():\n    # Application context\n    db_uri = current_app.config['DATABASE_URI']\n    g.user = 'Alice'\n\n    # Request context\n    method = request.method\n    user_agent = request.user_agent.string\n\n    return f'DB: {db_uri}, Method: {method}'\n\n# Manually pushing application context\ndef init_database():\n    \"\"\"Called from CLI or script -- no request context.\"\"\"\n    with app.app_context():\n        db_uri = current_app.config['DATABASE_URI']\n        print(f\"Initializing DB: {db_uri}\")\n        # current_app works here, but request does NOT\n\ninit_database()\n\n# Manually pushing request context (for testing)\ndef test_example():\n    with app.test_request_context('/test?name=Alice',\n                                   method='POST',\n                                   data={'key': 'value'}):\n        # Both contexts available\n        print(request.args.get('name'))  # Alice\n        print(request.method)  # POST\n        print(current_app.name)  # app name\n\ntest_example()\n\n# Error: using request outside context\ntry:\n    print(request.method)  # RuntimeError!\nexcept RuntimeError as e:\n    print(f\"Error: {e}\")\n    # \"Working outside of request context\"\n\n# Common pattern: CLI command\n@app.cli.command()\ndef seed_db():\n    \"\"\"Flask CLI commands have app context automatically.\"\"\"\n    db_uri = current_app.config['DATABASE_URI']\n    print(f\"Seeding database: {db_uri}\")\n\n# Background task pattern\ndef send_email_task(app, user_email):\n    \"\"\"Background task needs its own app context.\"\"\"\n    with app.app_context():\n        # current_app works here\n        sender = current_app.config.get('MAIL_SENDER')\n        print(f\"Sending from {sender} to {user_email}\")\n\n# g object lifespan\n@app.before_request\ndef load_user():\n    g.user = 'loaded from DB'  # available in view and after_request\n\n@app.route('/profile')\ndef profile():\n    return f'User: {g.user}'\n\n@app.teardown_appcontext\ndef close_db(exception):\n    \"\"\"Clean up when app context is popped.\"\"\"\n    db = g.pop('db_connection', None)\n    if db is not None:\n        db.close()\n\n# Expected Output:\n# Initializing DB: sqlite:///app.db\n# Alice\n# POST\n# __main__\n# Error: Working outside of request context.",
           "code_language": "python",
           "key_points": [
             "Application context: current_app + g (config, per-request storage)",
@@ -358,7 +397,7 @@
           "mode": "quick",
           "explanation": "**App context**: `current_app` + `g` (config, per-request storage). **Request context**: `request` + `session` (HTTP data). Request context auto-includes app context. CLI commands/tests need `with app.app_context():`.",
           "pseudo_code": "",
-          "actual_code": "from flask import Flask, current_app\n\napp = Flask(__name__)\napp.config['DB'] = 'sqlite:///app.db'\n\n# Outside request: manually push context\nwith app.app_context():\n    print(current_app.config['DB'])  # works\n\n# Inside view: both contexts available automatically\n@app.route('/')\ndef index():\n    return current_app.config['DB']",
+          "actual_code": "from flask import Flask, current_app\n\napp = Flask(__name__)\napp.config['DB'] = 'sqlite:///app.db'\n\n# Outside request: manually push context\nwith app.app_context():\n    print(current_app.config['DB'])  # works\n\n# Inside view: both contexts available automatically\n@app.route('/')\ndef index():\n    return current_app.config['DB']\n\n# Expected Output:\n# sqlite:///app.db",
           "code_language": "python",
           "key_points": [
             "App context: current_app, g. Request context: request, session",
@@ -374,7 +413,11 @@
       "title": "How do you test Flask applications?",
       "display_order": 10,
       "difficulty": "intermediate",
-      "tags": ["flask", "testing", "pytest"],
+      "tags": [
+        "flask",
+        "testing",
+        "pytest"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -415,7 +458,12 @@
       "title": "How does Flask-SQLAlchemy integrate with Flask?",
       "display_order": 11,
       "difficulty": "intermediate",
-      "tags": ["flask", "SQLAlchemy", "ORM", "database"],
+      "tags": [
+        "flask",
+        "SQLAlchemy",
+        "ORM",
+        "database"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -456,7 +504,12 @@
       "title": "How do you create RESTful APIs with Flask?",
       "display_order": 12,
       "difficulty": "intermediate",
-      "tags": ["flask", "REST", "API", "design-patterns"],
+      "tags": [
+        "flask",
+        "REST",
+        "API",
+        "design-patterns"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -497,7 +550,12 @@
       "title": "How do Flask-WTF forms work for input validation?",
       "display_order": 13,
       "difficulty": "intermediate",
-      "tags": ["flask", "WTForms", "forms", "validation"],
+      "tags": [
+        "flask",
+        "WTForms",
+        "forms",
+        "validation"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -538,7 +596,11 @@
       "title": "How do Flask extensions work and what are the most commonly used ones?",
       "display_order": 14,
       "difficulty": "intermediate",
-      "tags": ["flask", "extensions", "ecosystem"],
+      "tags": [
+        "flask",
+        "extensions",
+        "ecosystem"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -579,7 +641,12 @@
       "title": "How does Flask-Migrate handle database schema changes?",
       "display_order": 15,
       "difficulty": "intermediate",
-      "tags": ["flask", "migrations", "Alembic", "database"],
+      "tags": [
+        "flask",
+        "migrations",
+        "Alembic",
+        "database"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -620,7 +687,11 @@
       "title": "How does Flask's CLI system work?",
       "display_order": 16,
       "difficulty": "intermediate",
-      "tags": ["flask", "CLI", "click"],
+      "tags": [
+        "flask",
+        "CLI",
+        "click"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -661,7 +732,11 @@
       "title": "How do you structure a larger Flask application?",
       "display_order": 17,
       "difficulty": "intermediate",
-      "tags": ["flask", "architecture", "project-structure"],
+      "tags": [
+        "flask",
+        "architecture",
+        "project-structure"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -702,7 +777,11 @@
       "title": "How does Flask handle static files and how do you configure them for production?",
       "display_order": 18,
       "difficulty": "intermediate",
-      "tags": ["flask", "static-files", "production"],
+      "tags": [
+        "flask",
+        "static-files",
+        "production"
+      ],
       "answers": [
         {
           "mode": "detailed",

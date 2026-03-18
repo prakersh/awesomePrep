@@ -5,7 +5,11 @@
       "title": "What are the key differences between unittest and pytest?",
       "display_order": 1,
       "difficulty": "advanced",
-      "tags": ["unittest", "pytest", "comparison"],
+      "tags": [
+        "unittest",
+        "pytest",
+        "comparison"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -46,7 +50,11 @@
       "title": "How do pytest fixtures work and what are their scopes?",
       "display_order": 2,
       "difficulty": "advanced",
-      "tags": ["pytest", "fixtures", "dependency-injection"],
+      "tags": [
+        "pytest",
+        "fixtures",
+        "dependency-injection"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -87,7 +95,11 @@
       "title": "How does pytest.mark.parametrize work for data-driven testing?",
       "display_order": 3,
       "difficulty": "advanced",
-      "tags": ["pytest", "parametrize", "data-driven"],
+      "tags": [
+        "pytest",
+        "parametrize",
+        "data-driven"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -128,7 +140,11 @@
       "title": "What is conftest.py and how does pytest use it?",
       "display_order": 4,
       "difficulty": "advanced",
-      "tags": ["pytest", "conftest", "configuration"],
+      "tags": [
+        "pytest",
+        "conftest",
+        "configuration"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -169,13 +185,18 @@
       "title": "How do you use unittest.mock.patch and MagicMock for mocking?",
       "display_order": 5,
       "difficulty": "advanced",
-      "tags": ["mocking", "patch", "MagicMock", "unittest.mock"],
+      "tags": [
+        "mocking",
+        "patch",
+        "MagicMock",
+        "unittest.mock"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "The `unittest.mock` module provides tools to replace parts of your system with mock objects during testing.\n\n### Key classes:\n- `Mock()`: Base mock object, returns new Mock for any attribute/call\n- `MagicMock()`: Mock with default implementations of magic methods (`__len__`, `__iter__`, etc.)\n- `patch()`: Context manager/decorator that temporarily replaces an object\n- `patch.object()`: Patches a specific attribute on an object\n\n### The `patch` rule:\n**Patch where the object is USED, not where it is DEFINED.**\nIf `module_a.py` imports `requests.get`, patch `module_a.requests.get`, not `requests.get`.\n\n### Assertions on mocks:\n- `mock.assert_called_once()`\n- `mock.assert_called_with(*args, **kwargs)`\n- `mock.assert_called_once_with(*args, **kwargs)`\n- `mock.call_count`\n- `mock.call_args` / `mock.call_args_list`",
           "pseudo_code": "Patch rule:\n  # mymodule.py imports requests\n  import requests\n  def fetch(url): return requests.get(url)\n\n  # test: patch where it's used\n  @patch('mymodule.requests.get')  # NOT 'requests.get'\n  def test_fetch(mock_get):\n      mock_get.return_value.status_code = 200\n      result = fetch('http://example.com')\n      mock_get.assert_called_once()",
-          "actual_code": "from unittest.mock import Mock, MagicMock, patch, call\n\n# Basic Mock\nmock = Mock()\nmock.some_method.return_value = 42\nprint(mock.some_method())  # 42\nmock.some_method.assert_called_once()\n\n# MagicMock (supports magic methods)\nmm = MagicMock()\nmm.__len__.return_value = 5\nprint(len(mm))  # 5\nmm.__getitem__.return_value = 'value'\nprint(mm[0])  # 'value'\n\n# Mock with side_effect\nmock = Mock()\nmock.side_effect = [1, 2, 3]  # return values in sequence\nprint(mock(), mock(), mock())  # 1 2 3\n\nmock.side_effect = ValueError(\"boom\")  # raise exception\ntry:\n    mock()\nexcept ValueError as e:\n    print(f\"Caught: {e}\")\n\nmock.side_effect = lambda x: x * 2  # custom function\nprint(mock(5))  # 10\n\n# patch as decorator\nclass UserService:\n    def __init__(self, db):\n        self.db = db\n\n    def get_user(self, user_id):\n        return self.db.query(f\"SELECT * FROM users WHERE id={user_id}\")\n\n# Simulating the module structure\nimport types\nuser_module = types.ModuleType('user_module')\nuser_module.UserService = UserService\n\n# patch as context manager\ndef test_with_context_manager():\n    mock_db = Mock()\n    mock_db.query.return_value = {\"id\": 1, \"name\": \"Alice\"}\n\n    service = UserService(mock_db)\n    result = service.get_user(1)\n\n    assert result == {\"id\": 1, \"name\": \"Alice\"}\n    mock_db.query.assert_called_once()\n    print(f\"Called with: {mock_db.query.call_args}\")\n\ntest_with_context_manager()\n\n# patch.object for specific attributes\nclass EmailService:\n    def send(self, to, subject, body):\n        # Actually sends email\n        pass\n\n    def send_welcome(self, user):\n        self.send(user['email'], 'Welcome!', f'Hi {user[\"name\"]}')\n\ndef test_send_welcome():\n    service = EmailService()\n    with patch.object(service, 'send') as mock_send:\n        service.send_welcome({'name': 'Bob', 'email': 'bob@test.com'})\n        mock_send.assert_called_once_with(\n            'bob@test.com', 'Welcome!', 'Hi Bob'\n        )\n\ntest_send_welcome()\n\n# Verifying call arguments\nmock = Mock()\nmock(1, 2, key='value')\nmock(3, 4)\n\nassert mock.call_count == 2\nassert mock.call_args_list == [\n    call(1, 2, key='value'),\n    call(3, 4)\n]\nassert mock.call_args == call(3, 4)  # last call\n\n# spec: restrict mock to real object's interface\nclass RealAPI:\n    def get(self, url): pass\n    def post(self, url, data): pass\n\nmock_api = Mock(spec=RealAPI)\nmock_api.get('http://example.com')  # OK\ntry:\n    mock_api.delete('http://example.com')  # AttributeError!\nexcept AttributeError as e:\n    print(f\"spec enforcement: {e}\")",
+          "actual_code": "from unittest.mock import Mock, MagicMock, patch, call\n\n# Basic Mock\nmock = Mock()\nmock.some_method.return_value = 42\nprint(mock.some_method())  # 42\nmock.some_method.assert_called_once()\n\n# MagicMock (supports magic methods)\nmm = MagicMock()\nmm.__len__.return_value = 5\nprint(len(mm))  # 5\nmm.__getitem__.return_value = 'value'\nprint(mm[0])  # 'value'\n\n# Mock with side_effect\nmock = Mock()\nmock.side_effect = [1, 2, 3]  # return values in sequence\nprint(mock(), mock(), mock())  # 1 2 3\n\nmock.side_effect = ValueError(\"boom\")  # raise exception\ntry:\n    mock()\nexcept ValueError as e:\n    print(f\"Caught: {e}\")\n\nmock.side_effect = lambda x: x * 2  # custom function\nprint(mock(5))  # 10\n\n# patch as decorator\nclass UserService:\n    def __init__(self, db):\n        self.db = db\n\n    def get_user(self, user_id):\n        return self.db.query(f\"SELECT * FROM users WHERE id={user_id}\")\n\n# Simulating the module structure\nimport types\nuser_module = types.ModuleType('user_module')\nuser_module.UserService = UserService\n\n# patch as context manager\ndef test_with_context_manager():\n    mock_db = Mock()\n    mock_db.query.return_value = {\"id\": 1, \"name\": \"Alice\"}\n\n    service = UserService(mock_db)\n    result = service.get_user(1)\n\n    assert result == {\"id\": 1, \"name\": \"Alice\"}\n    mock_db.query.assert_called_once()\n    print(f\"Called with: {mock_db.query.call_args}\")\n\ntest_with_context_manager()\n\n# patch.object for specific attributes\nclass EmailService:\n    def send(self, to, subject, body):\n        # Actually sends email\n        pass\n\n    def send_welcome(self, user):\n        self.send(user['email'], 'Welcome!', f'Hi {user[\"name\"]}')\n\ndef test_send_welcome():\n    service = EmailService()\n    with patch.object(service, 'send') as mock_send:\n        service.send_welcome({'name': 'Bob', 'email': 'bob@test.com'})\n        mock_send.assert_called_once_with(\n            'bob@test.com', 'Welcome!', 'Hi Bob'\n        )\n\ntest_send_welcome()\n\n# Verifying call arguments\nmock = Mock()\nmock(1, 2, key='value')\nmock(3, 4)\n\nassert mock.call_count == 2\nassert mock.call_args_list == [\n    call(1, 2, key='value'),\n    call(3, 4)\n]\nassert mock.call_args == call(3, 4)  # last call\n\n# spec: restrict mock to real object's interface\nclass RealAPI:\n    def get(self, url): pass\n    def post(self, url, data): pass\n\nmock_api = Mock(spec=RealAPI)\nmock_api.get('http://example.com')  # OK\ntry:\n    mock_api.delete('http://example.com')  # AttributeError!\nexcept AttributeError as e:\n    print(f\"spec enforcement: {e}\")\n\n# Expected Output:\n# 42\n# 5\n# value\n# 1 2 3\n# Caught: boom\n# 10\n# Called with: call('SELECT * FROM users WHERE id=1')\n# spec enforcement: Mock object has no attribute 'delete'",
           "code_language": "python",
           "key_points": [
             "patch() replaces objects temporarily; patch where USED, not where defined",
@@ -210,7 +231,13 @@
       "title": "What are test doubles and how do they differ (mock, stub, spy, fake)?",
       "display_order": 6,
       "difficulty": "advanced",
-      "tags": ["test-doubles", "mock", "stub", "spy", "fake"],
+      "tags": [
+        "test-doubles",
+        "mock",
+        "stub",
+        "spy",
+        "fake"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -251,7 +278,12 @@
       "title": "How do you test for exceptions in both unittest and pytest?",
       "display_order": 7,
       "difficulty": "advanced",
-      "tags": ["exceptions", "testing", "pytest", "unittest"],
+      "tags": [
+        "exceptions",
+        "testing",
+        "pytest",
+        "unittest"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -292,7 +324,13 @@
       "title": "How do setUp/tearDown work in unittest vs pytest fixtures?",
       "display_order": 8,
       "difficulty": "advanced",
-      "tags": ["unittest", "pytest", "setUp", "tearDown", "fixtures"],
+      "tags": [
+        "unittest",
+        "pytest",
+        "setUp",
+        "tearDown",
+        "fixtures"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -333,7 +371,11 @@
       "title": "What is code coverage and how do you measure it with pytest?",
       "display_order": 9,
       "difficulty": "advanced",
-      "tags": ["coverage", "pytest", "quality"],
+      "tags": [
+        "coverage",
+        "pytest",
+        "quality"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -374,7 +416,11 @@
       "title": "What is Test-Driven Development (TDD) and how do you practice it in Python?",
       "display_order": 10,
       "difficulty": "advanced",
-      "tags": ["TDD", "methodology", "best-practices"],
+      "tags": [
+        "TDD",
+        "methodology",
+        "best-practices"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -415,7 +461,11 @@
       "title": "How does property-based testing with Hypothesis work?",
       "display_order": 11,
       "difficulty": "advanced",
-      "tags": ["hypothesis", "property-based", "fuzzing"],
+      "tags": [
+        "hypothesis",
+        "property-based",
+        "fuzzing"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -456,7 +506,12 @@
       "title": "How do you test asynchronous code in Python with pytest?",
       "display_order": 12,
       "difficulty": "advanced",
-      "tags": ["async", "pytest", "asyncio", "testing"],
+      "tags": [
+        "async",
+        "pytest",
+        "asyncio",
+        "testing"
+      ],
       "answers": [
         {
           "mode": "detailed",

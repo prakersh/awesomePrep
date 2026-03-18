@@ -43,4 +43,32 @@ def create_app(config_name='development'):
         from app.blueprints.planner import COLOR_MAP
         return COLOR_MAP.get(color_name, '#6366f1')
 
+    @app.template_filter('strip_expected_output')
+    def strip_expected_output_filter(code):
+        """Remove the Expected Output comment block from code."""
+        if not code:
+            return ''
+        import re
+        # C-style: /* Expected Output: ... */
+        code = re.sub(r'\n*\s*/\*\s*Expected Output:.*?\*/', '', code, flags=re.DOTALL)
+        # Python-style: # Expected Output:\n# line1\n# line2...
+        code = re.sub(r'\n*# Expected Output:\n(?:#[^\n]*\n?)*', '', code)
+        return code.rstrip()
+
+    @app.template_filter('get_expected_output')
+    def get_expected_output_filter(code):
+        """Extract the Expected Output content from code."""
+        if not code:
+            return ''
+        import re
+        # C-style
+        m = re.search(r'/\*\s*Expected Output:\s*\n(.*?)\*/', code, re.DOTALL)
+        if m:
+            return m.group(1).rstrip()
+        # Python-style
+        m = re.search(r'# Expected Output:\n((?:#[^\n]*\n?)*)', code)
+        if m:
+            return '\n'.join(line.lstrip('# ').rstrip() for line in m.group(1).strip().split('\n'))
+        return ''
+
     return app

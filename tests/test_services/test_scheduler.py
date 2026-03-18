@@ -1,6 +1,6 @@
 import pytest
 from datetime import date, timedelta
-from app.models import Language, Concept, Question, Progress, Deadline, ScheduleItem
+from app.models import Language, Concept, Question, Deadline, ScheduleItem
 from app.services.scheduler import generate_schedule
 
 
@@ -63,18 +63,11 @@ class TestScheduler:
         db.session.commit()
         items = db.session.query(ScheduleItem).filter_by(deadline_id=d.id).all()
         assert len(items) == 28
-        # All on same day
         dates = set(i.scheduled_date for i in items)
         assert len(dates) == 1
 
-    def test_excludes_completed_concepts(self, db, language_with_concepts):
-        # Mark first concept's question as completed
-        concepts = db.session.query(Concept).filter_by(language_id=language_with_concepts.id).order_by(Concept.display_order).all()
-        first_q = concepts[0].questions[0]
-        p = Progress(question_id=first_q.id, status='completed')
-        db.session.add(p)
-        db.session.flush()
-
+    def test_schedules_all_concepts(self, db, language_with_concepts):
+        """All concepts are scheduled (progress is tracked client-side)."""
         d = Deadline(
             language_id=language_with_concepts.id,
             interview_date=date.today() + timedelta(days=30),
@@ -84,11 +77,11 @@ class TestScheduler:
         db.session.flush()
         generate_schedule(d)
         db.session.commit()
-
         scheduled_concept_ids = set(
-            i.concept_id for i in db.session.query(ScheduleItem).filter_by(deadline_id=d.id).all()
+            i.concept_id for i in db.session.query(ScheduleItem).filter_by(deadline_id=d.id, is_review=False).all()
         )
-        assert concepts[0].id not in scheduled_concept_ids
+        all_concept_ids = set(c.id for c in language_with_concepts.concepts)
+        assert scheduled_concept_ids == all_concept_ids
 
     def test_last_day_is_review(self, db, language_with_concepts):
         d = Deadline(

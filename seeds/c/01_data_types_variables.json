@@ -5,13 +5,20 @@
       "title": "What are the basic data types in C and their typical sizes?",
       "display_order": 1,
       "difficulty": "beginner",
-      "tags": ["data-types", "int", "float", "char", "void", "sizes"],
+      "tags": [
+        "data-types",
+        "int",
+        "float",
+        "char",
+        "void",
+        "sizes"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "C has four fundamental data types:\n\n**1. `char`** -- stores a single character or small integer.\n- Size: exactly 1 byte (by definition).\n- Range: -128 to 127 (signed) or 0 to 255 (unsigned). Whether plain `char` is signed or unsigned is implementation-defined.\n\n**2. `int`** -- stores an integer.\n- Size: typically 4 bytes on modern 32/64-bit systems.\n- Range: -2,147,483,648 to 2,147,483,647 (for 32-bit signed int).\n- Modifiers: `short` (>= 2 bytes), `long` (>= 4 bytes), `long long` (>= 8 bytes).\n\n**3. `float`** -- single-precision floating point.\n- Size: typically 4 bytes (IEEE 754).\n- Precision: ~6-7 significant decimal digits.\n\n**4. `double`** -- double-precision floating point.\n- Size: typically 8 bytes.\n- Precision: ~15-16 significant decimal digits.\n\n**5. `void`** -- represents the absence of type.\n- Used for functions that return nothing, generic pointers (`void *`), and to indicate no parameters `f(void)`.\n\nThe C standard only guarantees minimum sizes:\n- `sizeof(char)` == 1\n- `sizeof(short)` >= 2\n- `sizeof(int)` >= 2\n- `sizeof(long)` >= 4\n- `sizeof(long long)` >= 8\n- `sizeof(char)` <= `sizeof(short)` <= `sizeof(int)` <= `sizeof(long)` <= `sizeof(long long)`",
           "pseudo_code": "1. char: 1 byte, stores characters/small ints\n2. int: typically 4 bytes, general-purpose integer\n3. float: typically 4 bytes, ~7 decimal digits precision\n4. double: typically 8 bytes, ~15 decimal digits precision\n5. void: no value, used for function returns and generic pointers\n6. Modifiers: short, long, long long, signed, unsigned",
-          "actual_code": "#include <stdio.h>\n#include <limits.h>\n#include <float.h>\n\nint main(void) {\n    printf(\"char:      %zu byte(s), range: %d to %d\\n\",\n           sizeof(char), CHAR_MIN, CHAR_MAX);\n    printf(\"short:     %zu byte(s), range: %d to %d\\n\",\n           sizeof(short), SHRT_MIN, SHRT_MAX);\n    printf(\"int:       %zu byte(s), range: %d to %d\\n\",\n           sizeof(int), INT_MIN, INT_MAX);\n    printf(\"long:      %zu byte(s), range: %ld to %ld\\n\",\n           sizeof(long), LONG_MIN, LONG_MAX);\n    printf(\"long long: %zu byte(s), range: %lld to %lld\\n\",\n           sizeof(long long), LLONG_MIN, LLONG_MAX);\n    printf(\"float:     %zu byte(s), precision: %d digits\\n\",\n           sizeof(float), FLT_DIG);\n    printf(\"double:    %zu byte(s), precision: %d digits\\n\",\n           sizeof(double), DBL_DIG);\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <limits.h>\n#include <float.h>\n\nint main(void) {\n    printf(\"char:      %zu byte(s), range: %d to %d\\n\",\n           sizeof(char), CHAR_MIN, CHAR_MAX);\n    printf(\"short:     %zu byte(s), range: %d to %d\\n\",\n           sizeof(short), SHRT_MIN, SHRT_MAX);\n    printf(\"int:       %zu byte(s), range: %d to %d\\n\",\n           sizeof(int), INT_MIN, INT_MAX);\n    printf(\"long:      %zu byte(s), range: %ld to %ld\\n\",\n           sizeof(long), LONG_MIN, LONG_MAX);\n    printf(\"long long: %zu byte(s), range: %lld to %lld\\n\",\n           sizeof(long long), LLONG_MIN, LLONG_MAX);\n    printf(\"float:     %zu byte(s), precision: %d digits\\n\",\n           sizeof(float), FLT_DIG);\n    printf(\"double:    %zu byte(s), precision: %d digits\\n\",\n           sizeof(double), DBL_DIG);\n    return 0;\n}\n\n/* Expected Output:\nchar:      1 byte(s), range: -128 to 127\nshort:     2 byte(s), range: -32768 to 32767\nint:       4 byte(s), range: -2147483648 to 2147483647\nlong:      8 byte(s), range: -9223372036854775808 to 9223372036854775807\nlong long: 8 byte(s), range: -9223372036854775808 to 9223372036854775807\nfloat:     4 byte(s), precision: 6 digits\ndouble:    8 byte(s), precision: 15 digits\n*/",
           "code_language": "c",
           "key_points": [
             "sizeof(char) is always 1 byte by definition",
@@ -31,7 +38,7 @@
           "mode": "quick",
           "explanation": "C has `char` (1 byte), `int` (typically 4), `float` (4), `double` (8), and `void` (no type). Modifiers like `short`, `long`, `signed`, `unsigned` change size/range. The standard only guarantees minimum sizes. Use `<limits.h>` for exact ranges.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nint main(void) {\n    printf(\"char=%zu int=%zu float=%zu double=%zu\\n\",\n           sizeof(char), sizeof(int),\n           sizeof(float), sizeof(double));\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nint main(void) {\n    printf(\"char=%zu int=%zu float=%zu double=%zu\\n\",\n           sizeof(char), sizeof(int),\n           sizeof(float), sizeof(double));\n    return 0;\n}\n\n/* Expected Output:\nchar=1 int=4 float=4 double=8\n*/",
           "code_language": "c",
           "key_points": [
             "sizeof(char) == 1 always; int is typically 4 bytes",
@@ -47,13 +54,17 @@
       "title": "How does the sizeof operator work in C?",
       "display_order": 2,
       "difficulty": "beginner",
-      "tags": ["sizeof", "operator", "data-types"],
+      "tags": [
+        "sizeof",
+        "operator",
+        "data-types"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "`sizeof` is a **compile-time** unary operator that returns the size (in bytes) of its operand. It can take a type name (in parentheses) or an expression.\n\n**Key points:**\n- Returns a value of type `size_t` (defined in `<stddef.h>`).\n- When applied to an expression, the expression is NOT evaluated -- only its type is examined.\n- For arrays, `sizeof(arr)` gives the total size of the array in bytes (not the number of elements).\n- For pointers, `sizeof(ptr)` gives the size of the pointer itself, not what it points to.\n- To get the number of elements in an array: `sizeof(arr) / sizeof(arr[0])`.\n- VLAs (C99) are the one exception: sizeof is evaluated at runtime for VLAs.",
           "pseudo_code": "1. sizeof(type) -> size in bytes of that type\n2. sizeof(expression) -> size of expression's type (expression not evaluated)\n3. sizeof(array) -> total bytes of the entire array\n4. sizeof(pointer) -> size of the pointer (4 or 8 bytes), NOT what it points to\n5. Number of elements = sizeof(arr) / sizeof(arr[0])",
-          "actual_code": "#include <stdio.h>\n\nint main(void) {\n    int arr[10];\n    int *ptr = arr;\n\n    printf(\"sizeof(int):    %zu\\n\", sizeof(int));       /* 4 */\n    printf(\"sizeof(arr):    %zu\\n\", sizeof(arr));       /* 40 (10 * 4) */\n    printf(\"sizeof(ptr):    %zu\\n\", sizeof(ptr));       /* 8 on 64-bit */\n    printf(\"elements:       %zu\\n\", sizeof(arr) / sizeof(arr[0])); /* 10 */\n\n    /* sizeof does NOT evaluate its operand */\n    int x = 5;\n    printf(\"sizeof(x++):    %zu\\n\", sizeof(x++)); /* 4 */\n    printf(\"x is still:     %d\\n\", x);            /* 5, not 6! */\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n\nint main(void) {\n    int arr[10];\n    int *ptr = arr;\n\n    printf(\"sizeof(int):    %zu\\n\", sizeof(int));       /* 4 */\n    printf(\"sizeof(arr):    %zu\\n\", sizeof(arr));       /* 40 (10 * 4) */\n    printf(\"sizeof(ptr):    %zu\\n\", sizeof(ptr));       /* 8 on 64-bit */\n    printf(\"elements:       %zu\\n\", sizeof(arr) / sizeof(arr[0])); /* 10 */\n\n    /* sizeof does NOT evaluate its operand */\n    int x = 5;\n    printf(\"sizeof(x++):    %zu\\n\", sizeof(x++)); /* 4 */\n    printf(\"x is still:     %d\\n\", x);            /* 5, not 6! */\n\n    return 0;\n}\n\n/* Expected Output:\nsizeof(int):    4\nsizeof(arr):    40\nsizeof(ptr):    8\nelements:       10\nsizeof(x++):    4\nx is still:     5\n*/",
           "code_language": "c",
           "key_points": [
             "sizeof is a compile-time operator (except for VLAs in C99)",
@@ -73,7 +84,7 @@
           "mode": "quick",
           "explanation": "`sizeof` returns the byte size of a type or expression at compile time. For arrays it gives the total byte count; for pointers it gives the pointer size (not the data size). Use `sizeof(arr)/sizeof(arr[0])` to get the element count.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nint main(void) {\n    int arr[5];\n    printf(\"Total: %zu, Count: %zu\\n\",\n           sizeof(arr),\n           sizeof(arr) / sizeof(arr[0]));\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nint main(void) {\n    int arr[5];\n    printf(\"Total: %zu, Count: %zu\\n\",\n           sizeof(arr),\n           sizeof(arr) / sizeof(arr[0]));\n    return 0;\n}\n\n/* Expected Output:\nTotal: 20, Count: 5\n*/",
           "code_language": "c",
           "key_points": [
             "Compile-time operator (except VLAs)",
@@ -89,13 +100,18 @@
       "title": "What is the difference between signed and unsigned integers? What happens on overflow?",
       "display_order": 3,
       "difficulty": "beginner",
-      "tags": ["signed", "unsigned", "overflow", "undefined-behavior"],
+      "tags": [
+        "signed",
+        "unsigned",
+        "overflow",
+        "undefined-behavior"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Signed integers** can represent negative, zero, and positive values. The most significant bit (MSB) is the sign bit. Most systems use two's complement representation.\n\n**Unsigned integers** can only represent non-negative values, effectively doubling the positive range.\n\nFor a 32-bit integer:\n- `signed int`: -2,147,483,648 to 2,147,483,647\n- `unsigned int`: 0 to 4,294,967,295\n\n**Overflow behavior:**\n- **Signed overflow is undefined behavior (UB)** in C. The compiler can assume it never happens, which can lead to surprising optimizations (e.g., removing checks).\n- **Unsigned overflow is well-defined**: it wraps around modulo 2^N. For example, `UINT_MAX + 1 == 0`.\n\nThis distinction is critical: signed overflow is a bug that the compiler is free to exploit. Unsigned overflow is a feature you can rely on.",
           "pseudo_code": "1. signed int: uses MSB as sign bit, range [-2^(N-1), 2^(N-1)-1]\n2. unsigned int: all bits for magnitude, range [0, 2^N - 1]\n3. Signed overflow: UNDEFINED BEHAVIOR (compiler can do anything)\n4. Unsigned overflow: wraps around modulo 2^N (well-defined)",
-          "actual_code": "#include <stdio.h>\n#include <limits.h>\n\nint main(void) {\n    /* Unsigned wrap-around: well-defined */\n    unsigned int u = UINT_MAX;\n    printf(\"UINT_MAX:     %u\\n\", u);       /* 4294967295 */\n    printf(\"UINT_MAX + 1: %u\\n\", u + 1);   /* 0 (wraps) */\n\n    /* Signed overflow: UNDEFINED BEHAVIOR -- do NOT rely on this */\n    /* The following line is technically UB, shown for illustration only */\n    /* int s = INT_MAX;\n       printf(\"%d\\n\", s + 1);  // UB! Could print anything */\n\n    /* Safe signed overflow check */\n    int a = INT_MAX;\n    int b = 1;\n    if (b > 0 && a > INT_MAX - b) {\n        printf(\"Would overflow!\\n\");\n    }\n\n    /* Mixing signed and unsigned */\n    int neg = -1;\n    unsigned int pos = 1;\n    if (neg < pos) {\n        printf(\"Expected: -1 < 1\\n\");\n    } else {\n        printf(\"Surprise: -1 is converted to unsigned!\\n\");\n    }\n    /* Prints: Surprise: -1 is converted to unsigned! */\n    /* Because -1 becomes UINT_MAX (4294967295) when converted to unsigned */\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <limits.h>\n\nint main(void) {\n    /* Unsigned wrap-around: well-defined */\n    unsigned int u = UINT_MAX;\n    printf(\"UINT_MAX:     %u\\n\", u);       /* 4294967295 */\n    printf(\"UINT_MAX + 1: %u\\n\", u + 1);   /* 0 (wraps) */\n\n    /* Signed overflow: UNDEFINED BEHAVIOR -- do NOT rely on this */\n    /* The following line is technically UB, shown for illustration only */\n    /* int s = INT_MAX;\n       printf(\"%d\\n\", s + 1);  // UB! Could print anything */\n\n    /* Safe signed overflow check */\n    int a = INT_MAX;\n    int b = 1;\n    if (b > 0 && a > INT_MAX - b) {\n        printf(\"Would overflow!\\n\");\n    }\n\n    /* Mixing signed and unsigned */\n    int neg = -1;\n    unsigned int pos = 1;\n    if (neg < pos) {\n        printf(\"Expected: -1 < 1\\n\");\n    } else {\n        printf(\"Surprise: -1 is converted to unsigned!\\n\");\n    }\n    /* Prints: Surprise: -1 is converted to unsigned! */\n    /* Because -1 becomes UINT_MAX (4294967295) when converted to unsigned */\n\n    return 0;\n}\n\n/* Expected Output:\nUINT_MAX:     4294967295\nUINT_MAX + 1: 0\nWould overflow!\nSurprise: -1 is converted to unsigned!\n*/",
           "code_language": "c",
           "key_points": [
             "Signed overflow is undefined behavior in C",
@@ -115,7 +131,7 @@
           "mode": "quick",
           "explanation": "Signed integers have a sign bit and can be negative. Unsigned integers use all bits for magnitude. Signed overflow is **undefined behavior**; unsigned overflow wraps modulo 2^N. Never mix signed and unsigned in comparisons.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    unsigned int u = UINT_MAX;\n    printf(\"%u + 1 = %u\\n\", u, u + 1); /* 0, wraps */\n    /* signed overflow is UB -- never rely on it */\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <limits.h>\nint main(void) {\n    unsigned int u = UINT_MAX;\n    printf(\"%u + 1 = %u\\n\", u, u + 1); /* 0, wraps */\n    /* signed overflow is UB -- never rely on it */\n    return 0;\n}\n\n/* Expected Output:\n4294967295 + 1 = 0\n*/",
           "code_language": "c",
           "key_points": [
             "Signed overflow = UB; unsigned overflow = well-defined wrap",
@@ -131,13 +147,19 @@
       "title": "What are storage classes in C (auto, static, extern, register)?",
       "display_order": 4,
       "difficulty": "beginner",
-      "tags": ["storage-classes", "auto", "static", "extern", "register"],
+      "tags": [
+        "storage-classes",
+        "auto",
+        "static",
+        "extern",
+        "register"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "Storage classes determine the **scope**, **lifetime**, and **linkage** of a variable.\n\n**1. `auto`** (default for local variables)\n- Scope: block scope\n- Lifetime: created when block is entered, destroyed when exited\n- Linkage: none\n- Rarely written explicitly (it is the default)\n\n**2. `static`**\n- On a local variable: keeps its value between function calls (lifetime = entire program), but scope remains block-local.\n- On a global variable/function: restricts linkage to the current translation unit (internal linkage). This is the C way of making things \"private\" to a file.\n\n**3. `extern`**\n- Declares a variable/function that is defined elsewhere (another translation unit).\n- Does NOT allocate storage -- just says \"this exists somewhere.\"\n- Global variables have external linkage by default; `extern` makes the declaration explicit.\n\n**4. `register`**\n- Suggests to the compiler to store the variable in a CPU register for faster access.\n- You cannot take the address of a register variable (`&var` is illegal).\n- Modern compilers ignore this hint and optimize register allocation themselves.",
           "pseudo_code": "1. auto: default local, block scope, block lifetime, no linkage\n2. static local: block scope, program lifetime, no linkage\n3. static global/function: file scope, program lifetime, internal linkage\n4. extern: declaration only, external linkage, defined elsewhere\n5. register: hint for CPU register, cannot take address",
-          "actual_code": "#include <stdio.h>\n\n/* extern declaration: defined in another file (or below) */\nextern int global_count;\n\n/* static global: only visible in this file */\nstatic int file_private = 100;\n\nvoid counter(void) {\n    /* static local: persists between calls */\n    static int count = 0;\n    count++;\n    printf(\"count = %d\\n\", count);\n}\n\nint global_count = 42; /* actual definition */\n\nint main(void) {\n    auto int x = 10; /* auto is default, rarely written */\n    register int i;  /* hint to use register */\n\n    counter(); /* count = 1 */\n    counter(); /* count = 2 */\n    counter(); /* count = 3 */\n\n    printf(\"global_count = %d\\n\", global_count); /* 42 */\n    printf(\"file_private = %d\\n\", file_private); /* 100 */\n\n    /* &i would be illegal if compiler honors register */\n    (void)x;\n    (void)i;\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n\n/* extern declaration: defined in another file (or below) */\nextern int global_count;\n\n/* static global: only visible in this file */\nstatic int file_private = 100;\n\nvoid counter(void) {\n    /* static local: persists between calls */\n    static int count = 0;\n    count++;\n    printf(\"count = %d\\n\", count);\n}\n\nint global_count = 42; /* actual definition */\n\nint main(void) {\n    auto int x = 10; /* auto is default, rarely written */\n    register int i;  /* hint to use register */\n\n    counter(); /* count = 1 */\n    counter(); /* count = 2 */\n    counter(); /* count = 3 */\n\n    printf(\"global_count = %d\\n\", global_count); /* 42 */\n    printf(\"file_private = %d\\n\", file_private); /* 100 */\n\n    /* &i would be illegal if compiler honors register */\n    (void)x;\n    (void)i;\n    return 0;\n}\n\n/* Expected Output:\ncount = 1\ncount = 2\ncount = 3\nglobal_count = 42\nfile_private = 100\n*/",
           "code_language": "c",
           "key_points": [
             "auto is the default for local variables -- rarely written explicitly",
@@ -157,7 +179,7 @@
           "mode": "quick",
           "explanation": "`auto`: default local (block scope/lifetime). `static` on local: persists between calls. `static` on global/function: file-private. `extern`: declares variable defined elsewhere. `register`: obsolete hint for CPU register.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nvoid counter(void) {\n    static int n = 0; /* persists between calls */\n    n++;\n    printf(\"%d\\n\", n);\n}\nint main(void) {\n    counter(); /* 1 */\n    counter(); /* 2 */\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nvoid counter(void) {\n    static int n = 0; /* persists between calls */\n    n++;\n    printf(\"%d\\n\", n);\n}\nint main(void) {\n    counter(); /* 1 */\n    counter(); /* 2 */\n    return 0;\n}\n\n/* Expected Output:\n1\n2\n*/",
           "code_language": "c",
           "key_points": [
             "static local = persistent value; static global = file-private",
@@ -173,13 +195,17 @@
       "title": "How does the const qualifier work in C?",
       "display_order": 5,
       "difficulty": "beginner",
-      "tags": ["const", "qualifier", "read-only"],
+      "tags": [
+        "const",
+        "qualifier",
+        "read-only"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "`const` makes a variable **read-only** after initialization. It does NOT make it a compile-time constant (unlike C++ constexpr).\n\n**Key distinctions:**\n- `const int x = 10;` -- x cannot be modified after initialization.\n- `const` variables in C are NOT true compile-time constants. You cannot use them as array sizes in C89 (you can in C99 with VLAs, but that is a different feature).\n- A `const` variable can be modified through a pointer cast (undefined behavior, but technically possible).\n- `const` with pointers has different meanings depending on placement (covered in pointers topic).\n\n**`const` vs `#define`:**\n- `const` variables have a type and obey scope rules.\n- `#define` is a textual replacement with no type checking and no scope.\n- Prefer `const` for typed constants; use `#define` or `enum` for compile-time integer constants.\n\n**`const` in function parameters:**\n- `void f(const int *p)` promises the function will not modify `*p` through this pointer.\n- This is a contract with the caller.",
           "pseudo_code": "1. const int x = 10;  // x is read-only\n2. x = 20;           // ERROR: cannot modify const\n3. const is NOT a compile-time constant in C (unlike #define)\n4. const in parameters = promise not to modify\n5. Prefer const over #define for type safety",
-          "actual_code": "#include <stdio.h>\n\nvoid print_array(const int *arr, int size) {\n    /* arr[0] = 99;  // ERROR: cannot modify through const pointer */\n    for (int i = 0; i < size; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    printf(\"\\n\");\n}\n\nint main(void) {\n    const int MAX = 100;\n    /* MAX = 200;  // ERROR: assignment of read-only variable */\n\n    printf(\"MAX = %d\\n\", MAX);\n\n    /* const is NOT a compile-time constant in C89 */\n    /* const int SIZE = 5;\n       int arr[SIZE];  // Only valid in C99+ (VLA), not C89 */\n\n    /* Use enum for compile-time integer constants */\n    enum { BUFFER_SIZE = 256 };\n    char buffer[BUFFER_SIZE]; /* Always valid */\n\n    int data[] = {1, 2, 3, 4, 5};\n    print_array(data, 5);\n\n    (void)buffer;\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n\nvoid print_array(const int *arr, int size) {\n    /* arr[0] = 99;  // ERROR: cannot modify through const pointer */\n    for (int i = 0; i < size; i++) {\n        printf(\"%d \", arr[i]);\n    }\n    printf(\"\\n\");\n}\n\nint main(void) {\n    const int MAX = 100;\n    /* MAX = 200;  // ERROR: assignment of read-only variable */\n\n    printf(\"MAX = %d\\n\", MAX);\n\n    /* const is NOT a compile-time constant in C89 */\n    /* const int SIZE = 5;\n       int arr[SIZE];  // Only valid in C99+ (VLA), not C89 */\n\n    /* Use enum for compile-time integer constants */\n    enum { BUFFER_SIZE = 256 };\n    char buffer[BUFFER_SIZE]; /* Always valid */\n\n    int data[] = {1, 2, 3, 4, 5};\n    print_array(data, 5);\n\n    (void)buffer;\n    return 0;\n}\n\n/* Expected Output:\nMAX = 100\n1 2 3 4 5 \n*/",
           "code_language": "c",
           "key_points": [
             "const makes a variable read-only, not a compile-time constant",
@@ -199,7 +225,7 @@
           "mode": "quick",
           "explanation": "`const` makes a variable read-only after initialization. It is NOT a compile-time constant in C. Use `enum` or `#define` for true compile-time constants. Use `const` in function parameters to promise you will not modify the data.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nint main(void) {\n    const int MAX = 100;\n    /* MAX = 200; // ERROR */\n    enum { BUF_SIZE = 256 }; /* true compile-time constant */\n    char buf[BUF_SIZE];\n    printf(\"%d\\n\", MAX);\n    (void)buf;\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nint main(void) {\n    const int MAX = 100;\n    /* MAX = 200; // ERROR */\n    enum { BUF_SIZE = 256 }; /* true compile-time constant */\n    char buf[BUF_SIZE];\n    printf(\"%d\\n\", MAX);\n    (void)buf;\n    return 0;\n}\n\n/* Expected Output:\n100\n*/",
           "code_language": "c",
           "key_points": [
             "const = read-only, not compile-time constant",
@@ -215,13 +241,16 @@
       "title": "What is typedef and how is it used?",
       "display_order": 6,
       "difficulty": "beginner",
-      "tags": ["typedef", "type-alias"],
+      "tags": [
+        "typedef",
+        "type-alias"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "`typedef` creates an alias (alternate name) for an existing type. It does NOT create a new type -- it is purely a naming convenience.\n\n**Common uses:**\n1. Simplify complex type declarations (function pointers, structs).\n2. Improve code portability (`typedef unsigned long size_type;`).\n3. Make struct usage cleaner (`typedef struct { ... } Point;`).\n4. Create platform-independent integer types (like `uint32_t` from `<stdint.h>`, which is implemented using typedef).\n\n**typedef vs #define:**\n- `typedef` is handled by the compiler and respects scope.\n- `#define` is handled by the preprocessor and has no scope.\n- `typedef` handles pointer types correctly; `#define` can fail.",
           "pseudo_code": "1. typedef existing_type new_name;\n2. typedef unsigned long ulong;\n3. typedef struct { int x; int y; } Point;\n4. typedef int (*FuncPtr)(int, int);  // function pointer alias\n5. typedef is a compiler feature; #define is preprocessor text substitution",
-          "actual_code": "#include <stdio.h>\n#include <stdint.h>\n\n/* Simple alias */\ntypedef unsigned long ulong;\n\n/* Struct typedef */\ntypedef struct {\n    int x;\n    int y;\n} Point;\n\n/* Function pointer typedef */\ntypedef int (*MathFunc)(int, int);\n\nint add(int a, int b) { return a + b; }\nint mul(int a, int b) { return a * b; }\n\nint main(void) {\n    ulong count = 1000000UL;\n    printf(\"count = %lu\\n\", count);\n\n    Point p = {10, 20};\n    printf(\"Point(%d, %d)\\n\", p.x, p.y);\n\n    MathFunc op = add;\n    printf(\"add(3, 4) = %d\\n\", op(3, 4));\n    op = mul;\n    printf(\"mul(3, 4) = %d\\n\", op(3, 4));\n\n    /* stdint.h uses typedef internally */\n    uint32_t val = 42;\n    printf(\"uint32_t: %u\\n\", val);\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <stdint.h>\n\n/* Simple alias */\ntypedef unsigned long ulong;\n\n/* Struct typedef */\ntypedef struct {\n    int x;\n    int y;\n} Point;\n\n/* Function pointer typedef */\ntypedef int (*MathFunc)(int, int);\n\nint add(int a, int b) { return a + b; }\nint mul(int a, int b) { return a * b; }\n\nint main(void) {\n    ulong count = 1000000UL;\n    printf(\"count = %lu\\n\", count);\n\n    Point p = {10, 20};\n    printf(\"Point(%d, %d)\\n\", p.x, p.y);\n\n    MathFunc op = add;\n    printf(\"add(3, 4) = %d\\n\", op(3, 4));\n    op = mul;\n    printf(\"mul(3, 4) = %d\\n\", op(3, 4));\n\n    /* stdint.h uses typedef internally */\n    uint32_t val = 42;\n    printf(\"uint32_t: %u\\n\", val);\n\n    return 0;\n}\n\n/* Expected Output:\ncount = 1000000\nPoint(10, 20)\nadd(3, 4) = 7\nmul(3, 4) = 12\nuint32_t: 42\n*/",
           "code_language": "c",
           "key_points": [
             "typedef creates an alias, not a new type",
@@ -241,7 +270,7 @@
           "mode": "quick",
           "explanation": "`typedef` creates an alias for an existing type. It does not create a new type. Use it to simplify struct declarations, function pointers, and platform-independent types.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\ntypedef struct { int x; int y; } Point;\ntypedef int (*BinOp)(int, int);\nint add(int a, int b) { return a + b; }\nint main(void) {\n    Point p = {1, 2};\n    BinOp op = add;\n    printf(\"%d\\n\", op(p.x, p.y));\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\ntypedef struct { int x; int y; } Point;\ntypedef int (*BinOp)(int, int);\nint add(int a, int b) { return a + b; }\nint main(void) {\n    Point p = {1, 2};\n    BinOp op = add;\n    printf(\"%d\\n\", op(p.x, p.y));\n    return 0;\n}\n\n/* Expected Output:\n3\n*/",
           "code_language": "c",
           "key_points": [
             "typedef = alias, not a new type",
@@ -257,13 +286,18 @@
       "title": "What are type qualifiers in C (const, volatile, restrict)?",
       "display_order": 7,
       "difficulty": "beginner",
-      "tags": ["type-qualifiers", "const", "volatile", "restrict"],
+      "tags": [
+        "type-qualifiers",
+        "const",
+        "volatile",
+        "restrict"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "C has three type qualifiers that modify how variables can be accessed:\n\n**1. `const`** -- the variable is read-only after initialization.\n\n**2. `volatile`** -- tells the compiler that the variable's value may change at any time (by hardware, another thread, or signal handler). The compiler must not optimize away reads/writes to this variable.\n\n**3. `restrict`** (C99) -- a pointer qualifier that tells the compiler this pointer is the **only** way to access the data it points to. This allows the compiler to perform aggressive optimizations.\n\nQualifiers can be combined: `const volatile int status;` means the program cannot modify it, but it can change externally (e.g., a hardware read-only status register).\n\n**`restrict` example:** `memcpy(restrict dest, restrict src, n)` tells the compiler that `dest` and `src` do not overlap, allowing it to optimize the copy.",
           "pseudo_code": "1. const: read-only, compiler prevents writes\n2. volatile: no optimization on reads/writes, value may change externally\n3. restrict (C99): pointer is the sole access path, enables optimizations\n4. Combine: const volatile = externally changing read-only value\n5. restrict is a promise from programmer to compiler",
-          "actual_code": "#include <stdio.h>\n#include <string.h>\n\n/* volatile: compiler must re-read every time */\nvolatile int hardware_reg = 0;\n\n/* restrict: promise no aliasing (C99) */\nvoid fast_copy(int * restrict dest, const int * restrict src, int n) {\n    for (int i = 0; i < n; i++) {\n        dest[i] = src[i];\n    }\n}\n\nint main(void) {\n    /* const: read-only */\n    const int MAX = 100;\n    printf(\"MAX = %d\\n\", MAX);\n\n    /* volatile: compiler will not cache this in a register */\n    volatile int sensor = 42;\n    int val = sensor;  /* must read from memory each time */\n    printf(\"sensor = %d\\n\", val);\n\n    /* restrict usage */\n    int a[] = {1, 2, 3};\n    int b[3];\n    fast_copy(b, a, 3);\n    printf(\"b[0]=%d, b[1]=%d, b[2]=%d\\n\", b[0], b[1], b[2]);\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <string.h>\n\n/* volatile: compiler must re-read every time */\nvolatile int hardware_reg = 0;\n\n/* restrict: promise no aliasing (C99) */\nvoid fast_copy(int * restrict dest, const int * restrict src, int n) {\n    for (int i = 0; i < n; i++) {\n        dest[i] = src[i];\n    }\n}\n\nint main(void) {\n    /* const: read-only */\n    const int MAX = 100;\n    printf(\"MAX = %d\\n\", MAX);\n\n    /* volatile: compiler will not cache this in a register */\n    volatile int sensor = 42;\n    int val = sensor;  /* must read from memory each time */\n    printf(\"sensor = %d\\n\", val);\n\n    /* restrict usage */\n    int a[] = {1, 2, 3};\n    int b[3];\n    fast_copy(b, a, 3);\n    printf(\"b[0]=%d, b[1]=%d, b[2]=%d\\n\", b[0], b[1], b[2]);\n\n    return 0;\n}\n\n/* Expected Output:\nMAX = 100\nsensor = 42\nb[0]=1, b[1]=2, b[2]=3\n*/",
           "code_language": "c",
           "key_points": [
             "const prevents modification; volatile prevents optimization; restrict enables optimization",
@@ -283,7 +317,7 @@
           "mode": "quick",
           "explanation": "`const` = read-only. `volatile` = do not optimize away reads/writes. `restrict` (C99) = this pointer is the only access path. They can combine: `const volatile` for externally-changing read-only data.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nvolatile int hw_reg = 0; /* compiler must re-read every time */\nvoid copy(int * restrict dst, const int * restrict src, int n) {\n    for (int i = 0; i < n; i++) dst[i] = src[i];\n}\nint main(void) {\n    int a[] = {1,2,3}, b[3];\n    copy(b, a, 3);\n    printf(\"%d %d %d\\n\", b[0], b[1], b[2]);\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nvolatile int hw_reg = 0; /* compiler must re-read every time */\nvoid copy(int * restrict dst, const int * restrict src, int n) {\n    for (int i = 0; i < n; i++) dst[i] = src[i];\n}\nint main(void) {\n    int a[] = {1,2,3}, b[3];\n    copy(b, a, 3);\n    printf(\"%d %d %d\\n\", b[0], b[1], b[2]);\n    return 0;\n}\n\n/* Expected Output:\n1 2 3\n*/",
           "code_language": "c",
           "key_points": [
             "volatile = no caching; restrict = no aliasing; const = no writing",
@@ -299,13 +333,17 @@
       "title": "How do integer promotions work in C?",
       "display_order": 8,
       "difficulty": "beginner",
-      "tags": ["integer-promotion", "implicit-conversion", "type-promotion"],
+      "tags": [
+        "integer-promotion",
+        "implicit-conversion",
+        "type-promotion"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Integer promotion** is the automatic conversion of small integer types to `int` (or `unsigned int`) when used in expressions.\n\n**The rule:** Any value of type `char`, `short`, bit-field, or their signed/unsigned variants is promoted to `int` if `int` can represent all values of the original type, otherwise to `unsigned int`. This happens BEFORE any arithmetic operation.\n\n**Why?** The CPU typically operates on `int`-sized operands. Promoting smaller types avoids truncation during intermediate calculations.\n\n**Usual arithmetic conversions** (when two different types are in an expression):\n1. If either operand is `long double`, the other is converted to `long double`.\n2. If either is `double`, the other converts to `double`.\n3. If either is `float`, the other converts to `float`.\n4. Integer promotions are applied, then: if one is `unsigned long`, both become `unsigned long`, etc.",
           "pseudo_code": "1. char/short values are promoted to int before arithmetic\n2. If int can hold all values -> promote to int\n3. Otherwise -> promote to unsigned int\n4. Then: usual arithmetic conversions apply for mixed types\n5. Result type = the 'wider' of the two operand types",
-          "actual_code": "#include <stdio.h>\n\nint main(void) {\n    char a = 100, b = 100;\n\n    /* a and b are promoted to int before multiplication */\n    int result = a * b;  /* 10000, not overflow */\n    printf(\"char * char = %d\\n\", result); /* 10000 */\n\n    /* Without promotion, 100 * 100 = 10000 would overflow char (max 127) */\n\n    /* Surprising case with unsigned char */\n    unsigned char uc = 255;\n    /* uc is promoted to int (255), then negated */\n    if (-uc < 0) {\n        printf(\"-uc is negative (promoted to int)\\n\"); /* This prints */\n    }\n\n    /* Shift operators: left operand is promoted */\n    unsigned char mask = 0xFF;\n    /* mask is promoted to int before shift */\n    int shifted = mask << 24;\n    printf(\"shifted = 0x%X\\n\", shifted); /* 0xFF000000 */\n\n    /* sizeof promotion result */\n    printf(\"sizeof(char + char) = %zu\\n\",\n           sizeof(a + b)); /* sizeof(int), typically 4 */\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n\nint main(void) {\n    char a = 100, b = 100;\n\n    /* a and b are promoted to int before multiplication */\n    int result = a * b;  /* 10000, not overflow */\n    printf(\"char * char = %d\\n\", result); /* 10000 */\n\n    /* Without promotion, 100 * 100 = 10000 would overflow char (max 127) */\n\n    /* Surprising case with unsigned char */\n    unsigned char uc = 255;\n    /* uc is promoted to int (255), then negated */\n    if (-uc < 0) {\n        printf(\"-uc is negative (promoted to int)\\n\"); /* This prints */\n    }\n\n    /* Shift operators: left operand is promoted */\n    unsigned char mask = 0xFF;\n    /* mask is promoted to int before shift */\n    int shifted = mask << 24;\n    printf(\"shifted = 0x%X\\n\", shifted); /* 0xFF000000 */\n\n    /* sizeof promotion result */\n    printf(\"sizeof(char + char) = %zu\\n\",\n           sizeof(a + b)); /* sizeof(int), typically 4 */\n\n    return 0;\n}\n\n/* Expected Output:\nchar * char = 10000\n-uc is negative (promoted to int)\nshifted = 0xFF000000\nsizeof(char + char) = 4\n*/",
           "code_language": "c",
           "key_points": [
             "char and short are always promoted to int in expressions",
@@ -325,7 +363,7 @@
           "mode": "quick",
           "explanation": "`char` and `short` are automatically promoted to `int` before any arithmetic. This prevents overflow in intermediate calculations. The promoted result is always at least `int`-sized.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nint main(void) {\n    char a = 100, b = 100;\n    printf(\"%d\\n\", a * b);          /* 10000, not overflow */\n    printf(\"%zu\\n\", sizeof(a + b)); /* sizeof(int) = 4 */\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nint main(void) {\n    char a = 100, b = 100;\n    printf(\"%d\\n\", a * b);          /* 10000, not overflow */\n    printf(\"%zu\\n\", sizeof(a + b)); /* sizeof(int) = 4 */\n    return 0;\n}\n\n/* Expected Output:\n10000\n4\n*/",
           "code_language": "c",
           "key_points": [
             "char and short promote to int before arithmetic",
@@ -341,13 +379,18 @@
       "title": "What are the precision issues with floating-point numbers in C?",
       "display_order": 9,
       "difficulty": "beginner",
-      "tags": ["float", "double", "precision", "ieee-754"],
+      "tags": [
+        "float",
+        "double",
+        "precision",
+        "ieee-754"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "Floating-point numbers in C follow the IEEE 754 standard. They represent real numbers in binary, which means many decimal fractions cannot be represented exactly.\n\n**Key issues:**\n1. **Representation error:** 0.1 in decimal is a repeating fraction in binary, so `0.1 + 0.2 != 0.3` exactly.\n2. **Precision limits:** `float` has ~7 significant digits; `double` has ~15.\n3. **Comparison:** Never compare floats with `==`. Use an epsilon-based comparison.\n4. **Accumulation:** Repeated operations accumulate rounding errors.\n5. **Large + small:** Adding a very small number to a very large number can lose the small number entirely (catastrophic cancellation).\n\n**Special values:**\n- `+inf`, `-inf` (overflow result)\n- `NaN` (Not a Number: 0.0/0.0, sqrt(-1))\n- NaN != NaN (a NaN is not equal to anything, including itself)",
           "pseudo_code": "1. 0.1 + 0.2 != 0.3 due to binary representation\n2. Never use == for float comparison\n3. Use fabs(a - b) < epsilon instead\n4. float: ~7 digits; double: ~15 digits\n5. NaN != NaN (use isnan() to check)\n6. Large + tiny can lose the tiny value",
-          "actual_code": "#include <stdio.h>\n#include <math.h>\n#include <float.h>\n\nint main(void) {\n    /* Representation error */\n    double a = 0.1 + 0.2;\n    printf(\"0.1 + 0.2 = %.20f\\n\", a); /* 0.30000000000000004... */\n    printf(\"== 0.3? %d\\n\", a == 0.3); /* 0 (false!) */\n\n    /* Epsilon comparison */\n    double eps = 1e-9;\n    if (fabs(a - 0.3) < eps) {\n        printf(\"Approximately equal\\n\"); /* This prints */\n    }\n\n    /* Precision limits */\n    float f = 16777216.0f;  /* 2^24 */\n    printf(\"f     = %.1f\\n\", f);       /* 16777216.0 */\n    printf(\"f + 1 = %.1f\\n\", f + 1.0f); /* 16777216.0! Lost precision */\n\n    /* Special values */\n    double inf = 1.0 / 0.0;\n    double nan = 0.0 / 0.0;\n    printf(\"1/0 = %f\\n\", inf);    /* inf */\n    printf(\"0/0 = %f\\n\", nan);    /* nan or -nan */\n    printf(\"nan == nan? %d\\n\", nan == nan); /* 0 (false!) */\n    printf(\"isnan(nan)? %d\\n\", isnan(nan)); /* 1 (true) */\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <math.h>\n#include <float.h>\n\nint main(void) {\n    /* Representation error */\n    double a = 0.1 + 0.2;\n    printf(\"0.1 + 0.2 = %.20f\\n\", a); /* 0.30000000000000004... */\n    printf(\"== 0.3? %d\\n\", a == 0.3); /* 0 (false!) */\n\n    /* Epsilon comparison */\n    double eps = 1e-9;\n    if (fabs(a - 0.3) < eps) {\n        printf(\"Approximately equal\\n\"); /* This prints */\n    }\n\n    /* Precision limits */\n    float f = 16777216.0f;  /* 2^24 */\n    printf(\"f     = %.1f\\n\", f);       /* 16777216.0 */\n    printf(\"f + 1 = %.1f\\n\", f + 1.0f); /* 16777216.0! Lost precision */\n\n    /* Special values */\n    double inf = 1.0 / 0.0;\n    double nan = 0.0 / 0.0;\n    printf(\"1/0 = %f\\n\", inf);    /* inf */\n    printf(\"0/0 = %f\\n\", nan);    /* nan or -nan */\n    printf(\"nan == nan? %d\\n\", nan == nan); /* 0 (false!) */\n    printf(\"isnan(nan)? %d\\n\", isnan(nan)); /* 1 (true) */\n\n    return 0;\n}\n\n/* Expected Output:\n0.1 + 0.2 = 0.30000000000000004441\n== 0.3? 0\nApproximately equal\nf     = 16777216.0\nf + 1 = 16777216.0\n1/0 = inf\n0/0 = nan\nnan == nan? 0\nisnan(nan)? 1\n*/",
           "code_language": "c",
           "key_points": [
             "0.1 + 0.2 != 0.3 due to binary floating-point representation",
@@ -367,7 +410,7 @@
           "mode": "quick",
           "explanation": "Floats are binary approximations -- `0.1 + 0.2 != 0.3`. Never use `==` for comparison; use `fabs(a - b) < epsilon`. `float` gives ~7 digits precision, `double` ~15. NaN != NaN.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\n#include <math.h>\nint main(void) {\n    double a = 0.1 + 0.2;\n    printf(\"%d\\n\", a == 0.3);         /* 0 (false) */\n    printf(\"%d\\n\", fabs(a - 0.3) < 1e-9); /* 1 (true) */\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <math.h>\nint main(void) {\n    double a = 0.1 + 0.2;\n    printf(\"%d\\n\", a == 0.3);         /* 0 (false) */\n    printf(\"%d\\n\", fabs(a - 0.3) < 1e-9); /* 1 (true) */\n    return 0;\n}\n\n/* Expected Output:\n0\n1\n*/",
           "code_language": "c",
           "key_points": [
             "Never compare floats with ==",
@@ -383,13 +426,18 @@
       "title": "How is char used as an integer type in C?",
       "display_order": 10,
       "difficulty": "beginner",
-      "tags": ["char", "integer", "ascii", "character-type"],
+      "tags": [
+        "char",
+        "integer",
+        "ascii",
+        "character-type"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "In C, `char` is fundamentally an integer type that happens to be used for characters. Every `char` holds a numeric value, and character literals like `'A'` are actually integers.\n\n**Key facts:**\n- `'A'` has the integer value 65 (ASCII).\n- You can perform arithmetic on chars: `'A' + 1` gives 66 (which is `'B'`).\n- `char` is 1 byte, but character literals (`'A'`) have type `int` in C (not `char`!).\n- There are three distinct char types: `char`, `signed char`, `unsigned char`. Plain `char` may be signed or unsigned (implementation-defined).\n\n**Common patterns:**\n- Convert digit char to int: `ch - '0'` (works because `'0'` through `'9'` are contiguous in ASCII)\n- Convert lowercase to uppercase: `ch - 32` or `ch - ('a' - 'A')`\n- Check ranges: `if (ch >= 'a' && ch <= 'z')` to test for lowercase",
           "pseudo_code": "1. char is a small integer type (1 byte)\n2. 'A' == 65, 'a' == 97, '0' == 48 (ASCII)\n3. Character arithmetic: 'A' + 1 == 'B'\n4. Digit to number: ch - '0'\n5. Case conversion: ch - 32 or ch + 32\n6. Character literals have type int in C (not char)",
-          "actual_code": "#include <stdio.h>\n\nint main(void) {\n    char ch = 'A';\n    printf(\"'A' as int: %d\\n\", ch);      /* 65 */\n    printf(\"'A' + 1 = '%c'\\n\", ch + 1);  /* 'B' */\n\n    /* Digit character to integer */\n    char digit = '7';\n    int num = digit - '0';  /* 55 - 48 = 7 */\n    printf(\"'%c' -> %d\\n\", digit, num);\n\n    /* Case conversion */\n    char lower = 'a';\n    char upper = lower - ('a' - 'A');  /* 97 - 32 = 65 = 'A' */\n    printf(\"'%c' -> '%c'\\n\", lower, upper);\n\n    /* Character literal is actually int in C */\n    printf(\"sizeof('A') = %zu\\n\", sizeof('A'));  /* 4 (sizeof int!) */\n    printf(\"sizeof(ch)  = %zu\\n\", sizeof(ch));   /* 1 (sizeof char) */\n\n    /* Loop through alphabet */\n    for (char c = 'a'; c <= 'z'; c++) {\n        printf(\"%c\", c);\n    }\n    printf(\"\\n\");\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n\nint main(void) {\n    char ch = 'A';\n    printf(\"'A' as int: %d\\n\", ch);      /* 65 */\n    printf(\"'A' + 1 = '%c'\\n\", ch + 1);  /* 'B' */\n\n    /* Digit character to integer */\n    char digit = '7';\n    int num = digit - '0';  /* 55 - 48 = 7 */\n    printf(\"'%c' -> %d\\n\", digit, num);\n\n    /* Case conversion */\n    char lower = 'a';\n    char upper = lower - ('a' - 'A');  /* 97 - 32 = 65 = 'A' */\n    printf(\"'%c' -> '%c'\\n\", lower, upper);\n\n    /* Character literal is actually int in C */\n    printf(\"sizeof('A') = %zu\\n\", sizeof('A'));  /* 4 (sizeof int!) */\n    printf(\"sizeof(ch)  = %zu\\n\", sizeof(ch));   /* 1 (sizeof char) */\n\n    /* Loop through alphabet */\n    for (char c = 'a'; c <= 'z'; c++) {\n        printf(\"%c\", c);\n    }\n    printf(\"\\n\");\n\n    return 0;\n}\n\n/* Expected Output:\n'A' as int: 65\n'A' + 1 = 'B'\n'7' -> 7\n'a' -> 'A'\nsizeof('A') = 4\nsizeof(ch)  = 1\nabcdefghijklmnopqrstuvwxyz\n*/",
           "code_language": "c",
           "key_points": [
             "char is a 1-byte integer type, not a special character type",
@@ -409,7 +457,7 @@
           "mode": "quick",
           "explanation": "`char` is a 1-byte integer. `'A'` is 65, `'0'` is 48. You can do arithmetic: `ch - '0'` converts a digit char to int, `ch - 32` converts lowercase to uppercase. Character literals have type `int` in C.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nint main(void) {\n    char ch = '7';\n    int n = ch - '0'; /* 7 */\n    printf(\"'%c' = %d\\n\", ch, n);\n    printf(\"sizeof('A') = %zu\\n\", sizeof('A')); /* 4, not 1 */\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nint main(void) {\n    char ch = '7';\n    int n = ch - '0'; /* 7 */\n    printf(\"'%c' = %d\\n\", ch, n);\n    printf(\"sizeof('A') = %zu\\n\", sizeof('A')); /* 4, not 1 */\n    return 0;\n}\n\n/* Expected Output:\n'7' = 7\nsizeof('A') = 4\n*/",
           "code_language": "c",
           "key_points": [
             "char is an integer type; 'A' == 65",
@@ -425,13 +473,17 @@
       "title": "What is a void pointer and what are its basic uses?",
       "display_order": 11,
       "difficulty": "beginner",
-      "tags": ["void-pointer", "generic-programming", "pointers"],
+      "tags": [
+        "void-pointer",
+        "generic-programming",
+        "pointers"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "A `void *` (void pointer) is a **generic pointer** that can point to any data type. It is C's mechanism for writing type-generic code.\n\n**Key properties:**\n- Any pointer can be implicitly converted to `void *` and back (without a cast in C).\n- You CANNOT dereference a `void *` directly -- you must cast it to a typed pointer first.\n- You CANNOT perform pointer arithmetic on `void *` in standard C (GNU C allows it as an extension, treating it like `char *`).\n- `sizeof(void)` is undefined in standard C (GNU extension defines it as 1).\n\n**Common uses:**\n1. `malloc()` returns `void *` -- works with any type.\n2. Generic functions like `qsort()` and `bsearch()` accept `void *` parameters.\n3. Callback data parameters (passing arbitrary user data).\n4. Generic data structures (linked list of any type).",
           "pseudo_code": "1. void *ptr can point to any type\n2. Cannot dereference void * directly -- must cast first\n3. Cannot do arithmetic on void * (standard C)\n4. Any pointer -> void * conversion is implicit (no cast needed)\n5. void * -> typed pointer: implicit in C, needs cast in C++",
-          "actual_code": "#include <stdio.h>\n#include <stdlib.h>\n\nvoid print_value(void *ptr, char type) {\n    switch (type) {\n        case 'i': printf(\"%d\\n\", *(int *)ptr); break;\n        case 'f': printf(\"%f\\n\", *(float *)ptr); break;\n        case 'c': printf(\"%c\\n\", *(char *)ptr); break;\n    }\n}\n\nint main(void) {\n    int x = 42;\n    float f = 3.14f;\n    char c = 'A';\n\n    void *ptr;\n\n    /* Any pointer converts to void * implicitly */\n    ptr = &x;\n    print_value(ptr, 'i'); /* 42 */\n\n    ptr = &f;\n    print_value(ptr, 'f'); /* 3.140000 */\n\n    ptr = &c;\n    print_value(ptr, 'c'); /* A */\n\n    /* malloc returns void * -- no cast needed in C */\n    int *arr = malloc(5 * sizeof(int));\n    if (arr) {\n        arr[0] = 10;\n        printf(\"arr[0] = %d\\n\", arr[0]);\n        free(arr);\n    }\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <stdlib.h>\n\nvoid print_value(void *ptr, char type) {\n    switch (type) {\n        case 'i': printf(\"%d\\n\", *(int *)ptr); break;\n        case 'f': printf(\"%f\\n\", *(float *)ptr); break;\n        case 'c': printf(\"%c\\n\", *(char *)ptr); break;\n    }\n}\n\nint main(void) {\n    int x = 42;\n    float f = 3.14f;\n    char c = 'A';\n\n    void *ptr;\n\n    /* Any pointer converts to void * implicitly */\n    ptr = &x;\n    print_value(ptr, 'i'); /* 42 */\n\n    ptr = &f;\n    print_value(ptr, 'f'); /* 3.140000 */\n\n    ptr = &c;\n    print_value(ptr, 'c'); /* A */\n\n    /* malloc returns void * -- no cast needed in C */\n    int *arr = malloc(5 * sizeof(int));\n    if (arr) {\n        arr[0] = 10;\n        printf(\"arr[0] = %d\\n\", arr[0]);\n        free(arr);\n    }\n\n    return 0;\n}\n\n/* Expected Output:\n42\n3.140000\nA\narr[0] = 10\n*/",
           "code_language": "c",
           "key_points": [
             "void * is a generic pointer that can point to any data type",
@@ -451,7 +503,7 @@
           "mode": "quick",
           "explanation": "`void *` is a generic pointer that can point to any type. You must cast it before dereferencing. `malloc()` returns `void *`. Standard C does not allow pointer arithmetic on `void *`.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\n#include <stdlib.h>\nint main(void) {\n    int x = 42;\n    void *ptr = &x;  /* implicit conversion */\n    printf(\"%d\\n\", *(int *)ptr); /* must cast to dereference */\n    int *arr = malloc(5 * sizeof(int)); /* no cast needed in C */\n    free(arr);\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <stdlib.h>\nint main(void) {\n    int x = 42;\n    void *ptr = &x;  /* implicit conversion */\n    printf(\"%d\\n\", *(int *)ptr); /* must cast to dereference */\n    int *arr = malloc(5 * sizeof(int)); /* no cast needed in C */\n    free(arr);\n    return 0;\n}\n\n/* Expected Output:\n42\n*/",
           "code_language": "c",
           "key_points": [
             "void * can point to any type, must cast to dereference",
@@ -467,13 +519,18 @@
       "title": "What are the rules for variable initialization in C?",
       "display_order": 12,
       "difficulty": "beginner",
-      "tags": ["initialization", "variables", "default-values", "undefined-behavior"],
+      "tags": [
+        "initialization",
+        "variables",
+        "default-values",
+        "undefined-behavior"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "C has different initialization rules depending on storage duration:\n\n**1. Global (static storage duration):**\n- Automatically initialized to zero/null if not explicitly initialized.\n- Initialized before `main()` runs.\n- Initializer must be a compile-time constant expression.\n\n**2. Local (automatic storage duration):**\n- NOT automatically initialized -- they contain garbage (indeterminate values).\n- Reading an uninitialized local variable is **undefined behavior**.\n- Can be initialized with any expression (not just constants).\n\n**3. Static locals:**\n- Initialized to zero by default (like globals).\n- Initializer must be a compile-time constant.\n- Initialization happens once, before first use.\n\n**4. Arrays:**\n- Partial initialization: remaining elements are zero-initialized.\n- `int arr[5] = {1, 2}` gives `{1, 2, 0, 0, 0}`.\n- `int arr[5] = {0}` zero-initializes the entire array.\n\n**5. Structs:**\n- Same rules as arrays: partial initialization zero-fills the rest.\n- `struct s x = {0}` zero-initializes all members.",
           "pseudo_code": "1. Global/static: auto-initialized to zero if not explicit\n2. Local (auto): NOT initialized, contains garbage\n3. Reading uninitialized local = undefined behavior\n4. Partial array init: rest is zero-filled\n5. int arr[N] = {0}; // zero-initialize entire array\n6. struct s x = {0}; // zero-initialize all members",
-          "actual_code": "#include <stdio.h>\n\nint global_var;           /* automatically zero */\nstatic int static_var;    /* automatically zero */\n\nint main(void) {\n    int local_var;  /* UNINITIALIZED -- garbage value */\n    /* printf(\"%d\", local_var);  // UB: reading uninitialized variable */\n\n    static int s_local; /* automatically zero */\n    printf(\"global_var = %d\\n\", global_var);  /* 0 */\n    printf(\"static_var = %d\\n\", static_var);  /* 0 */\n    printf(\"s_local    = %d\\n\", s_local);     /* 0 */\n\n    /* Partial initialization -- rest is zero */\n    int arr[5] = {1, 2};\n    for (int i = 0; i < 5; i++) {\n        printf(\"arr[%d] = %d\\n\", i, arr[i]);\n    }\n    /* Output: 1, 2, 0, 0, 0 */\n\n    /* Zero-initialize entire array */\n    int zeros[5] = {0};\n    printf(\"zeros[3] = %d\\n\", zeros[3]); /* 0 */\n\n    /* Designated initializers (C99) */\n    int d[5] = {[2] = 42, [4] = 99};\n    /* d = {0, 0, 42, 0, 99} */\n    printf(\"d[2]=%d d[4]=%d\\n\", d[2], d[4]);\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n\nint global_var;           /* automatically zero */\nstatic int static_var;    /* automatically zero */\n\nint main(void) {\n    int local_var;  /* UNINITIALIZED -- garbage value */\n    /* printf(\"%d\", local_var);  // UB: reading uninitialized variable */\n\n    static int s_local; /* automatically zero */\n    printf(\"global_var = %d\\n\", global_var);  /* 0 */\n    printf(\"static_var = %d\\n\", static_var);  /* 0 */\n    printf(\"s_local    = %d\\n\", s_local);     /* 0 */\n\n    /* Partial initialization -- rest is zero */\n    int arr[5] = {1, 2};\n    for (int i = 0; i < 5; i++) {\n        printf(\"arr[%d] = %d\\n\", i, arr[i]);\n    }\n    /* Output: 1, 2, 0, 0, 0 */\n\n    /* Zero-initialize entire array */\n    int zeros[5] = {0};\n    printf(\"zeros[3] = %d\\n\", zeros[3]); /* 0 */\n\n    /* Designated initializers (C99) */\n    int d[5] = {[2] = 42, [4] = 99};\n    /* d = {0, 0, 42, 0, 99} */\n    printf(\"d[2]=%d d[4]=%d\\n\", d[2], d[4]);\n\n    return 0;\n}\n\n/* Expected Output:\nglobal_var = 0\nstatic_var = 0\ns_local    = 0\narr[0] = 1\narr[1] = 2\narr[2] = 0\narr[3] = 0\narr[4] = 0\nzeros[3] = 0\nd[2]=42 d[4]=99\n*/",
           "code_language": "c",
           "key_points": [
             "Global and static variables are auto-initialized to zero",
@@ -493,7 +550,7 @@
           "mode": "quick",
           "explanation": "Globals and statics are auto-initialized to zero. Locals are NOT initialized (garbage). Reading an uninitialized local is undefined behavior. Partial array init zero-fills the rest. Use `= {0}` to zero-initialize.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nint g; /* auto-initialized to 0 */\nint main(void) {\n    int local; /* garbage -- do not read! */\n    int arr[5] = {1, 2}; /* {1, 2, 0, 0, 0} */\n    static int s; /* 0 */\n    printf(\"g=%d s=%d arr[4]=%d\\n\", g, s, arr[4]);\n    (void)local;\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nint g; /* auto-initialized to 0 */\nint main(void) {\n    int local; /* garbage -- do not read! */\n    int arr[5] = {1, 2}; /* {1, 2, 0, 0, 0} */\n    static int s; /* 0 */\n    printf(\"g=%d s=%d arr[4]=%d\\n\", g, s, arr[4]);\n    (void)local;\n    return 0;\n}\n\n/* Expected Output:\ng=0 s=0 arr[4]=0\n*/",
           "code_language": "c",
           "key_points": [
             "Globals/statics = zero; locals = garbage",
@@ -509,13 +566,18 @@
       "title": "What is the difference between scope and lifetime of a variable?",
       "display_order": 13,
       "difficulty": "beginner",
-      "tags": ["scope", "lifetime", "storage-duration", "visibility"],
+      "tags": [
+        "scope",
+        "lifetime",
+        "storage-duration",
+        "visibility"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Scope** = where in the source code a variable name is **visible** (can be referenced).\n\n**Lifetime (storage duration)** = the period during which the variable's **memory exists**.\n\nThese are independent concepts:\n\n**Scope types:**\n1. **Block scope:** from declaration to end of enclosing `{}` block.\n2. **File scope:** from declaration to end of the file (global variables).\n3. **Function scope:** only applies to `goto` labels.\n4. **Function prototype scope:** parameters in a prototype declaration.\n\n**Lifetime types:**\n1. **Automatic:** created on block entry, destroyed on block exit (local variables).\n2. **Static:** exists for the entire program duration (globals, static locals).\n3. **Allocated:** exists from `malloc()` until `free()` (heap memory).\n\n**The critical case: `static` local variables:**\n- Scope: block (only visible inside the function).\n- Lifetime: the entire program (value persists between calls).\n- This shows scope and lifetime are independent.",
           "pseudo_code": "Scope: where the name is visible\nLifetime: how long the memory exists\n\nLocal variable: block scope, automatic lifetime\nGlobal variable: file scope, static lifetime\nstatic local: block scope, static lifetime\nmalloc'd memory: no scope (accessed via pointer), allocated lifetime",
-          "actual_code": "#include <stdio.h>\n#include <stdlib.h>\n\nint global = 10;  /* file scope, static lifetime */\n\nvoid demo(void) {\n    int local = 1;          /* block scope, auto lifetime */\n    static int persist = 0; /* block scope, static lifetime */\n    persist++;\n    printf(\"local=%d persist=%d\\n\", local, persist);\n}\n\nint main(void) {\n    demo(); /* local=1 persist=1 */\n    demo(); /* local=1 persist=2 */\n    demo(); /* local=1 persist=3 */\n    /* local is recreated each call; persist survives */\n\n    /* Block scope example */\n    {\n        int x = 42;\n        printf(\"x = %d\\n\", x); /* 42 */\n    }\n    /* x is no longer visible here */\n    /* printf(\"%d\", x); // ERROR: x undeclared */\n\n    /* Heap: lifetime controlled by programmer */\n    int *p = malloc(sizeof(int));\n    *p = 99;\n    printf(\"heap = %d\\n\", *p);\n    free(p); /* lifetime ends here */\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <stdlib.h>\n\nint global = 10;  /* file scope, static lifetime */\n\nvoid demo(void) {\n    int local = 1;          /* block scope, auto lifetime */\n    static int persist = 0; /* block scope, static lifetime */\n    persist++;\n    printf(\"local=%d persist=%d\\n\", local, persist);\n}\n\nint main(void) {\n    demo(); /* local=1 persist=1 */\n    demo(); /* local=1 persist=2 */\n    demo(); /* local=1 persist=3 */\n    /* local is recreated each call; persist survives */\n\n    /* Block scope example */\n    {\n        int x = 42;\n        printf(\"x = %d\\n\", x); /* 42 */\n    }\n    /* x is no longer visible here */\n    /* printf(\"%d\", x); // ERROR: x undeclared */\n\n    /* Heap: lifetime controlled by programmer */\n    int *p = malloc(sizeof(int));\n    *p = 99;\n    printf(\"heap = %d\\n\", *p);\n    free(p); /* lifetime ends here */\n\n    return 0;\n}\n\n/* Expected Output:\nlocal=1 persist=1\nlocal=1 persist=2\nlocal=1 persist=3\nx = 42\nheap = 99\n*/",
           "code_language": "c",
           "key_points": [
             "Scope = visibility of the name; lifetime = duration of the memory",
@@ -535,7 +597,7 @@
           "mode": "quick",
           "explanation": "**Scope** = where the name is visible. **Lifetime** = how long the memory exists. A `static` local has block scope but program lifetime, showing they are independent. Locals die at block exit; globals and statics live for the whole program.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\nvoid count(void) {\n    static int n = 0; /* block scope, program lifetime */\n    n++;\n    printf(\"%d\\n\", n);\n}\nint main(void) {\n    count(); /* 1 */\n    count(); /* 2 */\n    /* n is not visible here, but it still exists */\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\nvoid count(void) {\n    static int n = 0; /* block scope, program lifetime */\n    n++;\n    printf(\"%d\\n\", n);\n}\nint main(void) {\n    count(); /* 1 */\n    count(); /* 2 */\n    /* n is not visible here, but it still exists */\n    return 0;\n}\n\n/* Expected Output:\n1\n2\n*/",
           "code_language": "c",
           "key_points": [
             "Scope = visibility; lifetime = memory duration",
@@ -551,13 +613,20 @@
       "title": "What is linkage in C (internal vs external)?",
       "display_order": 14,
       "difficulty": "beginner",
-      "tags": ["linkage", "internal", "external", "static", "extern", "translation-unit"],
+      "tags": [
+        "linkage",
+        "internal",
+        "external",
+        "static",
+        "extern",
+        "translation-unit"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Linkage** determines whether the same name in different translation units (source files) refers to the same entity.\n\n**Three kinds of linkage:**\n\n1. **External linkage:** the name can be referenced from other translation units. Global variables and functions have external linkage by default.\n\n2. **Internal linkage:** the name is only visible within its translation unit. Achieved by using the `static` keyword on file-scope variables or functions.\n\n3. **No linkage:** the name is unique to its scope. Block-scope variables (local variables) have no linkage.\n\n**How it works in practice:**\n- File A defines `int count = 0;` (external linkage).\n- File B declares `extern int count;` (refers to the same `count`).\n- File C has `static int count = 0;` (internal linkage -- its own private `count`).\n\n**Why it matters:**\n- Use `static` on file-scope functions/variables to make them file-private (encapsulation).\n- Use `extern` to share variables across files.\n- Internal linkage avoids name collisions between files.",
           "pseudo_code": "1. External linkage (default for globals): visible across files\n2. Internal linkage (static at file scope): visible only in current file\n3. No linkage (local variables): visible only in current block\n4. extern keyword: declares a variable defined in another file\n5. static at file scope: restricts to internal linkage",
-          "actual_code": "/* === file: counter.c === */\n#include <stdio.h>\n\n/* Internal linkage: only visible in this file */\nstatic int internal_count = 0;\n\n/* External linkage: visible from other files */\nint public_count = 0;\n\n/* Internal linkage function: file-private helper */\nstatic void increment_internal(void) {\n    internal_count++;\n}\n\n/* External linkage function: public API */\nvoid increment_public(void) {\n    increment_internal();\n    public_count++;\n    printf(\"internal=%d public=%d\\n\", internal_count, public_count);\n}\n\n/* === file: main.c === */\n/* extern int public_count;    // refers to counter.c's public_count */\n/* extern void increment_public(void); // function declaration */\n/* static int internal_count; // our own, separate from counter.c's */\n\nint main(void) {\n    increment_public(); /* internal=1 public=1 */\n    increment_public(); /* internal=2 public=2 */\n    return 0;\n}",
+          "actual_code": "/* === file: counter.c === */\n#include <stdio.h>\n\n/* Internal linkage: only visible in this file */\nstatic int internal_count = 0;\n\n/* External linkage: visible from other files */\nint public_count = 0;\n\n/* Internal linkage function: file-private helper */\nstatic void increment_internal(void) {\n    internal_count++;\n}\n\n/* External linkage function: public API */\nvoid increment_public(void) {\n    increment_internal();\n    public_count++;\n    printf(\"internal=%d public=%d\\n\", internal_count, public_count);\n}\n\n/* === file: main.c === */\n/* extern int public_count;    // refers to counter.c's public_count */\n/* extern void increment_public(void); // function declaration */\n/* static int internal_count; // our own, separate from counter.c's */\n\nint main(void) {\n    increment_public(); /* internal=1 public=1 */\n    increment_public(); /* internal=2 public=2 */\n    return 0;\n}\n\n/* Expected Output:\ninternal=1 public=1\ninternal=2 public=2\n*/",
           "code_language": "c",
           "key_points": [
             "External linkage = visible across translation units (default for globals)",
@@ -577,7 +646,7 @@
           "mode": "quick",
           "explanation": "**External linkage** (default for globals): name shared across files. **Internal linkage** (`static` at file scope): name private to current file. **No linkage**: local variables. Use `extern` to reference variables from other files.",
           "pseudo_code": "",
-          "actual_code": "/* file1.c */\nint shared = 10;           /* external linkage */\nstatic int private = 20;   /* internal linkage */\n\n/* file2.c */\n#include <stdio.h>\nextern int shared;  /* same variable from file1.c */\nint main(void) {\n    printf(\"%d\\n\", shared); /* 10 */\n    return 0;\n}",
+          "actual_code": "/* file1.c */\nint shared = 10;           /* external linkage */\nstatic int private = 20;   /* internal linkage */\n\n/* file2.c */\n#include <stdio.h>\nextern int shared;  /* same variable from file1.c */\nint main(void) {\n    printf(\"%d\\n\", shared); /* 10 */\n    return 0;\n}\n\n/* Expected Output:\n10\n*/",
           "code_language": "c",
           "key_points": [
             "static at file scope = internal linkage (file-private)",
@@ -593,13 +662,18 @@
       "title": "What does the volatile keyword do and when should you use it?",
       "display_order": 15,
       "difficulty": "beginner",
-      "tags": ["volatile", "optimization", "hardware", "embedded"],
+      "tags": [
+        "volatile",
+        "optimization",
+        "hardware",
+        "embedded"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "`volatile` tells the compiler that a variable's value may change at any time, outside the normal flow of the program. The compiler must:\n1. Not optimize away reads -- must re-read from memory every time.\n2. Not optimize away writes -- must write to memory every time.\n3. Not reorder reads/writes to volatile variables relative to each other.\n\n**When to use volatile:**\n1. **Memory-mapped hardware registers:** The hardware can change the value at any time.\n2. **Variables modified by signal handlers:** A signal can interrupt normal execution and modify a variable.\n3. **Variables shared with interrupt service routines (ISRs):** In embedded systems.\n4. **setjmp/longjmp:** Local variables modified between setjmp and longjmp must be volatile.\n\n**When NOT to use volatile:**\n- For thread synchronization: volatile does NOT provide atomicity or memory ordering guarantees. Use `_Atomic` (C11) or platform-specific primitives.\n\n**`volatile` does NOT mean:**\n- Atomic operations\n- Memory barriers/fences\n- Thread-safe access",
           "pseudo_code": "1. volatile int x;  -- compiler must always read/write from/to memory\n2. Without volatile: compiler may cache value in register, skip reads\n3. Use for: hardware registers, signal handlers, ISRs\n4. Do NOT use for: thread synchronization (use atomics instead)\n5. volatile prevents compiler optimization, not CPU reordering",
-          "actual_code": "#include <stdio.h>\n#include <signal.h>\n\n/* Signal handler sets this flag */\nvolatile sig_atomic_t got_signal = 0;\n\nvoid handler(int sig) {\n    (void)sig;\n    got_signal = 1; /* modified in signal context */\n}\n\nint main(void) {\n    signal(SIGINT, handler);\n\n    printf(\"Waiting for Ctrl+C...\\n\");\n\n    /* Without volatile, compiler might optimize this to:\n     * if (!got_signal) { while(1); }\n     * because it sees no modification in the loop body */\n    while (!got_signal) {\n        /* busy wait */\n    }\n\n    printf(\"Signal received!\\n\");\n\n    /* Example: hardware register (embedded) */\n    /* volatile unsigned int *status = (volatile unsigned int *)0x40021000; */\n    /* while (!(*status & 0x01)) { } // must re-read every iteration */\n\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <signal.h>\n\n/* Signal handler sets this flag */\nvolatile sig_atomic_t got_signal = 0;\n\nvoid handler(int sig) {\n    (void)sig;\n    got_signal = 1; /* modified in signal context */\n}\n\nint main(void) {\n    signal(SIGINT, handler);\n\n    printf(\"Waiting for Ctrl+C...\\n\");\n\n    /* Without volatile, compiler might optimize this to:\n     * if (!got_signal) { while(1); }\n     * because it sees no modification in the loop body */\n    while (!got_signal) {\n        /* busy wait */\n    }\n\n    printf(\"Signal received!\\n\");\n\n    /* Example: hardware register (embedded) */\n    /* volatile unsigned int *status = (volatile unsigned int *)0x40021000; */\n    /* while (!(*status & 0x01)) { } // must re-read every iteration */\n\n    return 0;\n}\n\n/* Expected Output:\nWaiting for Ctrl+C...\n(user presses Ctrl+C)\nSignal received!\n*/",
           "code_language": "c",
           "key_points": [
             "volatile prevents the compiler from optimizing away reads and writes",
@@ -619,7 +693,7 @@
           "mode": "quick",
           "explanation": "`volatile` forces the compiler to re-read/re-write the variable from/to memory every time. Use it for hardware registers, signal handlers, and ISRs. It does NOT provide atomicity or thread safety.",
           "pseudo_code": "",
-          "actual_code": "#include <stdio.h>\n#include <signal.h>\nvolatile sig_atomic_t flag = 0;\nvoid handler(int sig) { (void)sig; flag = 1; }\nint main(void) {\n    signal(SIGINT, handler);\n    while (!flag) { /* must re-read flag each iteration */ }\n    printf(\"Done\\n\");\n    return 0;\n}",
+          "actual_code": "#include <stdio.h>\n#include <signal.h>\nvolatile sig_atomic_t flag = 0;\nvoid handler(int sig) { (void)sig; flag = 1; }\nint main(void) {\n    signal(SIGINT, handler);\n    while (!flag) { /* must re-read flag each iteration */ }\n    printf(\"Done\\n\");\n    return 0;\n}\n\n/* Expected Output:\n(user presses Ctrl+C)\nDone\n*/",
           "code_language": "c",
           "key_points": [
             "Forces re-read from memory every access",

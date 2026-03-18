@@ -5,13 +5,17 @@
       "title": "What are type hints in Python and why should you use them?",
       "display_order": 1,
       "difficulty": "intermediate",
-      "tags": ["type-hints", "typing", "annotations"],
+      "tags": [
+        "type-hints",
+        "typing",
+        "annotations"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "Type hints (PEP 484, Python 3.5+) are optional annotations that indicate the expected types of variables, function parameters, and return values. They do **not** enforce types at runtime -- Python remains dynamically typed. Instead, they serve as documentation and enable static analysis tools like **mypy** to catch type errors before running the code.\n\n**Benefits**:\n1. **Catch bugs early**: Static analyzers find type mismatches before runtime.\n2. **Better IDE support**: Autocomplete, refactoring, and inline documentation.\n3. **Living documentation**: Types communicate intent more precisely than comments.\n4. **Easier refactoring**: Changing a type signature immediately reveals all affected call sites.\n\n**Basic syntax**:\n- Parameters: `def func(name: str, age: int) -> bool:`\n- Variables: `count: int = 0`\n- No effect at runtime: `def add(x: int, y: int) -> int:` happily accepts strings.",
           "pseudo_code": "1. Annotate function parameters with : type\n2. Annotate return type with -> type\n3. Annotate variables with : type = value\n4. Run mypy to check types statically\n5. Types are ignored at runtime (no performance cost)",
-          "actual_code": "# Basic type hints\ndef greet(name: str) -> str:\n    return f\"Hello, {name}!\"\n\ndef add(x: int, y: int) -> int:\n    return x + y\n\n# Variable annotations\ncount: int = 0\nname: str = \"Alice\"\nprices: list[float] = [9.99, 19.99, 29.99]\n\n# Python 3.9+ built-in generics\ndef process_items(items: list[str]) -> dict[str, int]:\n    return {item: len(item) for item in items}\n\n# Python 3.10+ union with |\ndef parse_id(value: int | str) -> int:\n    return int(value)\n\n# Type hints are NOT enforced at runtime\nresult = add(\"hello\", \"world\")  # No runtime error!\nprint(result)  # \"helloworld\"\n# But mypy would flag: error: Argument 1 has incompatible type \"str\"; expected \"int\"\n\n# Checking annotations at runtime (metadata only)\nprint(greet.__annotations__)\n# {'name': <class 'str'>, 'return': <class 'str'>}\n\n# None return type\ndef log_message(msg: str) -> None:\n    print(msg)\n\n# Complex types\ndef find_user(users: list[dict[str, str]], name: str) -> dict[str, str] | None:\n    for user in users:\n        if user.get('name') == name:\n            return user\n    return None",
+          "actual_code": "# Basic type hints\ndef greet(name: str) -> str:\n    return f\"Hello, {name}!\"\n\ndef add(x: int, y: int) -> int:\n    return x + y\n\n# Variable annotations\ncount: int = 0\nname: str = \"Alice\"\nprices: list[float] = [9.99, 19.99, 29.99]\n\n# Python 3.9+ built-in generics\ndef process_items(items: list[str]) -> dict[str, int]:\n    return {item: len(item) for item in items}\n\n# Python 3.10+ union with |\ndef parse_id(value: int | str) -> int:\n    return int(value)\n\n# Type hints are NOT enforced at runtime\nresult = add(\"hello\", \"world\")  # No runtime error!\nprint(result)  # \"helloworld\"\n# But mypy would flag: error: Argument 1 has incompatible type \"str\"; expected \"int\"\n\n# Checking annotations at runtime (metadata only)\nprint(greet.__annotations__)\n# {'name': <class 'str'>, 'return': <class 'str'>}\n\n# None return type\ndef log_message(msg: str) -> None:\n    print(msg)\n\n# Complex types\ndef find_user(users: list[dict[str, str]], name: str) -> dict[str, str] | None:\n    for user in users:\n        if user.get('name') == name:\n            return user\n    return None\n\n# Expected Output:\n# helloworld\n# {'name': <class 'str'>, 'return': <class 'str'>}",
           "code_language": "python",
           "key_points": [
             "Type hints are optional annotations; they do NOT enforce types at runtime",
@@ -46,7 +50,11 @@
       "title": "How do you use Optional, Union, and the | syntax for type hints?",
       "display_order": 2,
       "difficulty": "intermediate",
-      "tags": ["typing", "optional", "union"],
+      "tags": [
+        "typing",
+        "optional",
+        "union"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -87,7 +95,11 @@
       "title": "How do you use TypeVar and generics in Python type hints?",
       "display_order": 3,
       "difficulty": "intermediate",
-      "tags": ["typing", "typevar", "generics"],
+      "tags": [
+        "typing",
+        "typevar",
+        "generics"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -128,13 +140,18 @@
       "title": "What is the Protocol class and how does it enable structural typing?",
       "display_order": 4,
       "difficulty": "intermediate",
-      "tags": ["typing", "protocol", "structural-typing", "duck-typing"],
+      "tags": [
+        "typing",
+        "protocol",
+        "structural-typing",
+        "duck-typing"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Protocol** (PEP 544, Python 3.8+) enables **structural typing** (static duck typing) in Python. Instead of requiring classes to inherit from an interface, Protocol checks that a class has the required methods and attributes -- regardless of its inheritance hierarchy.\n\nThis aligns with Python's duck typing philosophy: 'If it walks like a duck and quacks like a duck, it is a duck.'\n\n**Protocol vs ABC**:\n- `ABC` (Abstract Base Class): Nominal typing - classes must explicitly inherit.\n- `Protocol`: Structural typing - classes just need to have the right methods.\n\nUse Protocol when you want to accept any object that has certain methods, without forcing inheritance.",
           "pseudo_code": "1. Define a Protocol class with required methods/attributes\n2. Any class that has those methods/attributes satisfies the Protocol\n3. No inheritance required (structural, not nominal)\n4. mypy checks conformance statically\n5. Use runtime_checkable for isinstance() checks",
-          "actual_code": "from typing import Protocol, runtime_checkable\n\n# Define a Protocol\nclass Drawable(Protocol):\n    def draw(self) -> str:\n        ...  # Protocol methods use ... (Ellipsis) as body\n\nclass HasArea(Protocol):\n    def area(self) -> float:\n        ...\n\n# These classes satisfy Drawable WITHOUT inheriting from it\nclass Circle:\n    def draw(self) -> str:\n        return \"Drawing a circle\"\n\n    def area(self) -> float:\n        return 3.14 * self.radius ** 2\n\n    def __init__(self, radius: float) -> None:\n        self.radius = radius\n\nclass Square:\n    def draw(self) -> str:\n        return \"Drawing a square\"\n\n    def __init__(self, side: float) -> None:\n        self.side = side\n\n# Function accepts anything that matches Drawable Protocol\ndef render(shape: Drawable) -> None:\n    print(shape.draw())\n\nrender(Circle(5))   # OK - Circle has draw() method\nrender(Square(4))   # OK - Square has draw() method\n# render(42)         # mypy error: int doesn't have draw()\n\n# Protocol with attributes\nclass Named(Protocol):\n    name: str\n\nclass User:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\ndef greet(entity: Named) -> str:\n    return f\"Hello, {entity.name}\"\n\ngreet(User(\"Alice\"))  # OK - User has name attribute\n\n# runtime_checkable enables isinstance() checks\n@runtime_checkable\nclass Closable(Protocol):\n    def close(self) -> None:\n        ...\n\nimport io\nf = io.StringIO()\nprint(isinstance(f, Closable))  # True - StringIO has close()\nprint(isinstance(42, Closable))  # False - int doesn't have close()\n\n# Combining Protocol with Generic\nfrom typing import TypeVar, Generic\n\nT = TypeVar('T')\n\nclass Repository(Protocol[T]):\n    def get(self, id: int) -> T | None:\n        ...\n    def save(self, entity: T) -> None:\n        ...\n    def delete(self, id: int) -> None:\n        ...\n\nclass UserRepo:  # Satisfies Repository[User] without inheriting\n    def get(self, id: int) -> User | None:\n        return None\n    def save(self, entity: User) -> None:\n        pass\n    def delete(self, id: int) -> None:\n        pass\n\ndef process_repo(repo: Repository[User]) -> None:\n    user = repo.get(1)\n    if user:\n        repo.save(user)",
+          "actual_code": "from typing import Protocol, runtime_checkable\n\n# Define a Protocol\nclass Drawable(Protocol):\n    def draw(self) -> str:\n        ...  # Protocol methods use ... (Ellipsis) as body\n\nclass HasArea(Protocol):\n    def area(self) -> float:\n        ...\n\n# These classes satisfy Drawable WITHOUT inheriting from it\nclass Circle:\n    def draw(self) -> str:\n        return \"Drawing a circle\"\n\n    def area(self) -> float:\n        return 3.14 * self.radius ** 2\n\n    def __init__(self, radius: float) -> None:\n        self.radius = radius\n\nclass Square:\n    def draw(self) -> str:\n        return \"Drawing a square\"\n\n    def __init__(self, side: float) -> None:\n        self.side = side\n\n# Function accepts anything that matches Drawable Protocol\ndef render(shape: Drawable) -> None:\n    print(shape.draw())\n\nrender(Circle(5))   # OK - Circle has draw() method\nrender(Square(4))   # OK - Square has draw() method\n# render(42)         # mypy error: int doesn't have draw()\n\n# Protocol with attributes\nclass Named(Protocol):\n    name: str\n\nclass User:\n    def __init__(self, name: str) -> None:\n        self.name = name\n\ndef greet(entity: Named) -> str:\n    return f\"Hello, {entity.name}\"\n\ngreet(User(\"Alice\"))  # OK - User has name attribute\n\n# runtime_checkable enables isinstance() checks\n@runtime_checkable\nclass Closable(Protocol):\n    def close(self) -> None:\n        ...\n\nimport io\nf = io.StringIO()\nprint(isinstance(f, Closable))  # True - StringIO has close()\nprint(isinstance(42, Closable))  # False - int doesn't have close()\n\n# Combining Protocol with Generic\nfrom typing import TypeVar, Generic\n\nT = TypeVar('T')\n\nclass Repository(Protocol[T]):\n    def get(self, id: int) -> T | None:\n        ...\n    def save(self, entity: T) -> None:\n        ...\n    def delete(self, id: int) -> None:\n        ...\n\nclass UserRepo:  # Satisfies Repository[User] without inheriting\n    def get(self, id: int) -> User | None:\n        return None\n    def save(self, entity: User) -> None:\n        pass\n    def delete(self, id: int) -> None:\n        pass\n\ndef process_repo(repo: Repository[User]) -> None:\n    user = repo.get(1)\n    if user:\n        repo.save(user)\n\n# Expected Output:\n# Drawing a circle\n# Drawing a square\n# True\n# False",
           "code_language": "python",
           "key_points": [
             "Protocol enables structural typing: any class with the right methods satisfies it",
@@ -153,7 +170,7 @@
           "mode": "quick",
           "explanation": "Protocol enables structural (duck) typing for static analysis. Any class with the required methods satisfies the Protocol without inheriting from it. Use `@runtime_checkable` for `isinstance()` checks.",
           "pseudo_code": "",
-          "actual_code": "from typing import Protocol, runtime_checkable\n\n@runtime_checkable\nclass Drawable(Protocol):\n    def draw(self) -> str: ...\n\nclass Circle:  # No inheritance needed\n    def draw(self) -> str:\n        return \"circle\"\n\ndef render(shape: Drawable) -> None:\n    print(shape.draw())\n\nrender(Circle())  # OK - has draw() method\nprint(isinstance(Circle(), Drawable))  # True",
+          "actual_code": "from typing import Protocol, runtime_checkable\n\n@runtime_checkable\nclass Drawable(Protocol):\n    def draw(self) -> str: ...\n\nclass Circle:  # No inheritance needed\n    def draw(self) -> str:\n        return \"circle\"\n\ndef render(shape: Drawable) -> None:\n    print(shape.draw())\n\nrender(Circle())  # OK - has draw() method\nprint(isinstance(Circle(), Drawable))  # True\n\n# Expected Output:\n# circle\n# True",
           "code_language": "python",
           "key_points": [
             "Structural typing: matching methods, no inheritance required",
@@ -169,13 +186,18 @@
       "title": "How do you use Callable, Literal, and TypedDict type hints?",
       "display_order": 5,
       "difficulty": "intermediate",
-      "tags": ["typing", "callable", "literal", "typeddict"],
+      "tags": [
+        "typing",
+        "callable",
+        "literal",
+        "typeddict"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Callable[[ArgTypes], ReturnType]** - Type hint for functions and callable objects. The first argument is a list of parameter types, and the second is the return type.\n\n**Literal[values...]** (PEP 586, Python 3.8+) - Restricts a value to specific literal values. Useful for function parameters that accept only certain strings or numbers.\n\n**TypedDict** (PEP 589, Python 3.8+) - A dictionary with specific keys and typed values. Unlike a regular dict, mypy knows exactly which keys exist and what their types are.",
           "pseudo_code": "Callable[[param_types], return_type] - type for functions\nLiteral['a', 'b'] - only these exact values allowed\nTypedDict('Name', key1=type1, key2=type2) - typed dictionary keys",
-          "actual_code": "from typing import Callable, Literal, TypedDict\n\n# Callable: type hint for functions\ndef apply(func: Callable[[int, int], int], a: int, b: int) -> int:\n    return func(a, b)\n\ndef add(x: int, y: int) -> int:\n    return x + y\n\nresult = apply(add, 3, 4)  # 7\n\n# Callable with no args\ndef run_later(callback: Callable[[], None]) -> None:\n    callback()\n\n# Callable as variable\nhandler: Callable[[str], bool] = lambda s: len(s) > 0\n\n# Callable with *args/**kwargs (use ... for untyped)\ndef decorator(func: Callable[..., str]) -> Callable[..., str]:\n    def wrapper(*args, **kwargs) -> str:\n        return func(*args, **kwargs).upper()\n    return wrapper\n\n# Literal: restrict to specific values\ndef set_color(color: Literal['red', 'green', 'blue']) -> None:\n    print(f\"Color set to {color}\")\n\nset_color('red')    # OK\n# set_color('pink')  # mypy error: \"pink\" not in Literal\n\ndef open_file(mode: Literal['r', 'w', 'a', 'rb', 'wb']) -> None:\n    pass\n\n# Literal with overloads for different return types\nfrom typing import overload\n\n@overload\ndef fetch(raw: Literal[True]) -> bytes: ...\n@overload\ndef fetch(raw: Literal[False]) -> str: ...\n\ndef fetch(raw: bool = False) -> bytes | str:\n    if raw:\n        return b\"raw bytes\"\n    return \"decoded string\"\n\n# TypedDict: dictionary with known keys and typed values\nclass UserDict(TypedDict):\n    name: str\n    age: int\n    email: str\n\ndef create_user(data: UserDict) -> None:\n    print(data['name'])   # mypy knows this is str\n    print(data['age'])    # mypy knows this is int\n    # print(data['phone'])  # mypy error: key not in TypedDict\n\nuser: UserDict = {'name': 'Alice', 'age': 30, 'email': 'alice@example.com'}\ncreate_user(user)\n\n# TypedDict with optional keys\nclass Config(TypedDict, total=False):  # All keys optional\n    host: str\n    port: int\n    debug: bool\n\nconfig: Config = {'host': 'localhost'}  # OK, other keys are optional\n\n# Mixing required and optional (Python 3.11+)\nclass UserProfile(TypedDict):\n    name: str          # Required\n    email: str         # Required\n\nclass UserProfileFull(UserProfile, total=False):\n    bio: str           # Optional\n    age: int           # Optional\n\nprofile: UserProfileFull = {'name': 'Alice', 'email': 'a@b.com', 'bio': 'Hi'}",
+          "actual_code": "from typing import Callable, Literal, TypedDict\n\n# Callable: type hint for functions\ndef apply(func: Callable[[int, int], int], a: int, b: int) -> int:\n    return func(a, b)\n\ndef add(x: int, y: int) -> int:\n    return x + y\n\nresult = apply(add, 3, 4)  # 7\n\n# Callable with no args\ndef run_later(callback: Callable[[], None]) -> None:\n    callback()\n\n# Callable as variable\nhandler: Callable[[str], bool] = lambda s: len(s) > 0\n\n# Callable with *args/**kwargs (use ... for untyped)\ndef decorator(func: Callable[..., str]) -> Callable[..., str]:\n    def wrapper(*args, **kwargs) -> str:\n        return func(*args, **kwargs).upper()\n    return wrapper\n\n# Literal: restrict to specific values\ndef set_color(color: Literal['red', 'green', 'blue']) -> None:\n    print(f\"Color set to {color}\")\n\nset_color('red')    # OK\n# set_color('pink')  # mypy error: \"pink\" not in Literal\n\ndef open_file(mode: Literal['r', 'w', 'a', 'rb', 'wb']) -> None:\n    pass\n\n# Literal with overloads for different return types\nfrom typing import overload\n\n@overload\ndef fetch(raw: Literal[True]) -> bytes: ...\n@overload\ndef fetch(raw: Literal[False]) -> str: ...\n\ndef fetch(raw: bool = False) -> bytes | str:\n    if raw:\n        return b\"raw bytes\"\n    return \"decoded string\"\n\n# TypedDict: dictionary with known keys and typed values\nclass UserDict(TypedDict):\n    name: str\n    age: int\n    email: str\n\ndef create_user(data: UserDict) -> None:\n    print(data['name'])   # mypy knows this is str\n    print(data['age'])    # mypy knows this is int\n    # print(data['phone'])  # mypy error: key not in TypedDict\n\nuser: UserDict = {'name': 'Alice', 'age': 30, 'email': 'alice@example.com'}\ncreate_user(user)\n\n# TypedDict with optional keys\nclass Config(TypedDict, total=False):  # All keys optional\n    host: str\n    port: int\n    debug: bool\n\nconfig: Config = {'host': 'localhost'}  # OK, other keys are optional\n\n# Mixing required and optional (Python 3.11+)\nclass UserProfile(TypedDict):\n    name: str          # Required\n    email: str         # Required\n\nclass UserProfileFull(UserProfile, total=False):\n    bio: str           # Optional\n    age: int           # Optional\n\nprofile: UserProfileFull = {'name': 'Alice', 'email': 'a@b.com', 'bio': 'Hi'}\n\n# Expected Output:\n# Color set to red\n# Alice\n# 30",
           "code_language": "python",
           "key_points": [
             "Callable[[ParamTypes], ReturnType] types functions; use ... for unknown params",
@@ -210,7 +232,11 @@
       "title": "What is the difference between runtime and static type checking in Python?",
       "display_order": 6,
       "difficulty": "intermediate",
-      "tags": ["type-checking", "mypy", "runtime"],
+      "tags": [
+        "type-checking",
+        "mypy",
+        "runtime"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -251,7 +277,11 @@
       "title": "How do you use mypy for static type checking?",
       "display_order": 7,
       "difficulty": "intermediate",
-      "tags": ["mypy", "static-analysis", "type-checking"],
+      "tags": [
+        "mypy",
+        "static-analysis",
+        "type-checking"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -292,7 +322,11 @@
       "title": "How do you use overload to define multiple function signatures?",
       "display_order": 8,
       "difficulty": "intermediate",
-      "tags": ["typing", "overload", "function-signatures"],
+      "tags": [
+        "typing",
+        "overload",
+        "function-signatures"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -333,13 +367,17 @@
       "title": "What are ParamSpec and Concatenate for typing decorators?",
       "display_order": 9,
       "difficulty": "intermediate",
-      "tags": ["typing", "paramspec", "decorators"],
+      "tags": [
+        "typing",
+        "paramspec",
+        "decorators"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**ParamSpec** (PEP 612, Python 3.10+) is a type variable that captures the entire parameter specification (all parameters and their types) of a callable. It solves the problem of typing decorators that need to preserve the wrapped function's signature.\n\nBefore ParamSpec, decorators had to use `Callable[..., R]` which lost all parameter type information.\n\n**Concatenate** is used with ParamSpec to add extra parameters at the beginning of a function's parameter list (e.g., adding a `self` or `request` parameter).",
           "pseudo_code": "1. P = ParamSpec('P') captures all params of a function\n2. Use Callable[P, R] to represent a function with those params\n3. The wrapper should also be Callable[P, R] to preserve types\n4. Concatenate[ExtraArg, P] adds an argument before P's params",
-          "actual_code": "from typing import TypeVar, ParamSpec, Callable, Concatenate\nfrom functools import wraps\nimport time\n\nP = ParamSpec('P')\nR = TypeVar('R')\n\n# Basic decorator that preserves types\ndef timer(func: Callable[P, R]) -> Callable[P, R]:\n    @wraps(func)\n    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"{func.__name__} took {time.time() - start:.3f}s\")\n        return result\n    return wrapper\n\n@timer\ndef greet(name: str, greeting: str = \"Hello\") -> str:\n    return f\"{greeting}, {name}!\"\n\n# mypy knows: greet(name: str, greeting: str = \"Hello\") -> str\nresult: str = greet(\"Alice\")  # Fully typed!\n\n# Logging decorator preserving types\ndef log_calls(func: Callable[P, R]) -> Callable[P, R]:\n    @wraps(func)\n    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n        print(f\"Calling {func.__name__}\")\n        result = func(*args, **kwargs)\n        print(f\"Result: {result}\")\n        return result\n    return wrapper\n\n# Concatenate: adding extra parameters\ndef with_user(func: Callable[Concatenate[str, P], R]) -> Callable[P, R]:\n    \"\"\"Decorator that injects a username as the first argument.\"\"\"\n    @wraps(func)\n    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n        username = \"current_user\"  # Get from auth context\n        return func(username, *args, **kwargs)\n    return wrapper\n\n@with_user\ndef delete_item(username: str, item_id: int) -> bool:\n    print(f\"{username} deleting item {item_id}\")\n    return True\n\n# mypy knows: delete_item(item_id: int) -> bool\n# (username is injected by the decorator)\ndelete_item(42)  # Correct - username is auto-injected\n\n# Retry decorator with ParamSpec\ndef retry(max_retries: int = 3) -> Callable[[Callable[P, R]], Callable[P, R]]:\n    def decorator(func: Callable[P, R]) -> Callable[P, R]:\n        @wraps(func)\n        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n            for attempt in range(max_retries):\n                try:\n                    return func(*args, **kwargs)\n                except Exception:\n                    if attempt == max_retries - 1:\n                        raise\n            raise RuntimeError(\"Unreachable\")\n        return wrapper\n    return decorator\n\n@retry(max_retries=3)\ndef fetch_data(url: str, timeout: int = 10) -> dict:\n    return {}  # ... fetch ...\n\n# mypy knows: fetch_data(url: str, timeout: int = 10) -> dict\nfetch_data(\"https://api.example.com\")",
+          "actual_code": "from typing import TypeVar, ParamSpec, Callable, Concatenate\nfrom functools import wraps\nimport time\n\nP = ParamSpec('P')\nR = TypeVar('R')\n\n# Basic decorator that preserves types\ndef timer(func: Callable[P, R]) -> Callable[P, R]:\n    @wraps(func)\n    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f\"{func.__name__} took {time.time() - start:.3f}s\")\n        return result\n    return wrapper\n\n@timer\ndef greet(name: str, greeting: str = \"Hello\") -> str:\n    return f\"{greeting}, {name}!\"\n\n# mypy knows: greet(name: str, greeting: str = \"Hello\") -> str\nresult: str = greet(\"Alice\")  # Fully typed!\n\n# Logging decorator preserving types\ndef log_calls(func: Callable[P, R]) -> Callable[P, R]:\n    @wraps(func)\n    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n        print(f\"Calling {func.__name__}\")\n        result = func(*args, **kwargs)\n        print(f\"Result: {result}\")\n        return result\n    return wrapper\n\n# Concatenate: adding extra parameters\ndef with_user(func: Callable[Concatenate[str, P], R]) -> Callable[P, R]:\n    \"\"\"Decorator that injects a username as the first argument.\"\"\"\n    @wraps(func)\n    def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n        username = \"current_user\"  # Get from auth context\n        return func(username, *args, **kwargs)\n    return wrapper\n\n@with_user\ndef delete_item(username: str, item_id: int) -> bool:\n    print(f\"{username} deleting item {item_id}\")\n    return True\n\n# mypy knows: delete_item(item_id: int) -> bool\n# (username is injected by the decorator)\ndelete_item(42)  # Correct - username is auto-injected\n\n# Retry decorator with ParamSpec\ndef retry(max_retries: int = 3) -> Callable[[Callable[P, R]], Callable[P, R]]:\n    def decorator(func: Callable[P, R]) -> Callable[P, R]:\n        @wraps(func)\n        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n            for attempt in range(max_retries):\n                try:\n                    return func(*args, **kwargs)\n                except Exception:\n                    if attempt == max_retries - 1:\n                        raise\n            raise RuntimeError(\"Unreachable\")\n        return wrapper\n    return decorator\n\n@retry(max_retries=3)\ndef fetch_data(url: str, timeout: int = 10) -> dict:\n    return {}  # ... fetch ...\n\n# mypy knows: fetch_data(url: str, timeout: int = 10) -> dict\nfetch_data(\"https://api.example.com\")\n\n# Expected Output: (timing values are approximate)\n# greet took 0.000s\n# current_user deleting item 42",
           "code_language": "python",
           "key_points": [
             "ParamSpec captures the full parameter signature of a callable",
@@ -374,7 +412,11 @@
       "title": "What is TypeGuard and how does it help with type narrowing?",
       "display_order": 10,
       "difficulty": "intermediate",
-      "tags": ["typing", "typeguard", "narrowing"],
+      "tags": [
+        "typing",
+        "typeguard",
+        "narrowing"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -415,13 +457,17 @@
       "title": "How do you use Annotated for metadata-rich type hints?",
       "display_order": 11,
       "difficulty": "intermediate",
-      "tags": ["typing", "annotated", "metadata"],
+      "tags": [
+        "typing",
+        "annotated",
+        "metadata"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "**Annotated** (PEP 593, Python 3.9+) lets you attach metadata to type hints without affecting the type itself. The first argument is the actual type, and subsequent arguments are metadata that tools and frameworks can use.\n\n`Annotated[int, MinValue(0), MaxValue(100)]` means 'an int with these validation constraints.'\n\n**Key users**:\n- **FastAPI** uses Annotated for dependency injection and validation: `Annotated[str, Query(max_length=50)]`\n- **Pydantic** uses it for field validation: `Annotated[int, Field(gt=0)]`\n- Custom frameworks can define their own metadata types.",
           "pseudo_code": "Annotated[Type, metadata1, metadata2, ...]\n- First arg: the actual type\n- Remaining args: metadata (ignored by mypy, used by frameworks)\n- Frameworks read metadata at runtime via typing.get_type_hints(include_extras=True)",
-          "actual_code": "from typing import Annotated, get_type_hints\n\n# Basic Annotated usage\ndef process_age(age: Annotated[int, \"must be positive\"]) -> str:\n    return f\"Age: {age}\"\n\n# mypy sees: age: int (metadata is ignored by type checkers)\n\n# Custom metadata classes\nclass MinValue:\n    def __init__(self, value: int):\n        self.value = value\n\nclass MaxValue:\n    def __init__(self, value: int):\n        self.value = value\n\nclass Description:\n    def __init__(self, text: str):\n        self.text = text\n\n# Type aliases with Annotated\nPositiveInt = Annotated[int, MinValue(0)]\nPercentage = Annotated[float, MinValue(0), MaxValue(100)]\nUserName = Annotated[str, MinValue(1), MaxValue(50), Description(\"User's display name\")]\n\ndef create_user(name: UserName, age: PositiveInt) -> dict:\n    return {'name': name, 'age': age}\n\n# Access metadata at runtime\nhints = get_type_hints(create_user, include_extras=True)\nprint(hints)  # {'name': Annotated[str, MinValue(1), MaxValue(50), ...], 'age': ...}\n\n# Extract metadata from Annotated\nfrom typing import get_args, get_origin\n\ndef get_metadata(hint):\n    if get_origin(hint) is Annotated:\n        args = get_args(hint)\n        return args[0], args[1:]  # (type, metadata_tuple)\n    return hint, ()\n\nbase_type, metadata = get_metadata(hints['name'])\nprint(base_type)   # <class 'str'>\nprint(metadata)    # (MinValue(1), MaxValue(50), Description(\"User's display name\"))\n\n# Runtime validation using Annotated metadata\ndef validate(func, **kwargs):\n    hints = get_type_hints(func, include_extras=True)\n    for param, hint in hints.items():\n        if param == 'return':\n            continue\n        base, meta = get_metadata(hint)\n        value = kwargs.get(param)\n        for m in meta:\n            if isinstance(m, MinValue) and isinstance(value, (int, float)):\n                if value < m.value:\n                    raise ValueError(f\"{param} must be >= {m.value}\")\n            if isinstance(m, MaxValue) and isinstance(value, (int, float)):\n                if value > m.value:\n                    raise ValueError(f\"{param} must be <= {m.value}\")\n\n# Pydantic v2 with Annotated\nfrom pydantic import BaseModel, Field\n\nclass User(BaseModel):\n    name: Annotated[str, Field(min_length=1, max_length=50)]\n    age: Annotated[int, Field(gt=0, lt=150)]\n    email: Annotated[str, Field(pattern=r'^[\\w.-]+@[\\w.-]+\\.\\w+$')]",
+          "actual_code": "from typing import Annotated, get_type_hints\n\n# Basic Annotated usage\ndef process_age(age: Annotated[int, \"must be positive\"]) -> str:\n    return f\"Age: {age}\"\n\n# mypy sees: age: int (metadata is ignored by type checkers)\n\n# Custom metadata classes\nclass MinValue:\n    def __init__(self, value: int):\n        self.value = value\n\nclass MaxValue:\n    def __init__(self, value: int):\n        self.value = value\n\nclass Description:\n    def __init__(self, text: str):\n        self.text = text\n\n# Type aliases with Annotated\nPositiveInt = Annotated[int, MinValue(0)]\nPercentage = Annotated[float, MinValue(0), MaxValue(100)]\nUserName = Annotated[str, MinValue(1), MaxValue(50), Description(\"User's display name\")]\n\ndef create_user(name: UserName, age: PositiveInt) -> dict:\n    return {'name': name, 'age': age}\n\n# Access metadata at runtime\nhints = get_type_hints(create_user, include_extras=True)\nprint(hints)  # {'name': Annotated[str, MinValue(1), MaxValue(50), ...], 'age': ...}\n\n# Extract metadata from Annotated\nfrom typing import get_args, get_origin\n\ndef get_metadata(hint):\n    if get_origin(hint) is Annotated:\n        args = get_args(hint)\n        return args[0], args[1:]  # (type, metadata_tuple)\n    return hint, ()\n\nbase_type, metadata = get_metadata(hints['name'])\nprint(base_type)   # <class 'str'>\nprint(metadata)    # (MinValue(1), MaxValue(50), Description(\"User's display name\"))\n\n# Runtime validation using Annotated metadata\ndef validate(func, **kwargs):\n    hints = get_type_hints(func, include_extras=True)\n    for param, hint in hints.items():\n        if param == 'return':\n            continue\n        base, meta = get_metadata(hint)\n        value = kwargs.get(param)\n        for m in meta:\n            if isinstance(m, MinValue) and isinstance(value, (int, float)):\n                if value < m.value:\n                    raise ValueError(f\"{param} must be >= {m.value}\")\n            if isinstance(m, MaxValue) and isinstance(value, (int, float)):\n                if value > m.value:\n                    raise ValueError(f\"{param} must be <= {m.value}\")\n\n# Pydantic v2 with Annotated\nfrom pydantic import BaseModel, Field\n\nclass User(BaseModel):\n    name: Annotated[str, Field(min_length=1, max_length=50)]\n    age: Annotated[int, Field(gt=0, lt=150)]\n    email: Annotated[str, Field(pattern=r'^[\\w.-]+@[\\w.-]+\\.\\w+$')]\n\n# Expected Output: (object addresses will vary)\n# {'name': typing.Annotated[str, <__main__.MinValue object at 0x...>, <__main__.MaxValue object at 0x...>, <__main__.Description object at 0x...>], 'age': typing.Annotated[int, <__main__.MinValue object at 0x...>], 'return': <class 'dict'>}\n# <class 'str'>\n# (<__main__.MinValue object at 0x...>, <__main__.MaxValue object at 0x...>, <__main__.Description object at 0x...>)",
           "code_language": "python",
           "key_points": [
             "Annotated[Type, metadata] adds metadata without changing the type for checkers",
@@ -456,7 +502,11 @@
       "title": "How do you handle forward references and circular imports in type hints?",
       "display_order": 12,
       "difficulty": "intermediate",
-      "tags": ["typing", "forward-references", "circular-imports"],
+      "tags": [
+        "typing",
+        "forward-references",
+        "circular-imports"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -497,7 +547,11 @@
       "title": "How do you type hint dictionaries with specific structures?",
       "display_order": 13,
       "difficulty": "intermediate",
-      "tags": ["typing", "typeddict", "dict-typing"],
+      "tags": [
+        "typing",
+        "typeddict",
+        "dict-typing"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -522,7 +576,7 @@
           "mode": "quick",
           "explanation": "Use `dict[str, int]` for uniform dicts. Use `TypedDict` for dicts with specific keys and typed values. `NotRequired[]` (3.11+) for optional keys. `Mapping` for read-only dict parameters.",
           "pseudo_code": "",
-          "actual_code": "from typing import TypedDict, NotRequired\n\nclass User(TypedDict):\n    name: str             # Required\n    email: str            # Required\n    bio: NotRequired[str] # Optional\n\nuser: User = {'name': 'Alice', 'email': 'a@b.com'}  # OK\nprint(user['name'])  # mypy knows this is str",
+          "actual_code": "from typing import TypedDict, NotRequired\n\nclass User(TypedDict):\n    name: str             # Required\n    email: str            # Required\n    bio: NotRequired[str] # Optional\n\nuser: User = {'name': 'Alice', 'email': 'a@b.com'}  # OK\nprint(user['name'])  # mypy knows this is str\n\n# Expected Output:\n# Alice",
           "code_language": "python",
           "key_points": [
             "TypedDict for specific keys; NotRequired for optional keys",
@@ -538,7 +592,12 @@
       "title": "What is type narrowing and how does Python's type system support it?",
       "display_order": 14,
       "difficulty": "intermediate",
-      "tags": ["typing", "narrowing", "isinstance", "mypy"],
+      "tags": [
+        "typing",
+        "narrowing",
+        "isinstance",
+        "mypy"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -579,7 +638,12 @@
       "title": "What are the new type hint features in Python 3.12 (PEP 695)?",
       "display_order": 15,
       "difficulty": "intermediate",
-      "tags": ["typing", "python-3.12", "pep-695", "type-parameter-syntax"],
+      "tags": [
+        "typing",
+        "python-3.12",
+        "pep-695",
+        "type-parameter-syntax"
+      ],
       "answers": [
         {
           "mode": "detailed",

@@ -5,7 +5,11 @@
       "title": "What is SQLAlchemy and how does it differ from raw SQL?",
       "display_order": 1,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "orm", "database"],
+      "tags": [
+        "sqlalchemy",
+        "orm",
+        "database"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -46,7 +50,12 @@
       "title": "How do you define a SQLAlchemy declarative model with columns and constraints?",
       "display_order": 2,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "models", "columns", "constraints"],
+      "tags": [
+        "sqlalchemy",
+        "models",
+        "columns",
+        "constraints"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -87,13 +96,18 @@
       "title": "How do you define one-to-many relationships in SQLAlchemy?",
       "display_order": 3,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "relationships", "one-to-many", "foreign-key"],
+      "tags": [
+        "sqlalchemy",
+        "relationships",
+        "one-to-many",
+        "foreign-key"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "A one-to-many relationship means one record in a parent table relates to multiple records in a child table. In SQLAlchemy, this is defined with:\n\n1. A `ForeignKey` column on the child (many side) pointing to the parent's primary key.\n2. A `relationship()` on the parent (one side) that provides a Python-level collection of children.\n3. Optionally, a `back_populates` or `backref` to create the reverse reference.\n\n**back_populates vs backref**:\n- `back_populates` requires defining `relationship()` on both sides explicitly (recommended for clarity).\n- `backref` auto-creates the reverse relationship on the other model (less code but implicit).\n\n**Cascade options**: Control what happens to children when parent operations occur. Common cascades: `all`, `delete-orphan`, `save-update`, `merge`.",
           "pseudo_code": "1. Define parent model with a relationship() attribute\n2. Define child model with a ForeignKey column to parent\n3. Add back_populates on both sides (or backref on one side)\n4. Configure cascade behavior if needed\n5. Access children via parent.children or parent via child.parent",
-          "actual_code": "from sqlalchemy import create_engine, Column, Integer, String, ForeignKey\nfrom sqlalchemy.orm import declarative_base, relationship, Session\n\nBase = declarative_base()\n\nclass Author(Base):\n    __tablename__ = 'authors'\n    id = Column(Integer, primary_key=True)\n    name = Column(String(100), nullable=False)\n\n    # One author has many books\n    books = relationship('Book', back_populates='author',\n                         cascade='all, delete-orphan')\n\n    def __repr__(self):\n        return f\"<Author(name='{self.name}')>\"\n\nclass Book(Base):\n    __tablename__ = 'books'\n    id = Column(Integer, primary_key=True)\n    title = Column(String(200), nullable=False)\n    author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)\n\n    # Each book belongs to one author\n    author = relationship('Author', back_populates='books')\n\n    def __repr__(self):\n        return f\"<Book(title='{self.title}')>\"\n\n# Usage\nengine = create_engine('sqlite:///:memory:')\nBase.metadata.create_all(engine)\n\nwith Session(engine) as session:\n    author = Author(name='George Orwell')\n    author.books.append(Book(title='1984'))\n    author.books.append(Book(title='Animal Farm'))\n    session.add(author)\n    session.commit()\n\n    # Access the relationship\n    loaded = session.query(Author).first()\n    print(loaded.books)  # [<Book(title='1984')>, <Book(title='Animal Farm')>]\n    print(loaded.books[0].author)  # <Author(name='George Orwell')>",
+          "actual_code": "from sqlalchemy import create_engine, Column, Integer, String, ForeignKey\nfrom sqlalchemy.orm import declarative_base, relationship, Session\n\nBase = declarative_base()\n\nclass Author(Base):\n    __tablename__ = 'authors'\n    id = Column(Integer, primary_key=True)\n    name = Column(String(100), nullable=False)\n\n    # One author has many books\n    books = relationship('Book', back_populates='author',\n                         cascade='all, delete-orphan')\n\n    def __repr__(self):\n        return f\"<Author(name='{self.name}')>\"\n\nclass Book(Base):\n    __tablename__ = 'books'\n    id = Column(Integer, primary_key=True)\n    title = Column(String(200), nullable=False)\n    author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)\n\n    # Each book belongs to one author\n    author = relationship('Author', back_populates='books')\n\n    def __repr__(self):\n        return f\"<Book(title='{self.title}')>\"\n\n# Usage\nengine = create_engine('sqlite:///:memory:')\nBase.metadata.create_all(engine)\n\nwith Session(engine) as session:\n    author = Author(name='George Orwell')\n    author.books.append(Book(title='1984'))\n    author.books.append(Book(title='Animal Farm'))\n    session.add(author)\n    session.commit()\n\n    # Access the relationship\n    loaded = session.query(Author).first()\n    print(loaded.books)  # [<Book(title='1984')>, <Book(title='Animal Farm')>]\n    print(loaded.books[0].author)  # <Author(name='George Orwell')>\n\n# Expected Output:\n# [<Book(title='1984')>, <Book(title='Animal Farm')>]\n# <Author(name='George Orwell')>",
           "code_language": "python",
           "key_points": [
             "ForeignKey goes on the child (many side); relationship() goes on the parent (one side) or both",
@@ -127,13 +141,18 @@
       "title": "How do you define many-to-many relationships in SQLAlchemy?",
       "display_order": 4,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "relationships", "many-to-many", "association-table"],
+      "tags": [
+        "sqlalchemy",
+        "relationships",
+        "many-to-many",
+        "association-table"
+      ],
       "answers": [
         {
           "mode": "detailed",
           "explanation": "Many-to-many relationships require an **association table** (also called a junction/bridge table) that holds foreign keys to both sides. SQLAlchemy offers two approaches:\n\n1. **Simple association table** using `Table()` - When the join table only has the two foreign keys and no extra columns.\n2. **Association object** using a full model class - When the join table has additional columns (e.g., `enrolled_date`, `grade`).\n\nFor the simple case, define the association table with `Table()`, then use `relationship()` with the `secondary` parameter pointing to that table.",
           "pseudo_code": "1. Define an association table with Table() containing two ForeignKeys\n2. On one model, define relationship() with secondary=association_table\n3. On the other model, define relationship() with back_populates\n4. Use collection.append() to add links\n5. For extra columns, use an Association Object pattern instead",
-          "actual_code": "from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Table\nfrom sqlalchemy.orm import declarative_base, relationship, Session\n\nBase = declarative_base()\n\n# Simple association table (no extra columns)\nstudent_course = Table(\n    'student_course', Base.metadata,\n    Column('student_id', Integer, ForeignKey('students.id'), primary_key=True),\n    Column('course_id', Integer, ForeignKey('courses.id'), primary_key=True),\n)\n\nclass Student(Base):\n    __tablename__ = 'students'\n    id = Column(Integer, primary_key=True)\n    name = Column(String(100))\n    courses = relationship('Course', secondary=student_course,\n                           back_populates='students')\n\nclass Course(Base):\n    __tablename__ = 'courses'\n    id = Column(Integer, primary_key=True)\n    title = Column(String(200))\n    students = relationship('Student', secondary=student_course,\n                            back_populates='courses')\n\n# Usage\nengine = create_engine('sqlite:///:memory:')\nBase.metadata.create_all(engine)\n\nwith Session(engine) as session:\n    math = Course(title='Mathematics')\n    physics = Course(title='Physics')\n    alice = Student(name='Alice', courses=[math, physics])\n    bob = Student(name='Bob', courses=[math])\n\n    session.add_all([alice, bob])\n    session.commit()\n\n    # Query through the relationship\n    math_students = session.query(Course).filter_by(title='Mathematics').first()\n    print([s.name for s in math_students.students])  # ['Alice', 'Bob']\n\n# --- Association Object (with extra columns) ---\nclass Enrollment(Base):\n    __tablename__ = 'enrollments'\n    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)\n    course_id = Column(Integer, ForeignKey('courses.id'), primary_key=True)\n    grade = Column(String(2))\n    student = relationship('Student', backref='enrollments')\n    course = relationship('Course', backref='enrollments')",
+          "actual_code": "from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Table\nfrom sqlalchemy.orm import declarative_base, relationship, Session\n\nBase = declarative_base()\n\n# Simple association table (no extra columns)\nstudent_course = Table(\n    'student_course', Base.metadata,\n    Column('student_id', Integer, ForeignKey('students.id'), primary_key=True),\n    Column('course_id', Integer, ForeignKey('courses.id'), primary_key=True),\n)\n\nclass Student(Base):\n    __tablename__ = 'students'\n    id = Column(Integer, primary_key=True)\n    name = Column(String(100))\n    courses = relationship('Course', secondary=student_course,\n                           back_populates='students')\n\nclass Course(Base):\n    __tablename__ = 'courses'\n    id = Column(Integer, primary_key=True)\n    title = Column(String(200))\n    students = relationship('Student', secondary=student_course,\n                            back_populates='courses')\n\n# Usage\nengine = create_engine('sqlite:///:memory:')\nBase.metadata.create_all(engine)\n\nwith Session(engine) as session:\n    math = Course(title='Mathematics')\n    physics = Course(title='Physics')\n    alice = Student(name='Alice', courses=[math, physics])\n    bob = Student(name='Bob', courses=[math])\n\n    session.add_all([alice, bob])\n    session.commit()\n\n    # Query through the relationship\n    math_students = session.query(Course).filter_by(title='Mathematics').first()\n    print([s.name for s in math_students.students])  # ['Alice', 'Bob']\n\n# --- Association Object (with extra columns) ---\nclass Enrollment(Base):\n    __tablename__ = 'enrollments'\n    student_id = Column(Integer, ForeignKey('students.id'), primary_key=True)\n    course_id = Column(Integer, ForeignKey('courses.id'), primary_key=True)\n    grade = Column(String(2))\n    student = relationship('Student', backref='enrollments')\n    course = relationship('Course', backref='enrollments')\n\n# Expected Output:\n# ['Alice', 'Bob']",
           "code_language": "python",
           "key_points": [
             "Use Table() for simple join tables with only foreign keys",
@@ -167,7 +186,12 @@
       "title": "How do you query with filter, filter_by, and common query methods in SQLAlchemy?",
       "display_order": 5,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "queries", "filter", "filter_by"],
+      "tags": [
+        "sqlalchemy",
+        "queries",
+        "filter",
+        "filter_by"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -208,7 +232,11 @@
       "title": "How do you perform JOINs and subqueries in SQLAlchemy ORM?",
       "display_order": 6,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "joins", "subqueries"],
+      "tags": [
+        "sqlalchemy",
+        "joins",
+        "subqueries"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -249,7 +277,12 @@
       "title": "What is the N+1 query problem and how do you solve it in SQLAlchemy?",
       "display_order": 7,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "n+1", "eager-loading", "performance"],
+      "tags": [
+        "sqlalchemy",
+        "n+1",
+        "eager-loading",
+        "performance"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -290,7 +323,11 @@
       "title": "How do eager loading and lazy loading differ in SQLAlchemy?",
       "display_order": 8,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "eager-loading", "lazy-loading"],
+      "tags": [
+        "sqlalchemy",
+        "eager-loading",
+        "lazy-loading"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -331,7 +368,11 @@
       "title": "How does connection pooling work in SQLAlchemy?",
       "display_order": 9,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "connection-pooling", "engine"],
+      "tags": [
+        "sqlalchemy",
+        "connection-pooling",
+        "engine"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -372,7 +413,11 @@
       "title": "How do you execute raw SQL in SQLAlchemy?",
       "display_order": 10,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "raw-sql", "text"],
+      "tags": [
+        "sqlalchemy",
+        "raw-sql",
+        "text"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -413,7 +458,12 @@
       "title": "How do you use Alembic for database migrations with SQLAlchemy?",
       "display_order": 11,
       "difficulty": "intermediate",
-      "tags": ["alembic", "migrations", "sqlalchemy", "schema"],
+      "tags": [
+        "alembic",
+        "migrations",
+        "sqlalchemy",
+        "schema"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -455,7 +505,13 @@
       "title": "How do you manage transactions in SQLAlchemy?",
       "display_order": 12,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "transactions", "session", "commit", "rollback"],
+      "tags": [
+        "sqlalchemy",
+        "transactions",
+        "session",
+        "commit",
+        "rollback"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -496,7 +552,12 @@
       "title": "How do you use SQLAlchemy Sessions and the connection context manager pattern?",
       "display_order": 13,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "session", "context-manager", "scoped-session"],
+      "tags": [
+        "sqlalchemy",
+        "session",
+        "context-manager",
+        "scoped-session"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -537,7 +598,11 @@
       "title": "How do you perform bulk insert, update, and delete operations in SQLAlchemy?",
       "display_order": 14,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "bulk-operations", "performance"],
+      "tags": [
+        "sqlalchemy",
+        "bulk-operations",
+        "performance"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -578,7 +643,11 @@
       "title": "What are hybrid properties in SQLAlchemy and when do you use them?",
       "display_order": 15,
       "difficulty": "intermediate",
-      "tags": ["sqlalchemy", "hybrid-property", "computed-columns"],
+      "tags": [
+        "sqlalchemy",
+        "hybrid-property",
+        "computed-columns"
+      ],
       "answers": [
         {
           "mode": "detailed",

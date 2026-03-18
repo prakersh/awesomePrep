@@ -103,6 +103,32 @@ class TestConceptRelationship:
         assert sample_concept.outgoing_relationships[0].related_concept == sample_concept_b
 
 
+class TestAnswerVisualization:
+    def test_visualization_persists_and_roundtrips(self, db, sample_question):
+        svg = '<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40"/></svg>'
+        answer = Answer(
+            question_id=sample_question.id,
+            mode='detailed',
+            explanation='Test',
+            visualization=svg,
+        )
+        db.session.add(answer)
+        db.session.commit()
+        fetched = db.session.get(Answer, answer.id)
+        assert fetched.visualization == svg
+
+    def test_visualization_defaults_to_empty(self, db, sample_question):
+        answer = Answer(
+            question_id=sample_question.id,
+            mode='detailed',
+            explanation='Test',
+        )
+        db.session.add(answer)
+        db.session.commit()
+        fetched = db.session.get(Answer, answer.id)
+        assert fetched.visualization == ''
+
+
 class TestCascadeDeletes:
     def test_delete_language_cascades(self, db, sample_language, sample_concept, sample_question, sample_answers):
         lang_id = sample_language.id

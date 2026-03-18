@@ -5,7 +5,11 @@
       "title": "What is the standard Django project structure and what does each file do?",
       "display_order": 1,
       "difficulty": "intermediate",
-      "tags": ["django", "project-structure", "architecture"],
+      "tags": [
+        "django",
+        "project-structure",
+        "architecture"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -46,7 +50,12 @@
       "title": "How does the Django ORM work for defining models and making queries?",
       "display_order": 2,
       "difficulty": "intermediate",
-      "tags": ["django", "ORM", "models", "querysets"],
+      "tags": [
+        "django",
+        "ORM",
+        "models",
+        "querysets"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -87,7 +96,12 @@
       "title": "What are Q objects and F expressions in Django?",
       "display_order": 3,
       "difficulty": "intermediate",
-      "tags": ["django", "Q-objects", "F-expressions", "ORM"],
+      "tags": [
+        "django",
+        "Q-objects",
+        "F-expressions",
+        "ORM"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -128,7 +142,11 @@
       "title": "How do Django migrations work?",
       "display_order": 4,
       "difficulty": "intermediate",
-      "tags": ["django", "migrations", "database"],
+      "tags": [
+        "django",
+        "migrations",
+        "database"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -169,7 +187,12 @@
       "title": "What are function-based views (FBVs) vs class-based views (CBVs) in Django?",
       "display_order": 5,
       "difficulty": "intermediate",
-      "tags": ["django", "views", "FBV", "CBV"],
+      "tags": [
+        "django",
+        "views",
+        "FBV",
+        "CBV"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -210,7 +233,11 @@
       "title": "How does Django URL routing work?",
       "display_order": 6,
       "difficulty": "intermediate",
-      "tags": ["django", "urls", "routing"],
+      "tags": [
+        "django",
+        "urls",
+        "routing"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -251,7 +278,11 @@
       "title": "How does the Django template system work?",
       "display_order": 7,
       "difficulty": "intermediate",
-      "tags": ["django", "templates", "DTL"],
+      "tags": [
+        "django",
+        "templates",
+        "DTL"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -292,7 +323,11 @@
       "title": "How do you customize the Django admin site?",
       "display_order": 8,
       "difficulty": "intermediate",
-      "tags": ["django", "admin", "customization"],
+      "tags": [
+        "django",
+        "admin",
+        "customization"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -333,7 +368,11 @@
       "title": "What are Django signals and when should you use them?",
       "display_order": 9,
       "difficulty": "intermediate",
-      "tags": ["django", "signals", "events"],
+      "tags": [
+        "django",
+        "signals",
+        "events"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -374,7 +413,11 @@
       "title": "How does Django middleware work?",
       "display_order": 10,
       "difficulty": "intermediate",
-      "tags": ["django", "middleware", "request-response"],
+      "tags": [
+        "django",
+        "middleware",
+        "request-response"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -415,7 +458,12 @@
       "title": "How do Django forms and ModelForms work?",
       "display_order": 11,
       "difficulty": "intermediate",
-      "tags": ["django", "forms", "ModelForm", "validation"],
+      "tags": [
+        "django",
+        "forms",
+        "ModelForm",
+        "validation"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -456,7 +504,11 @@
       "title": "How does Django's authentication system work?",
       "display_order": 12,
       "difficulty": "intermediate",
-      "tags": ["django", "authentication", "auth"],
+      "tags": [
+        "django",
+        "authentication",
+        "auth"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -497,7 +549,12 @@
       "title": "What is Django REST Framework (DRF) and how does it work?",
       "display_order": 13,
       "difficulty": "intermediate",
-      "tags": ["django", "DRF", "REST", "API"],
+      "tags": [
+        "django",
+        "DRF",
+        "REST",
+        "API"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -538,7 +595,11 @@
       "title": "How do you write management commands in Django?",
       "display_order": 14,
       "difficulty": "intermediate",
-      "tags": ["django", "management-commands", "CLI"],
+      "tags": [
+        "django",
+        "management-commands",
+        "CLI"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -579,7 +640,11 @@
       "title": "How do you test Django applications?",
       "display_order": 15,
       "difficulty": "intermediate",
-      "tags": ["django", "testing", "TestCase"],
+      "tags": [
+        "django",
+        "testing",
+        "TestCase"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -620,7 +685,11 @@
       "title": "How does Django caching work?",
       "display_order": 16,
       "difficulty": "intermediate",
-      "tags": ["django", "caching", "performance"],
+      "tags": [
+        "django",
+        "caching",
+        "performance"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -661,7 +730,12 @@
       "title": "How do Django managers and custom querysets work?",
       "display_order": 17,
       "difficulty": "intermediate",
-      "tags": ["django", "managers", "querysets", "ORM"],
+      "tags": [
+        "django",
+        "managers",
+        "querysets",
+        "ORM"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -702,7 +776,11 @@
       "title": "How do you handle static files in Django?",
       "display_order": 18,
       "difficulty": "intermediate",
-      "tags": ["django", "static-files", "deployment"],
+      "tags": [
+        "django",
+        "static-files",
+        "deployment"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -743,7 +821,12 @@
       "title": "What are Django model managers, select_related, and prefetch_related?",
       "display_order": 19,
       "difficulty": "intermediate",
-      "tags": ["django", "ORM", "performance", "N+1"],
+      "tags": [
+        "django",
+        "ORM",
+        "performance",
+        "N+1"
+      ],
       "answers": [
         {
           "mode": "detailed",
@@ -784,7 +867,12 @@
       "title": "How does Django handle settings for different environments?",
       "display_order": 20,
       "difficulty": "intermediate",
-      "tags": ["django", "settings", "configuration", "deployment"],
+      "tags": [
+        "django",
+        "settings",
+        "configuration",
+        "deployment"
+      ],
       "answers": [
         {
           "mode": "detailed",

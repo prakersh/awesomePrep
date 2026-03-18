@@ -4,103 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}onPrep{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%230a0a09'/><text x='16' y='22' text-anchor='middle' font-family='system-ui' font-weight='700' font-size='18' fill='%232aa198'>P</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
     tailwind.config = {
         darkMode: 'class',
-        theme: { extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'], mono: ['"Fira Code"','monospace'] } } }
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Ubuntu', 'system-ui', 'sans-serif'],
+                    display: ['Ubuntu', 'system-ui', 'sans-serif'],
+                    mono: ['JetBrains Mono', 'monospace']
+                },
+                colors: {
+                    surface: {
+                        50: '#fafaf9',
+                        100: '#f5f4f2',
+                        200: '#e7e5e1',
+                        300: '#d6d3cd',
+                        800: '#1c1b19',
+                        850: '#161513',
+                        900: '#111010',
+                        950: '#0a0a09',
+                    },
+                    accent: {
+                        DEFAULT: '#2aa198',
+                        50: '#effefa',
+                        100: '#c8fcf1',
+                        200: '#91f8e4',
+                        300: '#52ead3',
+                        400: '#2aa198',
+                        500: '#0e9384',
+                        600: '#08766b',
+                        700: '#0b5e56',
+                        800: '#0e4b46',
+                        900: '#113f3b',
+                    },
+                    warm: {
+                        50: '#fdf8f0',
+                        100: '#f9edda',
+                        200: '#f2d7b0',
+                        300: '#e9ba7d',
+                        400: '#df9648',
+                        500: '#d67c2c',
+                        600: '#c76322',
+                        700: '#a64a1e',
+                        800: '#863c20',
+                        900: '#6d331e',
+                    }
+                }
+            }
+        }
     }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" id="hljs-dark">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" id="hljs-light" disabled>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
     <script>(function(){var s=localStorage.getItem('theme');if(s==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')})()</script>
     <style>
-        ::-webkit-scrollbar{width:5px;height:5px}
+        /* Scrollbars */
+        ::-webkit-scrollbar{width:6px;height:6px}
         ::-webkit-scrollbar-track{background:transparent}
-        .dark ::-webkit-scrollbar-thumb{background:#475569;border-radius:3px}
-        html:not(.dark) ::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
-        .progress-fill{transition:width .5s cubic-bezier(.22,1,.36,1)}
-        pre code.hljs{border-radius:.5rem;padding:1rem !important;font-size:.8125rem;line-height:1.7}
-        .dark pre code.hljs{background:#111 !important}
-        html:not(.dark) pre code.hljs{background:#f8fafc !important;border:1px solid #e2e8f0}
-        .prose-md{font-size:.9375rem;line-height:1.75;color:#374151}
-        .dark .prose-md{color:#d1d5db}
-        .prose-md p{margin-bottom:.75rem}
-        .prose-md strong{font-weight:600;color:#111827}
-        .dark .prose-md strong{color:#f3f4f6}
-        .prose-md code{font-size:.8125rem;padding:.15rem .4rem;border-radius:.25rem;background:#f1f5f9;color:#334155}
-        .dark .prose-md code{background:rgba(255,255,255,.1);color:#e5e7eb}
-        .prose-md pre code{background:transparent !important;padding:0 !important;font-size:inherit}
-        .prose-md ul,.prose-md ol{margin:.5rem 0;padding-left:1.5rem}
-        .prose-md ul{list-style:disc}
-        .prose-md ol{list-style:decimal}
-        .prose-md li{margin-bottom:.25rem}
-        .prose-md h1{font-size:1.25rem;font-weight:700;margin:1rem 0 .5rem}
-        .prose-md h2{font-size:1.1rem;font-weight:600;margin:1rem 0 .5rem}
-        .prose-md h3{font-size:1rem;font-weight:600;margin:.75rem 0 .375rem}
-        .prose-md table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.8125rem}
-        .prose-md th,.prose-md td{padding:.5rem .75rem;text-align:left;border:1px solid #e2e8f0}
-        .dark .prose-md th,.dark .prose-md td{border-color:rgba(255,255,255,.08)}
-        .prose-md th{font-weight:600;background:#f8fafc}
-        .dark .prose-md th{background:rgba(255,255,255,.04)}
-        .prose-md tr:nth-child(even){background:#f8fafc}
-        .dark .prose-md tr:nth-child(even){background:rgba(255,255,255,.02)}
-        .prose-md blockquote{border-left:3px solid #6366f1;padding-left:1rem;margin:.75rem 0;color:#6b7280}
-        .dark .prose-md blockquote{color:#9ca3af}
-        @media(prefers-reduced-motion:no-preference){.fade-in{animation:fi .2s ease-out}@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1}}}
+        .dark ::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+        html:not(.dark) ::-webkit-scrollbar-thumb{background:#d6d3cd;border-radius:3px}
+
+        /* Progress animation */
+        .progress-fill{transition:width .6s cubic-bezier(.22,1,.36,1)}
+
+        /* Code blocks */
+        pre code.hljs{border-radius:.75rem;padding:1.25rem !important;font-size:.8125rem;line-height:1.8;font-family:'JetBrains Mono',monospace}
+        .dark pre code.hljs{background:#0f0f0e !important;border:1px solid rgba(255,255,255,.06)}
+        html:not(.dark) pre code.hljs{background:#fafaf9 !important;border:1px solid #e7e5e1}
+
+        /* Prose */
+        .prose-study{font-size:.9375rem;line-height:1.85}
+        .prose-study p{margin-bottom:.875rem}
+        .prose-study strong{font-weight:600}
+        html:not(.dark) .prose-study strong{color:#1c1b19}
+        .dark .prose-study strong{color:#f5f4f2}
+        .prose-study code{font-size:.8125rem;padding:.15rem .45rem;border-radius:.375rem;font-family:'JetBrains Mono',monospace}
+        html:not(.dark) .prose-study code{background:#f5f4f2;color:#1c1b19;border:1px solid #e7e5e1}
+        .dark .prose-study code{background:rgba(255,255,255,.06);color:#e7e5e1}
+        .prose-study pre code{background:transparent !important;padding:0 !important;font-size:inherit;border:none !important}
+        .prose-study ul,.prose-study ol{margin:.625rem 0;padding-left:1.5rem}
+        .prose-study ul{list-style:disc}
+        .prose-study ol{list-style:decimal}
+        .prose-study li{margin-bottom:.3rem}
+        .prose-study h1{font-size:1.375rem;font-weight:700;margin:1.25rem 0 .625rem;letter-spacing:-.01em}
+        .prose-study h2{font-size:1.125rem;font-weight:600;margin:1.125rem 0 .5rem;letter-spacing:-.01em}
+        .prose-study h3{font-size:1rem;font-weight:600;margin:.875rem 0 .375rem}
+        .prose-study table{width:100%;border-collapse:collapse;margin:.875rem 0;font-size:.8125rem}
+        .prose-study th,.prose-study td{padding:.5rem .75rem;text-align:left}
+        html:not(.dark) .prose-study th,html:not(.dark) .prose-study td{border:1px solid #e7e5e1}
+        .dark .prose-study th,.dark .prose-study td{border:1px solid rgba(255,255,255,.06)}
+        html:not(.dark) .prose-study th{font-weight:600;background:#f5f4f2}
+        .dark .prose-study th{font-weight:600;background:rgba(255,255,255,.03)}
+        html:not(.dark) .prose-study tr:nth-child(even){background:#fafaf9}
+        .dark .prose-study tr:nth-child(even){background:rgba(255,255,255,.015)}
+        .prose-study blockquote{border-left:3px solid #2aa198;padding-left:1rem;margin:.875rem 0}
+        html:not(.dark) .prose-study blockquote{color:#6d6860}
+        .dark .prose-study blockquote{color:#9a958d}
+
+        /* Subtle grain texture overlay */
+        .grain::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+        /* Animations */
+        @media(prefers-reduced-motion:no-preference){
+            .fade-up{animation:fadeUp .35s ease-out both}
+            .fade-up-delay-1{animation-delay:.06s}
+            .fade-up-delay-2{animation-delay:.12s}
+            .fade-up-delay-3{animation-delay:.18s}
+            .fade-up-delay-4{animation-delay:.24s}
+            @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+            .slide-in-left{animation:slideInLeft .25s ease-out both}
+            @keyframes slideInLeft{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+        }
+
+        /* Theme toggle animation */
+        .theme-btn{transition:transform .3s ease,background .2s ease}
+        .theme-btn:hover{transform:rotate(15deg)}
+        .theme-btn:active{transform:rotate(30deg) scale(.95)}
+
+        /* Card hover lift */
+        .card-hover{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+        .card-hover:hover{transform:translateY(-2px)}
+        html:not(.dark) .card-hover:hover{box-shadow:0 8px 24px -8px rgba(0,0,0,.08)}
+        .dark .card-hover:hover{box-shadow:0 8px 24px -8px rgba(0,0,0,.3)}
+
+        /* Nav link underline effect */
+        .nav-link{position:relative}
+        .nav-link::after{content:'';position:absolute;bottom:-1px;left:50%;width:0;height:2px;background:#2aa198;transition:width .2s ease,left .2s ease;border-radius:1px}
+        .nav-link:hover::after,.nav-link.active::after{width:100%;left:0}
+
+        /* Narration highlight — soft teal left-border + subtle bg */
+        .narration-active{
+            position:relative;
+            border-left:3px solid #2aa198;
+            padding-left:0.75rem;
+            background:rgba(42,161,152,.06);
+            border-radius:0 0.5rem 0.5rem 0;
+            transition:background .25s ease,border-color .25s ease;
+        }
+        .dark .narration-active{background:rgba(42,161,152,.08)}
+        @media(prefers-reduced-motion:no-preference){
+            .narration-active{animation:narrPulse 2s ease-in-out infinite}
+            @keyframes narrPulse{0%,100%{border-left-color:#2aa198}50%{border-left-color:rgba(42,161,152,.4)}}
+        }
+
+        /* Visualization blocks */
+        :root{--viz-fg:#1c1b19;--viz-fg-muted:#6d6860;--viz-accent:#2aa198;--viz-border:#e7e5e1;--viz-surface:#f5f4f2}
+        .dark{--viz-fg:#e7e5e1;--viz-fg-muted:#9a958d;--viz-accent:#2aa198;--viz-border:rgba(255,255,255,.06);--viz-surface:rgba(255,255,255,.03)}
+        .viz-block{display:flex;justify-content:center;align-items:center;overflow-x:auto;border-radius:.75rem;padding:1rem}
+        html:not(.dark) .viz-block{background:#fafaf9;border:1px solid #e7e5e1}
+        .dark .viz-block{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06)}
+        .viz-block svg{max-width:100%;height:auto}
+        @media(prefers-reduced-motion:reduce){.viz-block svg *{animation:none !important;transition:none !important}}
+
+        /* Code card output strip */
+        .code-card-inner pre code.hljs{border-radius:0 !important}
+        .output-strip .output-chevron{transition:transform .2s ease}
+        .output-strip.expanded .output-chevron{transform:rotate(90deg)}
+        .output-strip.expanded .output-content{display:block}
+        .output-toggle{background:transparent}
+        html:not(.dark) .output-toggle:hover{background:rgba(42,161,152,.04)}
+        .dark .output-toggle:hover{background:rgba(42,161,152,.06)}
+
+        /* Smooth input focus */
+        .input-field{transition:border-color .2s ease,box-shadow .2s ease}
     </style>
 </head>
-<body class="bg-white dark:bg-black text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen flex flex-col">
-    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-lg">Skip to content</a>
+<body class="grain bg-surface-50 dark:bg-surface-950 text-surface-800 dark:text-surface-200 font-sans antialiased min-h-screen flex flex-col">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[999] focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg">Skip to content</a>
 
     <!-- Navbar -->
-    <nav class="fixed top-0 inset-x-0 z-50 h-12 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200/80 dark:border-white/[.06]">
-        <div class="h-full px-4 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 cursor-pointer">
-                <svg class="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/></svg>
-                <span class="font-semibold text-[15px]">onPrep</span>
+    <nav class="fixed top-0 inset-x-0 z-50 h-14 bg-surface-50/80 dark:bg-surface-950/80 backdrop-blur-xl border-b border-surface-200/60 dark:border-white/[.04]">
+        <div class="h-full px-5 sm:px-8 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2.5 group cursor-pointer">
+                <div class="w-7 h-7 rounded-lg bg-accent/10 dark:bg-accent/15 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                    <svg class="w-4 h-4 text-accent" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/></svg>
+                </div>
+                <span class="font-display text-xl tracking-tight">onPrep</span>
             </a>
-            <div class="flex items-center gap-0.5">
-                <a href="/" class="px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer">Dashboard</a>
-                <a href="/study/languages" class="px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer">Study</a>
-                <a href="/planner/setup" class="px-3 py-1.5 rounded-md text-[13px] font-medium text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer">Planner</a>
-                <button onclick="toggleTheme()" class="ml-2 w-8 h-8 rounded-md flex items-center justify-center hover:bg-slate-100 dark:hover:bg-white/[.06] cursor-pointer" aria-label="Toggle theme">
-                    <svg class="w-4 h-4 hidden dark:block text-slate-300" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
-                    <svg class="w-4 h-4 block dark:hidden text-slate-600" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
+            <div class="flex items-center gap-1">
+                <a href="/" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Dashboard</a>
+                <a href="/study/languages" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Study</a>
+                <a href="/planner/setup" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Planner</a>
+                <div class="w-px h-5 bg-surface-200 dark:bg-white/[.06] mx-2"></div>
+                <button onclick="toggleTheme()" class="theme-btn w-9 h-9 rounded-lg flex items-center justify-center hover:bg-surface-200/60 dark:hover:bg-white/[.06] cursor-pointer" aria-label="Toggle theme">
+                    <svg class="w-[18px] h-[18px] hidden dark:block text-warm-300" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/></svg>
+                    <svg class="w-[18px] h-[18px] block dark:hidden text-surface-800/50" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/></svg>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Main (flex-1 pushes footer to bottom) -->
-    <main id="main" class="flex-1 {% block main_class %}pt-16 pb-12 px-[5vw] lg:px-[7.5vw]{% endblock %} fade-in">
+    <!-- Main -->
+    <main id="main" class="flex-1 {% block main_class %}pt-20 pb-16 px-5 sm:px-8 lg:px-12 xl:px-20 w-full{% endblock %}">
         {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}
-        <div class="mb-4 px-4 py-3 rounded-lg text-sm border {% if category == 'error' %}bg-red-50 dark:bg-red-500/10 border-red-200 dark:border-red-500/20 text-red-700 dark:text-red-300{% else %}bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300{% endif %}" role="alert">{{ message }}</div>
+        <div class="mb-5 px-5 py-3.5 rounded-xl text-sm border backdrop-blur-sm fade-up {% if category == 'error' %}bg-red-50/80 dark:bg-red-500/[.06] border-red-200/80 dark:border-red-500/15 text-red-700 dark:text-red-300{% else %}bg-emerald-50/80 dark:bg-emerald-500/[.06] border-emerald-200/80 dark:border-emerald-500/15 text-emerald-700 dark:text-emerald-300{% endif %}" role="alert">{{ message }}</div>
         {% endfor %}{% endif %}{% endwith %}
         {% block content %}{% endblock %}
     </main>
 
-    <!-- Footer — always at bottom via flexbox -->
+    <!-- Footer -->
     {% block footer %}
-    <footer class="shrink-0 border-t border-slate-200/80 dark:border-white/[.06] bg-white dark:bg-black">
-        <div class="px-[5vw] lg:px-[7.5vw] py-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px]">
-            <div class="flex items-center gap-1.5 text-slate-400 dark:text-slate-500">
-                <svg class="w-3.5 h-3.5 text-indigo-500/60" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/></svg>
-                <span class="font-semibold text-slate-500 dark:text-slate-400">onPrep</span>
-                <span class="text-slate-300 dark:text-slate-700 mx-0.5">&middot;</span>
-                <span>Built with care by onllm.dev</span>
+    <footer class="shrink-0 border-t border-surface-200/60 dark:border-white/[.04]">
+        <div class="px-5 sm:px-8 lg:px-12 xl:px-20 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[13px]">
+            <div class="flex items-center gap-2 text-surface-800/30 dark:text-surface-200/25">
+                <div class="w-5 h-5 rounded-md bg-accent/10 flex items-center justify-center">
+                    <svg class="w-3 h-3 text-accent/60" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342"/></svg>
+                </div>
+                <span>Built by <a href="https://onllm.dev" target="_blank" rel="noopener" class="hover:text-accent transition-colors cursor-pointer">onllm.dev</a></span>
             </div>
-            <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500">
-                <a href="https://onllm.dev" target="_blank" rel="noopener" class="hover:text-indigo-500 cursor-pointer">onllm.dev</a>
-                <span class="text-slate-300 dark:text-slate-700">&middot;</span>
-                <a href="https://github.com/prakersh/onPrep" target="_blank" rel="noopener" class="hover:text-indigo-500 cursor-pointer">GitHub</a>
-                <span class="text-slate-300 dark:text-slate-700">&middot;</span>
-                <a href="https://buymeacoffee.com/prakersh" target="_blank" rel="noopener" class="hover:text-amber-400 cursor-pointer">Support onPrep</a>
+            <div class="flex items-center gap-4 text-surface-800/30 dark:text-surface-200/25">
+                <a href="https://github.com/prakersh/onPrep" target="_blank" rel="noopener" class="hover:text-accent transition-colors cursor-pointer">GitHub</a>
+                <a href="https://buymeacoffee.com/prakersh" target="_blank" rel="noopener" class="hover:text-warm-400 transition-colors cursor-pointer">Support onPrep</a>
             </div>
         </div>
     </footer>
@@ -110,6 +233,52 @@
     function toggleTheme(){var h=document.documentElement,d=h.classList.contains('dark');h.classList.toggle('dark');localStorage.setItem('theme',d?'light':'dark');document.getElementById('hljs-dark').disabled=d;document.getElementById('hljs-light').disabled=!d;hljs.highlightAll()}
     (function(){var d=document.documentElement.classList.contains('dark');document.getElementById('hljs-dark').disabled=!d;document.getElementById('hljs-light').disabled=d})();
     hljs.highlightAll();
+
+    /* ── onPrep Progress (localStorage) ── */
+    const onprepProgress = {
+        _key: 'onprep:progress',
+        _recentKey: 'onprep:recent',
+        _getAll() {
+            try { return JSON.parse(localStorage.getItem(this._key)) || {}; } catch(e) { return {}; }
+        },
+        _saveAll(data) { localStorage.setItem(this._key, JSON.stringify(data)); },
+        isDone(qid) { const p = this._getAll()[String(qid)]; return p && p.status === 'completed'; },
+        markDone(qid) {
+            const all = this._getAll();
+            all[String(qid)] = { status: 'completed', at: new Date().toISOString() };
+            this._saveAll(all);
+            this._addRecent(qid, 'completed');
+        },
+        markViewed(qid) {
+            const all = this._getAll();
+            const k = String(qid);
+            if (!all[k]) all[k] = { status: 'viewed', at: new Date().toISOString() };
+            else all[k].at = new Date().toISOString();
+            this._saveAll(all);
+            this._addRecent(qid, all[k].status);
+        },
+        countDone(qids) {
+            const all = this._getAll();
+            return qids.filter(id => { const p = all[String(id)]; return p && p.status === 'completed'; }).length;
+        },
+        firstUndone(qids) {
+            const all = this._getAll();
+            for (const id of qids) { const p = all[String(id)]; if (!p || p.status !== 'completed') return id; }
+            return qids[0] || null;
+        },
+        _addRecent(qid, status) {
+            try {
+                let recent = JSON.parse(localStorage.getItem(this._recentKey)) || [];
+                recent = recent.filter(r => r.qid !== qid);
+                recent.unshift({ qid: qid, status: status, at: new Date().toISOString() });
+                if (recent.length > 20) recent = recent.slice(0, 20);
+                localStorage.setItem(this._recentKey, JSON.stringify(recent));
+            } catch(e) {}
+        },
+        getRecent(limit) {
+            try { return (JSON.parse(localStorage.getItem(this._recentKey)) || []).slice(0, limit || 10); } catch(e) { return []; }
+        }
+    };
     </script>
     {% block scripts %}{% endblock %}
 </body>
