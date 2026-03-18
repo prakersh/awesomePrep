@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,7 +65,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/c.min.js"></script>
-    <script>(function(){var s=localStorage.getItem('theme');if(s==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')})()</script>
+    <script>(function(){var s=localStorage.getItem('theme');if(s==='dark')document.documentElement.classList.add('dark');else if(s==='light')document.documentElement.classList.remove('dark');else if(window.matchMedia('(prefers-color-scheme:dark)').matches)document.documentElement.classList.add('dark')})()</script>
     <style>
         /* Scrollbars */
         ::-webkit-scrollbar{width:6px;height:6px}
@@ -191,7 +191,7 @@
                 <span class="font-display text-xl tracking-tight">awesomePrep</span>
             </a>
             <div class="flex items-center gap-1">
-                <a href="/" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Dashboard</a>
+                <a href="/dashboard" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Dashboard</a>
                 <a href="/study/languages" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Study</a>
                 <a href="/planner/setup" class="nav-link px-3.5 py-2 rounded-lg text-sm font-medium text-surface-800/60 dark:text-surface-200/60 hover:text-surface-800 dark:hover:text-white transition-colors cursor-pointer">Planner</a>
                 <div class="w-px h-5 bg-surface-200 dark:bg-white/[.06] mx-2"></div>
@@ -222,6 +222,7 @@
                 <span>Built by <a href="https://onllm.dev" target="_blank" rel="noopener" class="hover:text-accent transition-colors cursor-pointer">onllm.dev</a></span>
             </div>
             <div class="flex items-center gap-4 text-surface-800/30 dark:text-surface-200/25">
+                <a href="/landing" class="hover:text-accent transition-colors cursor-pointer">Home</a>
                 <a href="https://github.com/prakersh/awesomePrep" target="_blank" rel="noopener" class="hover:text-accent transition-colors cursor-pointer">GitHub</a>
                 <a href="https://buymeacoffee.com/prakersh" target="_blank" rel="noopener" class="hover:text-warm-400 transition-colors cursor-pointer">Support awesomePrep</a>
             </div>

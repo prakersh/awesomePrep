@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 from datetime import date
 from app.extensions import db
 from app.models import Language, Question, Deadline, ScheduleItem, Concept
@@ -7,6 +7,29 @@ bp = Blueprint('dashboard', __name__)
 
 
 @bp.route('/')
+def home():
+    """Serve a tiny page that checks localStorage and redirects."""
+    return render_template('home_redirect.html')
+
+
+@bp.route('/landing')
+def landing():
+    """Public landing page for first-time visitors."""
+    total_questions = db.session.query(Question).count()
+    languages = db.session.query(Language).filter_by(is_active=True).order_by(Language.display_order).all()
+    lang_data = []
+    for lang in languages:
+        total_q = sum(len(c.questions) for c in lang.concepts)
+        lang_data.append({
+            'name': lang.name,
+            'slug': lang.slug,
+            'concept_count': len(lang.concepts),
+            'question_count': total_q,
+        })
+    return render_template('landing.html', total_questions=total_questions, languages=lang_data)
+
+
+@bp.route('/dashboard')
 def index():
     total_questions = db.session.query(Question).count()
 
