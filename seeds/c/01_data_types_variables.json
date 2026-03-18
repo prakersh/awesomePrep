@@ -16,19 +16,20 @@
       "answers": [
         {
           "mode": "detailed",
-          "explanation": "C has four fundamental data types:\n\n**1. `char`** -- stores a single character or small integer.\n- Size: exactly 1 byte (by definition).\n- Range: -128 to 127 (signed) or 0 to 255 (unsigned). Whether plain `char` is signed or unsigned is implementation-defined.\n\n**2. `int`** -- stores an integer.\n- Size: typically 4 bytes on modern 32/64-bit systems.\n- Range: -2,147,483,648 to 2,147,483,647 (for 32-bit signed int).\n- Modifiers: `short` (>= 2 bytes), `long` (>= 4 bytes), `long long` (>= 8 bytes).\n\n**3. `float`** -- single-precision floating point.\n- Size: typically 4 bytes (IEEE 754).\n- Precision: ~6-7 significant decimal digits.\n\n**4. `double`** -- double-precision floating point.\n- Size: typically 8 bytes.\n- Precision: ~15-16 significant decimal digits.\n\n**5. `void`** -- represents the absence of type.\n- Used for functions that return nothing, generic pointers (`void *`), and to indicate no parameters `f(void)`.\n\nThe C standard only guarantees minimum sizes:\n- `sizeof(char)` == 1\n- `sizeof(short)` >= 2\n- `sizeof(int)` >= 2\n- `sizeof(long)` >= 4\n- `sizeof(long long)` >= 8\n- `sizeof(char)` <= `sizeof(short)` <= `sizeof(int)` <= `sizeof(long)` <= `sizeof(long long)`",
-          "pseudo_code": "1. char: 1 byte, stores characters/small ints\n2. int: typically 4 bytes, general-purpose integer\n3. float: typically 4 bytes, ~7 decimal digits precision\n4. double: typically 8 bytes, ~15 decimal digits precision\n5. void: no value, used for function returns and generic pointers\n6. Modifiers: short, long, long long, signed, unsigned",
+          "explanation": "The C standard defines integer types by **minimum numeric range**, not by byte size. A byte (`sizeof(char)` == 1) is at least 8 bits (`CHAR_BIT` >= 8), but some platforms (notably DSP chips) use 16-bit or 32-bit bytes, which shifts all `sizeof` values.\n\n**1. `char`** -- stores a single character or small integer.\n- Minimum range: -127 to 127 (signed) or 0 to 255 (unsigned). Whether plain `char` is signed or unsigned is implementation-defined.\n- `sizeof(char)` is always 1, but 1 byte is not always 8 bits.\n\n**2. `int`** -- general-purpose integer.\n- Minimum range: -32,767 to 32,767 (the standard requires at least 16 bits of value).\n- On most modern 32/64-bit desktops it holds -2,147,483,648 to 2,147,483,647 (32-bit), but that is not guaranteed.\n- Modifiers: `short` (>= 16-bit range), `long` (>= 32-bit range), `long long` (>= 64-bit range).\n\n**3. `float`** -- single-precision floating point.\n- Typically IEEE 754 binary32 (4 bytes on most platforms).\n- Precision: ~6-7 significant decimal digits.\n\n**4. `double`** -- double-precision floating point.\n- Typically IEEE 754 binary64 (8 bytes on most platforms).\n- Precision: ~15-16 significant decimal digits.\n\n**5. `void`** -- represents the absence of type.\n- Used for functions that return nothing, generic pointers (`void *`), and to indicate no parameters `f(void)`.\n\nThe standard guarantees these **minimum ranges** (C11 5.2.4.2.1) and this ordering:\n- `sizeof(char)` == 1 (always, by definition)\n- `sizeof(char)` <= `sizeof(short)` <= `sizeof(int)` <= `sizeof(long)` <= `sizeof(long long)`\n- Use `<limits.h>` for the actual ranges and `CHAR_BIT` for bits per byte on your platform.",
+          "pseudo_code": "1. char: sizeof==1 (but 1 byte >= 8 bits, not always exactly 8)\n2. int: minimum range -32767..32767, typically 32-bit on desktops\n3. float: ~7 decimal digits precision (usually IEEE 754)\n4. double: ~15 decimal digits precision (usually IEEE 754)\n5. void: no value, used for function returns and generic pointers\n6. Modifiers: short, long, long long, signed, unsigned\n7. The standard defines types by minimum range, not byte count",
           "actual_code": "#include <stdio.h>\n#include <limits.h>\n#include <float.h>\n\nint main(void) {\n    printf(\"char:      %zu byte(s), range: %d to %d\\n\",\n           sizeof(char), CHAR_MIN, CHAR_MAX);\n    printf(\"short:     %zu byte(s), range: %d to %d\\n\",\n           sizeof(short), SHRT_MIN, SHRT_MAX);\n    printf(\"int:       %zu byte(s), range: %d to %d\\n\",\n           sizeof(int), INT_MIN, INT_MAX);\n    printf(\"long:      %zu byte(s), range: %ld to %ld\\n\",\n           sizeof(long), LONG_MIN, LONG_MAX);\n    printf(\"long long: %zu byte(s), range: %lld to %lld\\n\",\n           sizeof(long long), LLONG_MIN, LLONG_MAX);\n    printf(\"float:     %zu byte(s), precision: %d digits\\n\",\n           sizeof(float), FLT_DIG);\n    printf(\"double:    %zu byte(s), precision: %d digits\\n\",\n           sizeof(double), DBL_DIG);\n    return 0;\n}\n\n/* Expected Output:\nchar:      1 byte(s), range: -128 to 127\nshort:     2 byte(s), range: -32768 to 32767\nint:       4 byte(s), range: -2147483648 to 2147483647\nlong:      8 byte(s), range: -9223372036854775808 to 9223372036854775807\nlong long: 8 byte(s), range: -9223372036854775808 to 9223372036854775807\nfloat:     4 byte(s), precision: 6 digits\ndouble:    8 byte(s), precision: 15 digits\n*/",
           "code_language": "c",
           "key_points": [
-            "sizeof(char) is always 1 byte by definition",
-            "int is at least 2 bytes but typically 4 bytes on modern systems",
-            "The standard guarantees minimum sizes, not exact sizes",
+            "C defines integer types by minimum numeric range, not byte size",
+            "sizeof(char) is always 1, but a byte is at least 8 bits (CHAR_BIT >= 8), not always exactly 8",
+            "int must hold at least -32767 to 32767; it is typically 32-bit on desktops but not guaranteed",
             "void is not a real type -- you cannot declare a void variable",
             "Use <limits.h> and <float.h> to check actual ranges on your platform"
           ],
           "gotchas": [
-            "int is NOT guaranteed to be 4 bytes -- it could be 2 bytes on some embedded systems",
+            "The standard defines types by minimum range, not byte count -- some DSP chips have 16-bit or 32-bit char, shifting all sizeof values",
+            "int is NOT guaranteed to be 4 bytes -- on some platforms it is 2 bytes",
             "Whether plain char is signed or unsigned is implementation-defined",
             "sizeof returns size_t (unsigned), use %zu format specifier",
             "long is 4 bytes on Windows 64-bit but 8 bytes on Linux 64-bit (LLP64 vs LP64)"
@@ -36,16 +37,16 @@
         },
         {
           "mode": "quick",
-          "explanation": "C has `char` (1 byte), `int` (typically 4), `float` (4), `double` (8), and `void` (no type). Modifiers like `short`, `long`, `signed`, `unsigned` change size/range. The standard only guarantees minimum sizes. Use `<limits.h>` for exact ranges.",
+          "explanation": "C defines integer types by **minimum numeric range**, not byte size. `char` is always `sizeof` 1 but a byte is at least 8 bits (`CHAR_BIT`), not always exactly 8. `int` must hold at least -32,767 to 32,767 (typically 32-bit on desktops). `float` and `double` are usually IEEE 754. Modifiers like `short`, `long`, `signed`, `unsigned` change the range. Use `<limits.h>` for actual ranges on your platform.",
           "pseudo_code": "",
           "actual_code": "#include <stdio.h>\nint main(void) {\n    printf(\"char=%zu int=%zu float=%zu double=%zu\\n\",\n           sizeof(char), sizeof(int),\n           sizeof(float), sizeof(double));\n    return 0;\n}\n\n/* Expected Output:\nchar=1 int=4 float=4 double=8\n*/",
           "code_language": "c",
           "key_points": [
-            "sizeof(char) == 1 always; int is typically 4 bytes",
-            "Use <limits.h> for INT_MIN/INT_MAX etc."
+            "C defines types by minimum range, not byte size -- sizeof(char) == 1 always but a byte >= 8 bits",
+            "Use <limits.h> for INT_MIN/INT_MAX and CHAR_BIT for bits per byte"
           ],
           "gotchas": [
-            "int size is platform-dependent -- never assume 4 bytes"
+            "int size is platform-dependent -- never assume 4 bytes; some DSP chips have 16-bit or 32-bit char"
           ]
         }
       ]
