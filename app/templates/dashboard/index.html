@@ -52,7 +52,7 @@
 </div>
 
 <!-- Languages -->
-<div class="grid grid-cols-1 sm:grid-cols-{{ [language_stats|length, 3]|min }} gap-3 sm:gap-4 mb-6 fade-up fade-up-delay-2">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6 fade-up fade-up-delay-2">
     {% for ls in language_stats %}
     <a href="/study/{{ ls.language.slug }}" class="card-hover group rounded-2xl border border-surface-200/60 dark:border-white/[.04] bg-white/50 dark:bg-white/[.02] p-5 cursor-pointer"
        data-lang-qids="{{ ls.qids|join(',') }}" data-lang-total="{{ ls.total }}">

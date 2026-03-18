@@ -76,9 +76,9 @@
                 <div class="px-6 sm:px-10 lg:px-12 xl:px-16 py-8">
                     <!-- Header -->
                     <div class="flex items-start justify-between gap-4 mb-6">
-                        <div>
+                        <div class="min-w-0">
                             <div class="text-xs font-mono text-surface-800/25 dark:text-surface-200/20 mb-1.5">Question {{ q.display_order }} / {{ concept.questions|length }}</div>
-                            <h1 class="text-xl sm:text-2xl font-semibold leading-snug text-surface-800 dark:text-white">{{ q.title }}</h1>
+                            <h1 class="text-xl sm:text-2xl font-semibold leading-snug text-surface-800 dark:text-white break-words">{{ q.title }}</h1>
                         </div>
                         <div class="flex items-center gap-2 shrink-0">
                             <!-- Narration controls -->
@@ -249,7 +249,7 @@
         <div class="shrink-0 border-t border-surface-200/60 dark:border-white/[.06] bg-surface-50 dark:bg-surface-950">
             <!-- Question nav -->
             {% for q in concept.questions %}
-            <div class="q-nav hidden px-6 sm:px-10 lg:px-12 xl:px-16 py-2.5 flex items-center justify-between" data-qnav="{{ q.id }}">
+            <div class="q-nav px-6 sm:px-10 lg:px-12 xl:px-16 py-2.5 items-center justify-between" style="display:none" data-qnav="{{ q.id }}">
                 {% if not loop.first %}
                 <button onclick="showQuestion({{ concept.questions[loop.index0 - 1].id }})" class="text-sm text-surface-800/40 dark:text-surface-200/30 hover:text-accent cursor-pointer">&larr; Previous</button>
                 {% else %}<span></span>{% endif %}
@@ -337,9 +337,9 @@ function showQuestion(qid, btn) {
     const panel = document.getElementById('q-' + qid);
     if (panel) panel.classList.remove('hidden');
     // Show matching bottom nav
-    document.querySelectorAll('.q-nav').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.q-nav').forEach(function(el) { el.style.display = 'none'; });
     var nav = document.querySelector('.q-nav[data-qnav="' + qid + '"]');
-    if (nav) nav.classList.remove('hidden');
+    if (nav) nav.style.display = 'flex';
     // Sidebar highlight
     document.querySelectorAll('.sidebar-q').forEach(el => {
         const a = String(el.dataset.qid) === String(qid);
